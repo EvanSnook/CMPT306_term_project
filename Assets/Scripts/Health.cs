@@ -7,7 +7,6 @@ public class Health : MonoBehaviour {
 
 	private bool isPlayer; // If this is the player have it's death do something different.
 
-
 	void Start() {
 		if (gameObject.tag == "Player") { // Check if the current object is the player or not.
 			isPlayer = true;
@@ -33,8 +32,8 @@ public class Health : MonoBehaviour {
 	// This is what happends when dead.
 	public void Death() {
 		if (isPlayer) { // If Player then do something different than enemy.
-			
 			// Still need to decide what happens when the Player dies.
+			Debug.Log("Need to set what happens on Player Death.");
 
 		} else { // If anything else just destroy the object.
 			Destroy (gameObject);
