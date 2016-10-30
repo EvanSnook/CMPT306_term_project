@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour {
 	private Rigidbody2D rigidBody;
 	public float LeftRightMovementSpeed; // This is how fast movement left and right is.
 	public float JumpSpeed; // This is how fast the jump is.
-
+	public bool isGrounded;
 
 	void Start () {
 		 rigidBody = GetComponent<Rigidbody2D>();
@@ -28,9 +28,23 @@ public class Movement : MonoBehaviour {
 		rigidBody.velocity = new Vector2(rigidBody.velocity.x*0.5f, rigidBody.velocity.y);
 	}
 
+	public void OnCollisionEnter2D(Collision2D col){
+		if(col.gameObject.tag == "Ground"){
+			isGrounded = true;
+		}
+	}
+ 
+	public void OnCollisionExit2D(Collision2D col){
+		if(col.gameObject.tag == "Ground"){
+			isGrounded = false;
+		}
+	}
 
 	public void Jump() { // Needs to no be able to jump when not on ground.
-		rigidBody.velocity += Vector2.up * JumpSpeed;
+		if(isGrounded){
+			rigidBody.velocity += Vector2.up * JumpSpeed;
+		}
+		
 	}
 
 }
