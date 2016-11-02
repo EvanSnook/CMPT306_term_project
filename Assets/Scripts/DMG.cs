@@ -7,7 +7,7 @@ public class DMG : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == DMGTargetTag)
-			coll.gameObject.SendMessage("ApplyAMG", DMGDone);
+			coll.gameObject.SendMessage("ApplyDMG", DMGDone);
 
 	}
 }
