@@ -28,19 +28,20 @@ public class Movement : MonoBehaviour {
 		rigidBody.velocity = new Vector2(rigidBody.velocity.x*0.5f, rigidBody.velocity.y);
 	}
 
+	//setting the player as grounded or not grounded on collisions
 	public void OnCollisionEnter2D(Collision2D col){
 		if(col.gameObject.tag == "Ground"){
 			isGrounded = true;
 		}
 	}
- 
 	public void OnCollisionExit2D(Collision2D col){
 		if(col.gameObject.tag == "Ground"){
 			isGrounded = false;
 		}
 	}
 
-	public void Jump() { // Needs to no be able to jump when not on ground.
+	//player cannot jump while grounded
+	public void Jump() {
 		if(isGrounded){
 			rigidBody.velocity += Vector2.up * JumpSpeed;
 		}
