@@ -102,7 +102,7 @@ GameObject:
   - 61: {fileID: 337484914}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,6 +254,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &1423336383 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010381728404, guid: e605ddbee32cf364a8a20716957e1652,
+    type: 2}
+  m_PrefabInternal: {fileID: 1873875375}
+--- !u!114 &1423336389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423336383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aef0170580d3b84ba4a814e7ab645b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1423336390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1423336383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5fdc104137f2104e9ea13d5e417ffcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftRightMovementSpeed: 0
+  JumpSpeed: 2
+  isGrounded: 1
 --- !u!1001 &1873875375
 Prefab:
   m_ObjectHideFlags: 0
