@@ -11,6 +11,7 @@ public class Camera_Follow : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		velocity = Vector3.zero;
+		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 
 	// Update is called once per frame
