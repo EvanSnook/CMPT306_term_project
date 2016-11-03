@@ -17,5 +17,8 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetAxisRaw("Fire1") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
 			this.SendMessage ("FireProjectileAtMouse");
 		}
+				if (Input.GetAxisRaw("Fire2") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
+			this.SendMessage ("SwingAtMouse");
+		}
 	}
 }
