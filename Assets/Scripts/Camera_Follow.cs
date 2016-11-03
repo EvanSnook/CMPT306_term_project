@@ -15,7 +15,7 @@ public class Camera_Follow : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		// Catch errors that may arrise from having the player die or disappear.
 		if (player != null) {
 
