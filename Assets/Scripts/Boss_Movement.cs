@@ -32,7 +32,7 @@ public class Boss_Movement : MonoBehaviour {
 	}
 
 	public void MoveAtPlayer(){
-		player = GameObject.FindWithTag("player");
+		player = GameObject.FindWithTag("Player");
 		transform.position = Vector3.MoveTowards(transform.position, player.transform.position, move_speed);
 	}
 
@@ -45,13 +45,13 @@ public class Boss_Movement : MonoBehaviour {
 	}
 
 	public void Retreat(){
-		player = GameObject.FindWithTag("player");
+		player = GameObject.FindWithTag("Player");
 		transform.position = Vector3.MoveTowards(transform.position, player.transform.position, -move_speed);
 	}
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 
 	// move to random 	0
