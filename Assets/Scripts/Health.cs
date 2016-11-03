@@ -32,12 +32,9 @@ public class Health : MonoBehaviour {
 	// This is what happends when dead.
 	public void Death() {
 		if (isPlayer) { // If Player then do something different than enemy.
-			// Still need to decide what happens when the Player dies.
-			Debug.Log("Need to set what happens on Player Death.");
-
+			SendMessage("ChangeLevel");
 		} else { // If anything else just destroy the object.
 			Destroy (gameObject);
 		}
 	}
-
 }
