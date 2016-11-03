@@ -20,26 +20,26 @@ public class Projectile : MonoBehaviour {
 		} else {
 			Timer -= Time.deltaTime; // If the Cooldown Time hasn't Passed Keep counting down.
 		}
-				
-		if (Input.GetButtonDown("Fire1") && CanFire) { // If Fire1 pressed and CanFire then FireProjectileAtMouse.
-			CanFire = false;
-			FireProjectileAtMouse();
-			Timer = CooldownTimer; // Set Cooldown Timer.
-		}
 	}
 
-	/*
-		This Finds the Mouse and Fires a Projectile in the Mouses Direction.
-	 */
-	private void FireProjectileAtMouse() {
-		Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
-		MousePosition.z = transform.position.z - Camera.main.transform.position.z;
-		MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
 
-		Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.up, MousePosition - transform.position);
-		Clone = Instantiate(ProjectilePrefab, transform.position, AngleToMouse) as GameObject;
-		Clone.GetComponent<Rigidbody2D>().AddForce(Clone.transform.up * ProjectileSpeed); // Launch Projectile forward to Mouse.
-		Destroy (Clone, DestroyProjectileAfter); // Destroy Projectile after a certain time.
+	// This Finds the Mouse and Fires a Projectile in the Mouses Direction.
+	private void FireProjectileAtMouse() {
+		if (CanFire) { // If Fire1 pressed and CanFire then FireProjectileAtMouse.
+			CanFire = false;
+
+			Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
+			MousePosition.z = transform.position.z - Camera.main.transform.position.z;
+			MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
+
+			Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.up, MousePosition - transform.position);
+			Clone = Instantiate(ProjectilePrefab, transform.position, AngleToMouse) as GameObject;
+			Clone.GetComponent<Rigidbody2D>().AddForce(Clone.transform.up * ProjectileSpeed); // Launch Projectile forward to Mouse.
+			Destroy (Clone, DestroyProjectileAfter); // Destroy Projectile after a certain time.
+
+			Timer = CooldownTimer; // Set Cooldown Timer.
+		}
+
 	}
 
 }
