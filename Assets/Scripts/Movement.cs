@@ -10,8 +10,11 @@ public class Movement : MonoBehaviour {
 	public float horizontalFriction;
 	public bool isGrounded;
 
+	private bool airJump;
+
 	void Start () {
 		 rigidBody = GetComponent<Rigidbody2D>();
+		 airJump = true;
 	}
 
 	public void MoveLeft () {
@@ -44,6 +47,7 @@ public class Movement : MonoBehaviour {
 	public void OnCollisionEnter2D(Collision2D col){
 		if(col.gameObject.tag == "Ground"){
 			isGrounded = true;
+			airJump = true;
 		}
 	}
 	public void OnCollisionExit2D(Collision2D col){
@@ -54,8 +58,11 @@ public class Movement : MonoBehaviour {
 
 	//player cannot jump while grounded
 	public void Jump() {
-		if(isGrounded){
-			rigidBody.velocity += Vector2.up * JumpSpeed;
+		if(isGrounded || airJump){
+			rigidBody.velocity = new Vector2(rigidBody.velocity.x, JumpSpeed);
+			if (!isGrounded) {
+				airJump = false;
+			}
 		}
 
 	}
