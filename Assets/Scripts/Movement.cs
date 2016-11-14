@@ -45,7 +45,11 @@ public class Movement : MonoBehaviour {
 
 	//setting the player as grounded or not grounded on collisions
 	public void OnCollisionEnter2D(Collision2D col){
-		if(col.gameObject.tag == "Ground"){
+		/*
+		Checking if the collided object is tagged as ground, and if the normal of the collision is facing upwards.
+		using >= 0 includes vertical walls as ground which allows for walljumping, but rejects the bottoms of platforms.
+		*/
+		if(col.gameObject.tag == "Ground" && col.contacts[0].normal.y >= 0){
 			isGrounded = true;
 			airJump = true;
 		}
