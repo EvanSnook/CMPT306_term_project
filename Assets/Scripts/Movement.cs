@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Movement : MonoBehaviour {
 
@@ -8,13 +9,14 @@ public class Movement : MonoBehaviour {
 	public float JumpSpeed; // This is how fast the jump is.
 	public float horizontalDrag;
 	public float horizontalFriction;
-	public bool isGrounded;
 
+	private List<GameObject> groundedOn; // This list stores all of the objects the player is touching that are considered ground. If this list has one or more objects in it, the player is considered grounded.
 	private bool airJump;
 
 	void Start () {
-		 rigidBody = GetComponent<Rigidbody2D>();
-		 airJump = true;
+		groundedOn = new List<GameObject>();
+		rigidBody = GetComponent<Rigidbody2D>();
+		airJump = true;
 	}
 
 	public void MoveLeft () {
@@ -38,7 +40,7 @@ public class Movement : MonoBehaviour {
 	/* Stop is used to stop movement when not pressing a horizontal movement
 	direction and grounded*/
 	public void Stop () {
-		if (isGrounded) {
+		if (groundedOn.Count > 0) {
 			rigidBody.velocity = new Vector2(rigidBody.velocity.x*(1.0f - horizontalFriction), rigidBody.velocity.y);
 		}
 	}
@@ -50,21 +52,24 @@ public class Movement : MonoBehaviour {
 		using >= 0 includes vertical walls as ground which allows for walljumping, but rejects the bottoms of platforms.
 		*/
 		if(col.gameObject.tag == "Ground" && col.contacts[0].normal.y >= 0){
-			isGrounded = true;
+			groundedOn.Add(col.gameObject); // Add the object to our list of grounded objects
 			airJump = true;
 		}
 	}
 	public void OnCollisionExit2D(Collision2D col){
-		if(col.gameObject.tag == "Ground"){
-			isGrounded = false;
+		// If this was an object we were grounded on, remove it from our list. This could use some optimization by first checking if we are grounded at all before searching
+		if(groundedOn.Contains(col.gameObject)){
+			groundedOn.Remove(col.gameObject);
 		}
 	}
 
 	//player cannot jump while grounded
 	public void Jump() {
-		if(isGrounded || airJump){
+		// If we are grounded or have an airjump, we can jump.
+		if(groundedOn.Count > 0 || airJump){
 			rigidBody.velocity = new Vector2(rigidBody.velocity.x, JumpSpeed);
-			if (!isGrounded) {
+			// If we just jumped and were not grounded, we used our airJump.
+			if (groundedOn.Count == 0) {
 				airJump = false;
 			}
 		}
