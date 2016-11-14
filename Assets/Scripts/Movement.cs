@@ -10,11 +10,11 @@ public class Movement : MonoBehaviour {
 	public float horizontalDrag;
 	public float horizontalFriction;
 
-	private List<GameObject> groundedOn; // This list stores all of the objects the player is touching that are considered ground. If this list has one or more objects in it, the player is considered grounded.
+	private List<GameObject> groundedOn = new List<GameObject>(); // This list stores all of the objects the player is touching that are considered ground. If this list has one or more objects in it, the player is considered grounded.
 	private bool airJump;
 
 	void Start () {
-		groundedOn = new List<GameObject>();
+		//groundedOn = new List<GameObject>();
 		rigidBody = GetComponent<Rigidbody2D>();
 		airJump = true;
 	}
