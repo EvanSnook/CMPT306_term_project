@@ -35,6 +35,7 @@ public class Projectile : MonoBehaviour {
 			Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.up, MousePosition - transform.position);
 			Clone = Instantiate(ProjectilePrefab, transform.position, AngleToMouse) as GameObject;
 			Clone.GetComponent<Rigidbody2D>().AddForce(Clone.transform.up * ProjectileSpeed); // Launch Projectile forward to Mouse.
+			Clone.SendMessage("SetOwner", gameObject);
 			Destroy (Clone, DestroyProjectileAfter); // Destroy Projectile after a certain time.
 
 			Timer = CooldownTimer; // Set Cooldown Timer.

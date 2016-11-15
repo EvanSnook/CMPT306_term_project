@@ -24,7 +24,7 @@ public class Health : MonoBehaviour {
 
 
 	// Apply damage to this object.
-	public void ApplyDMG(float DMG) {
+	public void ApplyDMG(int DMG) {
 		HealthPoints -= DMG;
 	}
 
