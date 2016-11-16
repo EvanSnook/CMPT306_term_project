@@ -34,7 +34,9 @@ public class Movement : MonoBehaviour {
 	Effectively the same as drag except solely on the x axis
 	*/
 	public void SlowMovement () {
-		rigidBody.velocity = new Vector2(rigidBody.velocity.x*(1.0f - horizontalDrag), rigidBody.velocity.y);
+		if (rigidBody != null) {
+			rigidBody.velocity = new Vector2(rigidBody.velocity.x*(1.0f - horizontalDrag), rigidBody.velocity.y);
+		}
 	}
 
 	/* Stop is used to stop movement when not pressing a horizontal movement
