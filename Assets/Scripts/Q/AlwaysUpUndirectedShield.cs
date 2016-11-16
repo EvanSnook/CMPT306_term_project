@@ -52,15 +52,17 @@ public class AlwaysUpUndirectedShield : MonoBehaviour {
 
     void UseShield()
     {
-        canShield = false;
+        if (canShield)
+        {
+            canShield = false;
 
-        omniShield = Instantiate(omniShieldPrefab, transform.position, transform.rotation) as GameObject;
+            omniShield = Instantiate(omniShieldPrefab, transform.position, transform.rotation) as GameObject;
 
-        omniShield.transform.parent = gameObject.transform;
+            omniShield.transform.parent = gameObject.transform;
 
-        Destroy(omniShield, despawnTime);
-        StartCoroutine("RefreshShieldCooldown");
-
+            Destroy(omniShield, despawnTime);
+            StartCoroutine("RefreshShieldCooldown");
+        }
     }
 
     IEnumerator RefreshShieldCooldown()
