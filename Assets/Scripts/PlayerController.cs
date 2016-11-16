@@ -31,5 +31,8 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetAxisRaw("Fire2") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
 			this.SendMessage ("SwingAtMouse");
 		}
-	}
+        if (Input.GetAxisRaw("Defensive Ability") > 0.1) { // This get's the input for the Q and sends message to use shield if pushed.
+            this.SendMessage("UseShield");
+        }
+    }
 }

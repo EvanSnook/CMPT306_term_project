@@ -12,4 +12,9 @@ public class DirectedShield : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void UseShield()
+    {
+        Debug.Log("shield");
+    }
 }
