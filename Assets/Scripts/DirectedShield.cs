@@ -26,12 +26,16 @@ public class DirectedShield : MonoBehaviour {
             canShield = false;
 
             Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
+
             MousePosition.z = transform.position.z - Camera.main.transform.position.z;
             MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
 
             Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
             shield = Instantiate(shieldPrefab, transform.position, AngleToMouse) as GameObject;
+            
+
             shield.transform.parent = gameObject.transform;
+            shield.transform.Translate(Vector3.right);
 
             Destroy(shield, despawnTime);
             StartCoroutine("RefreshShield");
