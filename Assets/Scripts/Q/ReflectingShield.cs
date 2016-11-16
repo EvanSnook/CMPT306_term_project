@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DirectedShield : MonoBehaviour {
+public class ReflectingShield : MonoBehaviour {
 
     public float cooldownDuration;
     public float despawnTime;
@@ -10,15 +10,20 @@ public class DirectedShield : MonoBehaviour {
 
     private bool canShield;
 
-    void Start () {
+    void Start()
+    {
         canShield = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (shield.GetComponent<Health>().HealthPoints <= 0)
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (shield != null)
         {
-            Destroy(shield);
+            if (shield.GetComponent<Health>().HealthPoints <= 0)
+            {
+                Destroy(shield);
+            }
         }
     }
 
@@ -35,7 +40,7 @@ public class DirectedShield : MonoBehaviour {
 
             Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
             shield = Instantiate(shieldPrefab, transform.position, AngleToMouse) as GameObject;
-            
+
 
             shield.transform.parent = gameObject.transform;
             shield.transform.Translate(Vector3.right);
@@ -51,6 +56,5 @@ public class DirectedShield : MonoBehaviour {
 
         canShield = true;
     }
-
 
 }

@@ -11,7 +11,6 @@ public class AlwaysUpUndirectedShield : MonoBehaviour {
 
     public float cooldownDuration;
     private bool canShield;
-
     // Use this for initialization
     void Start () {
         canShield = true;
