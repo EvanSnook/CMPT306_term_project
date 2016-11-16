@@ -9,9 +9,19 @@ public class SceneController : MonoBehaviour {
 	void Start () {
 		CurrentlyLoadedScene = SceneManager.GetActiveScene().name;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void ChangeSceneGameOver() {
+		SceneManager.LoadScene ("game_over");
+	}
+
+	public void ChangeScene() {
+		if (CurrentlyLoadedScene == "boss_room") {
+
+			gameObject.GetComponent<SceneTransition> ().SendMessage ("ChangeLevel");
+
+			SceneManager.LoadScene ("spawn_room");
+		} else {
+			SceneManager.LoadScene ("boss_room");
+		}
 	}
 }

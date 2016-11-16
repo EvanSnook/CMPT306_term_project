@@ -6,7 +6,7 @@ public class SavedData : MonoBehaviour {
 	public float BossHealth; // This is the Health of the Boss that will be loaded.
 	public int SkillPoints; // This is the number of skill points that the player currently has.
 	public float TimeRemaining; // This is the time that is remaining for the player.
-
+	public int NumberOfPlayerDeaths; // This is the number of times the player has died.
 
 	/*
 		This makes this object not be destroyed when switching scenes.
