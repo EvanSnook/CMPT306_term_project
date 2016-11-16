@@ -26,9 +26,17 @@ public class AlwaysUpUndirectedShield : MonoBehaviour {
         shield.transform.parent = gameObject.transform;
         shield.transform.Translate(Vector3.right);
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    void Update()
+    {
+        if (shield.GetComponent<Health>().HealthPoints <= 0)
+        {
+            DestroyShield();
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate () {
 
             Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
             MousePosition.z = transform.position.z - Camera.main.transform.position.z;
@@ -60,5 +68,25 @@ public class AlwaysUpUndirectedShield : MonoBehaviour {
         yield return new WaitForSeconds(cooldownDuration);
 
         canShield = true;
+    }
+
+    IEnumerator shieldCooldown()
+    {
+        yield return new WaitForSeconds(despawnTime);
+        createShield();
+    }
+
+    void createShield()
+    {
+        shield = Instantiate(shieldPrefab, transform.position, transform.rotation) as GameObject;
+        shield.transform.parent = gameObject.transform;
+    }
+
+    void DestroyShield()
+    {
+        Destroy(shield);
+        StartCoroutine("shieldCooldown");
+
+
     }
 }

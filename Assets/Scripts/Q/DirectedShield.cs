@@ -16,8 +16,11 @@ public class DirectedShield : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        if (shield.GetComponent<Health>().HealthPoints <= 0)
+        {
+            Destroy(shield);
+        }
+    }
 
     void UseShield()
     {
