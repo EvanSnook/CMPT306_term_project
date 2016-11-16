@@ -11,16 +11,6 @@ public class HitboxManager : MonoBehaviour {
 		localCollider = GetComponent<PolygonCollider2D>();
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-	void OnTriggerEnter2D (Collider2D coll) {
-		// Need to Exempt player from colliding
-		Debug.Log("Colliding Melee");
-	}
-
 	public void SetHitBox (int hitBox) {
 		localCollider.SetPath(0, colliders[hitBox].GetPath(0));
 	}

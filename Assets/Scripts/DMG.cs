@@ -15,45 +15,50 @@ public class DMG : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
+		// If the colliding object has health and is not the owner
 		if (coll.gameObject.GetComponent("Health") != null && coll.gameObject != Owner) {
-			coll.gameObject.SendMessage("ApplyDMG", DMGDone);
-			if (DamageRepeatTime > 0) {
-				CollidingWith.Add(coll.gameObject);
-				StartCoroutine("DamageRepeat", coll.gameObject);
+			coll.gameObject.SendMessage("ApplyDMG", DMGDone); // Deal damage
+			if (DamageRepeatTime > 0) { // If this can hit multiple times
+				CollidingWith.Add(coll.gameObject); // Add the colliding object to the array of colliding objects
+				StartCoroutine("DamageRepeat", coll.gameObject); // Call the repeating damage
 			}
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D coll) {
+		// If the colliding object has health and is not the owner
 		if (coll.gameObject.GetComponent("Health") != null && coll.gameObject != Owner) {
-			coll.gameObject.SendMessage("ApplyDMG", DMGDone);
-			if (DamageRepeatTime > 0) {
-				CollidingWith.Add(coll.gameObject);
-				StartCoroutine("DamageRepeat", coll.gameObject);
+			coll.gameObject.SendMessage("ApplyDMG", DMGDone); // Deal damage
+			if (DamageRepeatTime > 0) { // If this can hit multiple times
+				CollidingWith.Add(coll.gameObject); // Add the colliding object to the array of colliding objects
+				StartCoroutine("DamageRepeat", coll.gameObject); // Call the repeating damage
 			}
 		}
 	}
 
+// Remove the object from array of colliding gameObjects
 	void OnCollisionExit2D(Collision2D coll) {
 		if (CollidingWith.Contains(coll.gameObject)) {
 			CollidingWith.Remove(coll.gameObject);
 		}
 	}
 
+// Remove the object from array of colliding gameObjects
 	void OnTriggerExit2D(Collider2D coll) {
 		if (CollidingWith.Contains(coll.gameObject)) {
 			CollidingWith.Remove(coll.gameObject);
 		}
 	}
 
+// Damages the colliding object, then calls itself
 	IEnumerator DamageRepeat(GameObject theObject) {
 		yield return new WaitForSeconds(DamageRepeatTime);
-		if (theObject != null) {
-			if (CollidingWith.Contains(theObject)) {
+		if (theObject != null) { // Check to make sure the object still exists to avoid errors
+			if (CollidingWith.Contains(theObject)) { // If you are still colliding with the object
 
-				theObject.SendMessage("ApplyDMG", DMGDone);
+				theObject.SendMessage("ApplyDMG", DMGDone); // Damage object
 
-				StartCoroutine("DamageRepeat", theObject);
+				StartCoroutine("DamageRepeat", theObject); // and Call self
 			}
 		}
 	}
