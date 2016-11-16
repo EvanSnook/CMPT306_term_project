@@ -17,6 +17,14 @@ public class UndirectedShield : MonoBehaviour {
         isShielding = false;
     }
 
+    void Update()
+    {
+        if (shield.GetComponent<Health>().HealthPoints <= 0)
+        {
+            Destroy(shield);
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
