@@ -30,15 +30,17 @@ public class UndirectedShield : MonoBehaviour {
     {
         if (isShielding)
         {
-            Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
+            // Get the Mouse Position.
+            Vector3 MousePosition = Input.mousePosition; 
             MousePosition.z = transform.position.z - Camera.main.transform.position.z;
             MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
 
+            //getangleto the mouse
             Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
 
+            //repositions the shield towards the mouse
             shield.transform.position = transform.position;
             shield.transform.rotation =  AngleToMouse;
-
             shield.transform.Translate(Vector3.right);
         }
     }
@@ -50,28 +52,31 @@ public class UndirectedShield : MonoBehaviour {
             canShield = false;
             isShielding = true;
 
-            Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
+            // Get the Mouse Position.
+            Vector3 MousePosition = Input.mousePosition; 
             MousePosition.z = transform.position.z - Camera.main.transform.position.z;
             MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
 
+            //get angle to mouse
             Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
+
+            //make the shield at the characters position pointed towards the mouse
             shield = Instantiate(shieldPrefab, transform.position, AngleToMouse) as GameObject;
 
-
+            //make player the parent and movethe shield awayabit
             shield.transform.parent = gameObject.transform;
             shield.transform.Translate(Vector3.right);
 
+            //start the cooldowns
             Destroy(shield, despawnTime);
             StartCoroutine("RefreshShield");
             StartCoroutine("RefreshShieldCooldown");
         }
     }
 
-
     IEnumerator RefreshShield()
     {
         yield return new WaitForSeconds(despawnTime);
-
         isShielding = false;
     }
 

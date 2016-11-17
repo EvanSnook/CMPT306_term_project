@@ -14,14 +14,18 @@ public class AlwaysUpUndirectedShield : MonoBehaviour {
     // Use this for initialization
     void Start () {
         canShield = true;
-        Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
+        // Get the Mouse Position.
+        Vector3 MousePosition = Input.mousePosition; 
         MousePosition.z = transform.position.z - Camera.main.transform.position.z;
         MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
 
+        //get angle to mouse
         Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
+
+        //make shield rotatedtowards player
         shield = Instantiate(shieldPrefab, transform.position, AngleToMouse) as GameObject;
 
-
+        //parent the player to the shield and move the shield away a  bit
         shield.transform.parent = gameObject.transform;
         shield.transform.Translate(Vector3.right);
     }
@@ -36,17 +40,18 @@ public class AlwaysUpUndirectedShield : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
+        // Get the Mouse Position.
+        Vector3 MousePosition = Input.mousePosition; 
+        MousePosition.z = transform.position.z - Camera.main.transform.position.z;
+        MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
+            
+        //get angle to mouse
+        Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
 
-            Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
-            MousePosition.z = transform.position.z - Camera.main.transform.position.z;
-            MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
-
-            Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
-
-            shield.transform.position = transform.position;
-            shield.transform.rotation = AngleToMouse;
-
-            shield.transform.Translate(Vector3.right);
+        //reestablish the shields position towards the mouse
+        shield.transform.position = transform.position;
+        shield.transform.rotation = AngleToMouse;
+        shield.transform.Translate(Vector3.right);
     }
 
     void UseShield()
@@ -54,12 +59,11 @@ public class AlwaysUpUndirectedShield : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
-
+            //create shield and destroy it after the despawn time
             omniShield = Instantiate(omniShieldPrefab, transform.position, transform.rotation) as GameObject;
-
             omniShield.transform.parent = gameObject.transform;
-
             Destroy(omniShield, despawnTime);
+            //refresh cooldown
             StartCoroutine("RefreshShieldCooldown");
         }
     }
