@@ -3,23 +3,38 @@ using System.Collections;
 
 public class Reflecter : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "EnemyShot")
+        if (col.gameObject.tag == "EnemyShot")
         {
-            //reverses velocity
-            col.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(col.gameObject.GetComponent<Rigidbody2D>().velocity.x * -1, col.gameObject.GetComponent<Rigidbody2D>().velocity.y * -1);
+            // acquire the rigid body for the character that the shield is attatched too
+            Rigidbody2D parent = transform.parent.GetComponent<Rigidbody2D>();
 
+            // acquire the rigid body for the bullet the shield is colliding with
+            Rigidbody2D bullet = col.gameObject.GetComponent<Rigidbody2D>();
+
+            // the new Vector for the bullet to be traveling in
+            Vector2 reflection = new Vector2(bullet.velocity.x, bullet.velocity.y);
+
+            // reverses the x velocity of the coliding object if its velocity is towards 
+            // the shield
+            if (bullet.velocity.x < 0 && parent.velocity.x >= 0 ||
+                bullet.velocity.x > 0 && parent.velocity.x <= 0)
+            {
+                reflection.x *= -1;
+            }
+            if (bullet.velocity.y < 0 && parent.velocity.y >= 0 ||
+                bullet.velocity.y > 0 && parent.velocity.y <= 0)
+            {
+                reflection.y *= -1;
+            }
+
+            // adds the players velocity to the reflection vector
+            reflection.x += parent.velocity.x;
+            reflection.y += parent.velocity.y;
+
+            //sets the bullets velocity to the reflection that was calculated
+            col.gameObject.GetComponent<Rigidbody2D>().velocity = reflection;
         }
     }
 }

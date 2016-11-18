@@ -3,16 +3,11 @@ using System.Collections;
 
 public class enemyshot : MonoBehaviour {
 
-    private Vector2 Force;
-	// Use this for initialization
+    public Vector2 Force;
+
 	void Start () {
-	    Force = new Vector2(-50f,0f);
+	    //pushes the bullet in the direction of Force
         GetComponent<Rigidbody2D>().AddForce(Force);
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        
-	}
 }

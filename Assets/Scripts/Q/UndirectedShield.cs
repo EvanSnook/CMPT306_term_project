@@ -6,43 +6,56 @@ public class UndirectedShield : MonoBehaviour {
     public float cooldownDuration;
     public float despawnTime;
     public GameObject shieldPrefab;
-    private GameObject shield;
 
-    private bool canShield;
-    private bool isShielding;
+    private Quaternion angleToMouse;
+    private Vector3 mousePosition;
+    private GameObject shield;
+    private bool canShield; // used for cooldownDuration to tel the player if it can UseShield
 
     void Start()
     {
         canShield = true;
-        isShielding = false;
     }
 
     void Update()
     {
-        if (shield.GetComponent<Health>().HealthPoints <= 0)
+        //if a shield exists with 0 health - destroy it
+        if (shield != null)
         {
-            Destroy(shield);
+            if (shield.GetComponent<Health>().HealthPoints <= 0)
+            {
+                Destroy(shield);
+            }
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if (isShielding)
+        //if the player has a shield active
+        if (shield != null)
         {
-            // Get the Mouse Position.
-            Vector3 MousePosition = Input.mousePosition; 
-            MousePosition.z = transform.position.z - Camera.main.transform.position.z;
-            MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
+            getMousePosition();
 
-            //getangleto the mouse
-            Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
-
-            //repositions the shield towards the mouse
+            //repositions the shield towards the mouse using the calculated position and angle of the mouse
             shield.transform.position = transform.position;
-            shield.transform.rotation =  AngleToMouse;
+            shield.transform.rotation =  angleToMouse;
             shield.transform.Translate(Vector3.right);
         }
+    }
+
+    void getMousePosition()
+    {
+        // Get the Mouse Position on the screen
+        mousePosition = Input.mousePosition;
+
+        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game 
+        mousePosition.z = transform.position.z - Camera.main.transform.position.z;
+
+        //change the cooridinate type from screen position of the computer to the world position within the game
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        //get angle to the mouse from the gameObject
+        angleToMouse = Quaternion.FromToRotation(Vector3.right, mousePosition - transform.position);
     }
 
     void UseShield()
@@ -50,40 +63,27 @@ public class UndirectedShield : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
-            isShielding = true;
 
-            // Get the Mouse Position.
-            Vector3 MousePosition = Input.mousePosition; 
-            MousePosition.z = transform.position.z - Camera.main.transform.position.z;
-            MousePosition = Camera.main.ScreenToWorldPoint(MousePosition);
-
-            //get angle to mouse
-            Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
-
+            getMousePosition();
+            
             //make the shield at the characters position pointed towards the mouse
-            shield = Instantiate(shieldPrefab, transform.position, AngleToMouse) as GameObject;
+            shield = Instantiate(shieldPrefab, transform.position, angleToMouse) as GameObject;
 
-            //make player the parent and movethe shield awayabit
+            //make player the parent of the shield so that it follows the players transform 
             shield.transform.parent = gameObject.transform;
+
+            //move the shield away a bit from the player
             shield.transform.Translate(Vector3.right);
 
-            //start the cooldowns
+            //start the cooldown to destroy the shield and to start the cooldown
             Destroy(shield, despawnTime);
-            StartCoroutine("RefreshShield");
             StartCoroutine("RefreshShieldCooldown");
         }
-    }
-
-    IEnumerator RefreshShield()
-    {
-        yield return new WaitForSeconds(despawnTime);
-        isShielding = false;
     }
 
     IEnumerator RefreshShieldCooldown()
     {
         yield return new WaitForSeconds(cooldownDuration);
-
         canShield = true;
     }
 }
