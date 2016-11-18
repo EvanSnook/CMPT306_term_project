@@ -35,6 +35,8 @@ public class Reflecter : MonoBehaviour {
 
             //sets the bullets velocity to the reflection that was calculated
             col.gameObject.GetComponent<Rigidbody2D>().velocity = reflection;
+
+            col.gameObject.tag = "PlayerShot";
         }
     }
 }
