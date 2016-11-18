@@ -72,9 +72,6 @@ public class UndirectedShield : MonoBehaviour {
             //make player the parent of the shield so that it follows the players transform 
             shield.transform.parent = gameObject.transform;
 
-            //move the shield away a bit from the player
-            shield.transform.Translate(Vector3.right);
-
             //start the cooldown to destroy the shield and to start the cooldown
             Destroy(shield, despawnTime);
             StartCoroutine("RefreshShieldCooldown");
