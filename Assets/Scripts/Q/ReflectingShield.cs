@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UndirectedShield : MonoBehaviour {
+public class ReflectingShield : MonoBehaviour {
 
     public float cooldownDuration;
     public float despawnTime;
@@ -10,13 +10,14 @@ public class UndirectedShield : MonoBehaviour {
     private Quaternion angleToMouse;
     private Vector3 mousePosition;
     private GameObject shield;
-    private bool canShield; // used for cooldownDuration to tel the player if it can UseShield
+    private bool canShield;
 
     void Start()
     {
         canShield = true;
     }
 
+    // Update is called once per frame
     void Update()
     {
         //if a shield exists with 0 health - destroy it
@@ -29,17 +30,28 @@ public class UndirectedShield : MonoBehaviour {
         }
     }
 
-    void FixedUpdate()
+    void UseShield()
     {
-        //if the player has a shield active
-        if (shield != null)
+        if (canShield)
         {
+            canShield = false;
+
             getMousePosition();
 
-            //repositions the shield towards the mouse using the calculated position and angle of the mouse
-            shield.transform.position = transform.position;
-            shield.transform.rotation =  angleToMouse;
+            //created shield at characters position angled towards the  mouse
+            shield = Instantiate(shieldPrefab, transform.position, angleToMouse) as GameObject;
+
+            //parent the player to the shield
+            shield.transform.parent = gameObject.transform;
+
+            //move shield away from player
             shield.transform.Translate(Vector3.right);
+
+            //destroythe shield in despawn time
+            Destroy(shield, despawnTime);
+
+            //startrefreshing the cooldown
+            StartCoroutine("RefreshShield");
         }
     }
 
@@ -58,32 +70,11 @@ public class UndirectedShield : MonoBehaviour {
         angleToMouse = Quaternion.FromToRotation(Vector3.right, mousePosition - transform.position);
     }
 
-    void UseShield()
-    {
-        if (canShield)
-        {
-            canShield = false;
-
-            getMousePosition();
-            
-            //make the shield at the characters position pointed towards the mouse
-            shield = Instantiate(shieldPrefab, transform.position, angleToMouse) as GameObject;
-
-            //make player the parent of the shield so that it follows the players transform 
-            shield.transform.parent = gameObject.transform;
-
-            //move the shield away a bit from the player
-            shield.transform.Translate(Vector3.right);
-
-            //start the cooldown to destroy the shield and to start the cooldown
-            Destroy(shield, despawnTime);
-            StartCoroutine("RefreshShieldCooldown");
-        }
-    }
-
-    IEnumerator RefreshShieldCooldown()
+    IEnumerator RefreshShield()
     {
         yield return new WaitForSeconds(cooldownDuration);
+
         canShield = true;
     }
+
 }
