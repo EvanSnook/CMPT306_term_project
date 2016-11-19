@@ -17,12 +17,12 @@ public class SkillManager : MonoBehaviour {
             Debug.Log("Purchase Skill");
             skillPoints = skillPoints - selectedSkill.cost;
             selectedSkill.PurchaseSkill();
-            if(selectedSkill.RightChild != null){
-                selectedSkill.RightChild.GetComponent<SkillTreeNode>().UnlockSkill();
+            if(selectedSkill.rightChild != null){
+                selectedSkill.rightChild.GetComponent<SkillTreeNode>().UnlockSkill();
             }
-            if (selectedSkill.LeftChild != null)
+            if (selectedSkill.leftChild != null)
             {
-                selectedSkill.LeftChild.GetComponent<SkillTreeNode>().UnlockSkill();
+                selectedSkill.leftChild.GetComponent<SkillTreeNode>().UnlockSkill();
             }
             
 

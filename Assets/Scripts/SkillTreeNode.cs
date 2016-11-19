@@ -4,35 +4,59 @@ using UnityEngine.UI;
 
 public class SkillTreeNode : MonoBehaviour {
 
-    public GameObject LeftChild;
-    public GameObject RightChild;
-    public GameObject Parent;
-
+    public GameObject parent;
+    public GameObject rightChild;
+    public GameObject leftChild;
+    public GameObject skillsManager;
     public Text currentSkillText;
-    private string skillSlot;
+    public Text equipedSkillText;
+    public int cost;
     public bool locked;
     public bool bought;
-    public int cost;
-    public GameObject SkillsManager;
+    private string selectedText = "Selected Ability: ";
+    private string equipedText;
+    // Use this for initialization
 
-	// Use this for initialization
-	void Start () {
-        skillSlot = currentSkillText.text;
-        if(Parent == null ){
-            UnlockSkill();
-        }else{
+    void Awake()
+    {
+        equipedText = equipedSkillText.text;
+        if (gameObject.transform.parent.gameObject.tag == "SkillTreeNode")
+        {
+            parent = gameObject.transform.parent.gameObject;
             LockSkill();
         }
+        else
+        {
+            UnlockSkill();
+        }
+        foreach(Transform child in transform)
+        {
+            
+            if (child.gameObject.tag == "SkillTreeNode")
+            {
+                if (rightChild == null)
+                {
+                    rightChild = child.gameObject;
+                }
+                else if (leftChild == null)
+                {
+                    leftChild = child.gameObject;
+                }
+            }
+        }
         
-	}
+    }
 
     void OnMouseDown()
     {
         //selct the skill
         Debug.Log("Selected " + gameObject.name);
-        SkillsManager.SendMessage("SkillSelected", this);
-        currentSkillText.text = skillSlot + GetComponentInChildren<Text>().text;
-  
+        skillsManager.SendMessage("SkillSelected", this);
+        currentSkillText.text = selectedText + GetComponentInChildren<Text>().text;
+        if (this.bought)
+        {
+            equipedSkillText.text = equipedText + GetComponentInChildren<Text>().text;
+        }
     }
 
     void OnMouseEnter()
@@ -65,7 +89,8 @@ public class SkillTreeNode : MonoBehaviour {
         Debug.Log("Purchasing " + gameObject.name);
         this.locked = false;
         this.bought = true;
-        gameObject.GetComponent<Image>().color = new Color(255f, 255f, 255f);
+        equipedSkillText.text = equipedText + GetComponentInChildren<Text>().text;
+        gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
     }
 
     public void UnlockSkill()
@@ -73,6 +98,6 @@ public class SkillTreeNode : MonoBehaviour {
         Debug.Log("Unlocking " + gameObject.name);
         this.locked = false;
         this.bought = false;
-        gameObject.GetComponent<Image>().color = new Color(1f, 0f, 0f);
+        gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
     }
 }

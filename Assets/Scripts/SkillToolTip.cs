@@ -10,11 +10,6 @@ public class SkillToolTip : MonoBehaviour {
 	void Start () {
         ToolTip.SetActive(false);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     void ShowToolTip()
     {
