@@ -3,19 +3,16 @@ using System.Collections;
 
 public class ThreeOrbs : MonoBehaviour {
 
-
     public GameObject orbPrefab;
     public float cooldownDuration;
     public float orbSpeed;
     public float activeSpinSpeed;
     public float spinTime;
-    public float orbDistance;
+    public float orbRadius;
 
     private GameObject orb1;
     private GameObject orb2;
     private GameObject orb3;
-    private Quaternion angleToMouse;
-    private Vector3 mousePosition;
     private Vector3 orb2pos;
     private Vector3 orb3pos;
     private bool canShield;
@@ -33,9 +30,9 @@ public class ThreeOrbs : MonoBehaviour {
         orb3 = Instantiate(orbPrefab, transform.position, new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z - (2f * 3.14f / 3f), transform.rotation.w)) as GameObject;
 
         //move the orbs a radius away from the player
-        orb1.transform.Translate(orbDistance, 0f, 0f);
-        orb2.transform.Translate(orbDistance, 0f, 0f);
-        orb3.transform.Translate(orbDistance, 0f, 0f);
+        orb1.transform.Translate(orbRadius, 0f, 0f);
+        orb2.transform.Translate(orbRadius, 0f, 0f);
+        orb3.transform.Translate(orbRadius, 0f, 0f);
     }
 
     // Update is called once per frame
@@ -49,9 +46,9 @@ public class ThreeOrbs : MonoBehaviour {
         orb3.transform.position = transform.position;
         
         //move the orbs a radius away from the player
-        orb1.transform.Translate(orbDistance, 0f, 0f);
-        orb2.transform.Translate(orbDistance, 0f, 0f);
-        orb3.transform.Translate(orbDistance, 0f, 0f);
+        orb1.transform.Translate(orbRadius, 0f, 0f);
+        orb2.transform.Translate(orbRadius, 0f, 0f);
+        orb3.transform.Translate(orbRadius, 0f, 0f);
 
         if (orbsSpinning)
         {
@@ -79,21 +76,6 @@ public class ThreeOrbs : MonoBehaviour {
             StartCoroutine("RefreshOrbCooldown");
             StartCoroutine("OrbFollow");
         }
-    }
-
-    void getMousePosition()
-    {
-        // Get the Mouse Position on the screen
-        mousePosition = Input.mousePosition;
-
-        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game 
-        mousePosition.z = transform.position.z - Camera.main.transform.position.z;
-
-        //change the cooridinate type from screen position of the computer to the world position within the game
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-        //get angle to the mouse from the gameObject
-        angleToMouse = Quaternion.FromToRotation(Vector3.right, mousePosition - transform.position);
     }
 
     IEnumerator RefreshOrbCooldown()

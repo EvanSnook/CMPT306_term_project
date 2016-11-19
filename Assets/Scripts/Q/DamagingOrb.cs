@@ -7,7 +7,7 @@ public class DamagingOrb : MonoBehaviour {
     public float cooldownDuration;
     public float orbSpeed;
     public float orbFollowTime;
-    public float orbDistance;
+    public float orbRadius;
 
     private GameObject orb;
     private Quaternion angleToMouse;
@@ -39,7 +39,7 @@ public class DamagingOrb : MonoBehaviour {
             //reestablish the shields position towards the mouse
             orb.transform.position = transform.position;
             orb.transform.rotation = angleToMouse;
-            orb.transform.Translate(orbDistance, 0f, 0f);
+            orb.transform.Translate(orbRadius, 0f, 0f);
 
         }
         else if (orb != null)
@@ -47,7 +47,7 @@ public class DamagingOrb : MonoBehaviour {
 
             //reestablish the orbs position around the player in a new relative position
             orb.transform.position = transform.position;
-            orb.transform.Translate(orbDistance,0f,0f);
+            orb.transform.Translate(orbRadius,0f,0f);
             orb.transform.Rotate(0f, 0f, orbSpeed);
         }
     }
