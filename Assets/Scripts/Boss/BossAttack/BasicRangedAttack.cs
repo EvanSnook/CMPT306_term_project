@@ -6,21 +6,23 @@ public class BasicRangedAttack : MonoBehaviour {
 	private GameObject ProjectileLauncher; // This is the Projectile Launcher Object.
 	public GameObject Player; // This is the player that is being targeted.
 	public float DistanceFromCenter; // This is how far away the Projectile Launcher is from the center of the boss.
+	private GameObject Clone;
 
 	void Start () {
 		ProjectileLauncher = gameObject.transform.GetChild (0).gameObject; // This gets the child object which in this case is the projectile launcher.
 	}
 
 	void Update () {
-		Vector3 PlayerPosition = Player.transform.position; // Get the Mouse Position.
-
-		PlayerPosition.z = transform.position.z - Camera.main.transform.position.z;
-		PlayerPosition = Camera.main.ScreenToWorldPoint(PlayerPosition);
+		Vector3 PlayerPosition = Player.transform.position;
 
 		Quaternion AngleToPlayer = Quaternion.FromToRotation(Vector3.right, PlayerPosition - transform.position);
+		Clone = Instantiate(ProjectileLauncher, transform.position, AngleToPlayer) as GameObject;
 
-		ProjectileLauncher.transform.rotation = AngleToPlayer;
-		// Current Problem is it is not rotating properly.
+
+		Clone.transform.parent = gameObject.transform;
+		Clone.transform.Translate(new Vector3 (DistanceFromCenter, 0, 0));
+
+		Destroy(Clone, 2);
 	}
 
 }
