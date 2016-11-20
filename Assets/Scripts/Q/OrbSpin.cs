@@ -5,10 +5,10 @@ public class OrbSpin : MonoBehaviour {
 
     public GameObject orbPrefab;
     public int numberOfOrbs;
-    public float cooldownDuration;
-    public float orbSpeed;
+    public float cooldownTimer;
+    public float orbRotateSpeed;
     public float activeSpinSpeed;
-    public float spinTime;
+    public float activeSpinTime;
     public float orbRadius;
 
     private GameObject[] orbs;
@@ -59,7 +59,7 @@ public class OrbSpin : MonoBehaviour {
             }
             else
             {
-                orbs[i].transform.Rotate(0f, 0f, orbSpeed);
+                orbs[i].transform.Rotate(0f, 0f, orbRotateSpeed);
             }
         }
     }
@@ -79,12 +79,12 @@ public class OrbSpin : MonoBehaviour {
 
     IEnumerator RefreshOrbCooldown()
     {
-        yield return new WaitForSeconds(cooldownDuration);
+        yield return new WaitForSeconds(cooldownTimer);
         canSpin = true;
     }
     IEnumerator OrbFollow()
     {
-        yield return new WaitForSeconds(spinTime);
+        yield return new WaitForSeconds(activeSpinTime);
         orbsSpinning = false;
     }
 }

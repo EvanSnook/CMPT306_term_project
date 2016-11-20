@@ -5,8 +5,8 @@ public class OmniShield : MonoBehaviour {
 
     public GameObject shieldPrefab;
     public GameObject omniShieldPrefab;
-    public float cooldownDuration;
-    public float despawnTime;
+    public float cooldownTimer;
+    public float despawnTimer;
     public float radius;
 
     private GameObject shield;
@@ -68,7 +68,7 @@ public class OmniShield : MonoBehaviour {
             omniShield.transform.parent = gameObject.transform;
 
             //destroy it after the despawn time
-            Destroy(omniShield, despawnTime);
+            Destroy(omniShield, despawnTimer);
 
             StartCoroutine("RefreshShieldCooldown");
         }
@@ -91,14 +91,14 @@ public class OmniShield : MonoBehaviour {
 
     IEnumerator RefreshShieldCooldown()
     {
-        yield return new WaitForSeconds(cooldownDuration);
+        yield return new WaitForSeconds(cooldownTimer);
         canShield = true;
     }
 
     IEnumerator ShieldCooldown()
     {
         //Wait for cooldown then create a shield
-        yield return new WaitForSeconds(despawnTime);
+        yield return new WaitForSeconds(despawnTimer);
         createShield();
     }
 

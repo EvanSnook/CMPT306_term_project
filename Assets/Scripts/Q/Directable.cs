@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Directable : MonoBehaviour {
     
-    public float cooldownDuration;
-    public float despawnTime;
+    public float cooldownTimer;
+    public float despawnTimer;
     public float radius;
     public GameObject shieldPrefab;
 
@@ -74,14 +74,14 @@ public class Directable : MonoBehaviour {
             shield.transform.parent = gameObject.transform;
 
             //start the cooldown to destroy the shield and to start the cooldown
-            Destroy(shield, despawnTime);
+            Destroy(shield, despawnTimer);
             StartCoroutine("RefreshShieldCooldown");
         }
     }
 
     IEnumerator RefreshShieldCooldown()
     {
-        yield return new WaitForSeconds(cooldownDuration);
+        yield return new WaitForSeconds(cooldownTimer);
         canShield = true;
     }
 }

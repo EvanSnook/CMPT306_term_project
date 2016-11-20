@@ -6,7 +6,7 @@ public class RotatingShields : MonoBehaviour {
     public GameObject orbitingShieldPrefab;
     public GameObject activeShieldPrefab;
     public GameObject empty;
-    public float activeShieldTime;
+    public float activeShieldDuration;
     public float activeShieldCooldown;
     public float activeShieldRadius;
     public float orbitShieldRespawnTime;
@@ -129,7 +129,7 @@ public class RotatingShields : MonoBehaviour {
             activeShield.transform.parent = gameObject.transform;
 
             //start the cooldown to destroy the shield and to start the cooldown
-            Destroy(activeShield, activeShieldTime);
+            Destroy(activeShield, activeShieldDuration);
             StartCoroutine("RefreshShieldCooldown");
         }
     }

@@ -9,7 +9,7 @@ public class Unbreakable : MonoBehaviour
     public float orbitShieldRespawnTime;
     public float orbitShieldSpeed;
     public float orbitShieldRadius;
-    public float invulnTime;
+    public float invulnDuration;
     public float invulnCooldown;
     public int numberOfShields;
 
@@ -131,7 +131,7 @@ public class Unbreakable : MonoBehaviour
 
     IEnumerator RefreshInvuln()
     {
-        yield return new WaitForSeconds(invulnTime);
+        yield return new WaitForSeconds(invulnDuration);
 
         for (int i = 0; i < numberOfShields; i++)
         {

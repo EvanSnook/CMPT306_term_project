@@ -5,10 +5,10 @@ public class OrbShoot : MonoBehaviour {
 
     public GameObject orbPrefab;
     public int numberOfOrbs;
-    public float cooldownDuration;
-    public float orbSpeed;
-    public float shootSpeed;
-    public float shootTime;
+    public float cooldownTimer;
+    public float orbRotateSpeed;
+    public float orbShootSpeed;
+    public float orbShootTime;
     public float orbRadius;
 
     private GameObject[] orbs;
@@ -51,7 +51,7 @@ public class OrbShoot : MonoBehaviour {
                 if (orbShooting)
                 {
                     //move the orbs a radius away from the player
-                    orbs[i].transform.Translate(shootSpeed, 0f, 0f);
+                    orbs[i].transform.Translate(orbShootSpeed, 0f, 0f);
                 }
                 else
                 {
@@ -62,7 +62,7 @@ public class OrbShoot : MonoBehaviour {
                     orbs[i].transform.Translate(orbRadius, 0f, 0f);
 
                     //set the shields new z rotation based on whether the orbs are spinning fast or regular
-                    orbs[i].transform.Rotate(0f, 0f, orbSpeed);
+                    orbs[i].transform.Rotate(0f, 0f, orbRotateSpeed);
                 }
             }
         }
@@ -82,7 +82,7 @@ public class OrbShoot : MonoBehaviour {
                 orbs[i].transform.rotation = angleToMouse;
 
                 //start cooldowns
-                Destroy(orbs[i], shootTime);
+                Destroy(orbs[i], orbShootTime);
             }
             StartCoroutine("RefreshOrbCooldown");
             StartCoroutine("OrbShootTimer");
@@ -106,12 +106,12 @@ public class OrbShoot : MonoBehaviour {
 
     IEnumerator RefreshOrbCooldown()
     {
-        yield return new WaitForSeconds(cooldownDuration);
+        yield return new WaitForSeconds(cooldownTimer);
         canShoot = true;
     }
     IEnumerator OrbShootTimer()
     {
-        yield return new WaitForSeconds(shootTime);
+        yield return new WaitForSeconds(orbShootTime);
         orbShooting = false;
 
         for (int i = 0; i < numberOfOrbs; i++)

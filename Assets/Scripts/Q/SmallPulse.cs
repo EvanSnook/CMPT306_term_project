@@ -3,10 +3,10 @@ using System.Collections;
 
 public class SmallPulse : MonoBehaviour {
 
-    public float cooldownDuration;
+    public float cooldownTimer;
     public float shieldDespawnTime;
     public float pulseDespawnTime;
-    public float growthRate;
+    public float pulseGrowthRate;
     public GameObject shieldPrefab;
     public GameObject pulsePrefab;
 
@@ -50,7 +50,7 @@ public class SmallPulse : MonoBehaviour {
         if (pulse != null)
         {
             //make the shield and collider grow 
-            pulse.transform.localScale += new Vector3(growthRate, growthRate, 0);
+            pulse.transform.localScale += new Vector3(pulseGrowthRate, pulseGrowthRate, 0);
 
         }
 
@@ -100,7 +100,7 @@ public class SmallPulse : MonoBehaviour {
 
     IEnumerator RefreshShieldCooldown()
     {
-        yield return new WaitForSeconds(cooldownDuration);
+        yield return new WaitForSeconds(cooldownTimer);
         canShield = true; ;
     }
 
