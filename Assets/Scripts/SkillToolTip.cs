@@ -5,21 +5,20 @@ using UnityEngine.UI;
 public class SkillToolTip : MonoBehaviour {
 
     public GameObject ToolTip;
-
+    private SkillTreeNode thisNode;
 	// Use this for initialization
 	void Start () {
+        thisNode = GetComponent<SkillTreeNode>();
         ToolTip.SetActive(false);
 	}
 
     void ShowToolTip()
     {
-        Debug.Log("Show " + gameObject.name);
         ToolTip.SetActive(true);
     }
 
     void HideToolTip()
     {
-        Debug.Log("Hide " + gameObject.name);
         ToolTip.SetActive(false);
     }
 }

@@ -21,6 +21,8 @@ public class SkillTreeNode : MonoBehaviour {
     {
         cost = 1;
         equipedText = equipedSkillText.text;
+
+        //setting up the tree based on unity hiearchy. right trees come first and left trees second.
         if (gameObject.transform.parent.gameObject.tag == "SkillTreeNode")
         {
             parent = gameObject.transform.parent.gameObject;
@@ -32,7 +34,6 @@ public class SkillTreeNode : MonoBehaviour {
         }
         foreach(Transform child in transform)
         {
-            
             if (child.gameObject.tag == "SkillTreeNode")
             {
                 if (rightChild == null)
@@ -50,20 +51,25 @@ public class SkillTreeNode : MonoBehaviour {
 
     void OnMouseDown()
     {
-        //selct the skill
-        Debug.Log("Selected " + gameObject.name);
-        skillsManager.SendMessage("SkillSelected", this);
-        currentSkillText.text = selectedText + GetComponentInChildren<Text>().text;
-        if (this.bought)
+        //select the skill
+        if (!this.locked)
         {
-            equipedSkillText.text = equipedText + GetComponentInChildren<Text>().text;
+            skillsManager.SendMessage("SkillSelected", this);
+            currentSkillText.text = selectedText + GetComponentInChildren<Text>().text;
+            if (this.bought)
+            {
+                equipedSkillText.text = equipedText + GetComponentInChildren<Text>().text;
+            }
         }
     }
 
     void OnMouseEnter()
     {
         //Show popup description.
-        gameObject.SendMessage("ShowToolTip");
+        if (!this.locked)
+        {
+            gameObject.SendMessage("ShowToolTip");
+        }
     }
 
     void OnMouseExit()
@@ -74,12 +80,11 @@ public class SkillTreeNode : MonoBehaviour {
 
     public bool isPurchaseable()
     {
-        return !this.locked && !this.bought;
+        return (!this.locked && !this.bought);
     }
 
     public void LockSkill()
     {
-        Debug.Log("Locking " + gameObject.name);
         this.locked = true;
         this.bought = false;
         gameObject.GetComponent<Image>().color = new Color(0f, 0f, 0f);
@@ -87,7 +92,6 @@ public class SkillTreeNode : MonoBehaviour {
 
     public void PurchaseSkill()
     {
-        Debug.Log("Purchasing " + gameObject.name);
         this.locked = false;
         this.bought = true;
         equipedSkillText.text = equipedText + GetComponentInChildren<Text>().text;
@@ -96,7 +100,6 @@ public class SkillTreeNode : MonoBehaviour {
 
     public void UnlockSkill()
     {
-        Debug.Log("Unlocking " + gameObject.name);
         this.locked = false;
         this.bought = false;
         gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);

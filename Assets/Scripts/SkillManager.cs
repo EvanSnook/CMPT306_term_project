@@ -14,6 +14,7 @@ public class SkillManager : MonoBehaviour {
 
     void SkillSelected(SkillTreeNode skill)
     {
+        //Apply the skill to the player
         selectedSkill = skill;
     }
 
