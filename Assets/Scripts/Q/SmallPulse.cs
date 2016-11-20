@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScreenClearingPulse : MonoBehaviour {
+public class SmallPulse : MonoBehaviour {
 
-    public float cooldownDuration;
+    public float cooldownTimer;
     public float shieldDespawnTime;
     public float pulseDespawnTime;
-    public float growthRate;
+    public float pulseGrowthRate;
     public GameObject shieldPrefab;
     public GameObject pulsePrefab;
 
@@ -17,7 +17,8 @@ public class ScreenClearingPulse : MonoBehaviour {
     private bool canShield;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         canShield = true;
 
         getMousePosition();
@@ -43,12 +44,13 @@ public class ScreenClearingPulse : MonoBehaviour {
         }
     }
 
-    void FixedUpdate () {
-        
+    void FixedUpdate()
+    {
+
         if (pulse != null)
         {
             //make the shield and collider grow 
-            pulse.transform.localScale += new Vector3(growthRate, growthRate, 0);
+            pulse.transform.localScale += new Vector3(pulseGrowthRate, pulseGrowthRate, 0);
 
         }
 
@@ -61,7 +63,7 @@ public class ScreenClearingPulse : MonoBehaviour {
             shield.transform.rotation = angleToMouse;
             shield.transform.Translate(Vector3.right);
         }
-	}
+    }
 
     void UseShield()
     {
@@ -98,7 +100,7 @@ public class ScreenClearingPulse : MonoBehaviour {
 
     IEnumerator RefreshShieldCooldown()
     {
-        yield return new WaitForSeconds(cooldownDuration);
+        yield return new WaitForSeconds(cooldownTimer);
         canShield = true; ;
     }
 

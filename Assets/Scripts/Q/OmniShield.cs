@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LargePulse : MonoBehaviour {
+public class OmniShield : MonoBehaviour {
 
-    public float cooldownDuration;
-    public float shieldDespawnTime;
-    public float pulseDespawnTime;
-    public float growthRate;
     public GameObject shieldPrefab;
-    public GameObject pulsePrefab;
+    public GameObject omniShieldPrefab;
+    public float cooldownTimer;
+    public float despawnTimer;
+    public float radius;
 
+    private GameObject shield;
+    private GameObject omniShield;
     private Quaternion angleToMouse;
     private Vector3 mousePosition;
-    private GameObject pulse;
-    private GameObject shield;
     private bool canShield;
 
     // Use this for initialization
@@ -30,7 +29,6 @@ public class LargePulse : MonoBehaviour {
         shield.transform.parent = gameObject.transform;
     }
 
-
     void Update()
     {
         //if a shield exists with 0 health - destroy it
@@ -43,16 +41,9 @@ public class LargePulse : MonoBehaviour {
         }
     }
 
+    // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (pulse != null)
-        {
-            //make the shield and collider grow 
-            pulse.transform.localScale += new Vector3(growthRate, growthRate, 0);
-
-        }
-
         if (shield != null)
         {
             getMousePosition();
@@ -60,7 +51,7 @@ public class LargePulse : MonoBehaviour {
             //reestablish the shields position towards the mouse
             shield.transform.position = transform.position;
             shield.transform.rotation = angleToMouse;
-            shield.transform.Translate(Vector3.right);
+            shield.transform.Translate(new Vector3(radius, 0f, 0f));
         }
     }
 
@@ -70,14 +61,15 @@ public class LargePulse : MonoBehaviour {
         {
             canShield = false;
 
-            //create the shield at players position
-            pulse = Instantiate(pulsePrefab, transform.position, transform.rotation) as GameObject;
+            //create shield 
+            omniShield = Instantiate(omniShieldPrefab, transform.position, transform.rotation) as GameObject;
 
-            //change the shields transparency so that other objects can be seen infront and behindit
-            pulse.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
+            //parent the shield to the player so that it follows the players transofrm
+            omniShield.transform.parent = gameObject.transform;
 
-            //start cooldowns
-            Destroy(pulse, pulseDespawnTime);
+            //destroy it after the despawn time
+            Destroy(omniShield, despawnTimer);
+
             StartCoroutine("RefreshShieldCooldown");
         }
     }
@@ -99,14 +91,14 @@ public class LargePulse : MonoBehaviour {
 
     IEnumerator RefreshShieldCooldown()
     {
-        yield return new WaitForSeconds(cooldownDuration);
-        canShield = true; ;
+        yield return new WaitForSeconds(cooldownTimer);
+        canShield = true;
     }
 
     IEnumerator ShieldCooldown()
     {
         //Wait for cooldown then create a shield
-        yield return new WaitForSeconds(shieldDespawnTime);
+        yield return new WaitForSeconds(despawnTimer);
         createShield();
     }
 

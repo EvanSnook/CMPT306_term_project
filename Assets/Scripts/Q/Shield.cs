@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Shield : MonoBehaviour {
 
-    public float cooldownDuration;
-    public float despawnTime;
+    public float cooldownTimer;
+    public float despawnTimer;
     public float radius;
     public GameObject shieldPrefab;
 
@@ -49,7 +49,7 @@ public class Shield : MonoBehaviour {
             shield.transform.Translate(new Vector3(radius, 0f, 0f));
 
             //destroythe shield in despawn time
-            Destroy(shield, despawnTime);
+            Destroy(shield, despawnTimer);
 
             //startrefreshing the cooldown
             StartCoroutine("RefreshShield");
@@ -73,7 +73,7 @@ public class Shield : MonoBehaviour {
 
     IEnumerator RefreshShield()
     {
-        yield return new WaitForSeconds(cooldownDuration);
+        yield return new WaitForSeconds(cooldownTimer);
         canShield = true;
     }
 }

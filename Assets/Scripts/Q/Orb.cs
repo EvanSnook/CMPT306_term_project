@@ -5,8 +5,8 @@ public class Orb : MonoBehaviour {
 
 
     public GameObject orbPrefab;
-    public float cooldownDuration;
-    public float orbSpeed;
+    public float cooldownTimer;
+    public float orbRotateSpeed;
     public float orbFollowTime;
     public float orbRadius;
 
@@ -48,7 +48,7 @@ public class Orb : MonoBehaviour {
             //reestablish the orbs position around the player in a new relative position
             orb.transform.position = transform.position;
             orb.transform.Translate(orbRadius, 0f, 0f);
-            orb.transform.Rotate(0f, 0f, orbSpeed);
+            orb.transform.Rotate(0f, 0f, orbRotateSpeed);
         }
     }
 
@@ -82,7 +82,7 @@ public class Orb : MonoBehaviour {
 
     IEnumerator RefreshOrbCooldown()
     {
-        yield return new WaitForSeconds(cooldownDuration);
+        yield return new WaitForSeconds(cooldownTimer);
         canShield = true;
     }
     IEnumerator OrbFollow()
