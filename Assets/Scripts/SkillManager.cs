@@ -5,13 +5,20 @@ public class SkillManager : MonoBehaviour {
 
     public int skillPoints;
     public SkillTreeNode selectedSkill;
+    public Text skillPointText;
+
+    void FixedUpdate()
+    {
+        skillPointText.text = "Skill Points: " + skillPoints;
+    }
 
     void SkillSelected(SkillTreeNode skill)
     {
         selectedSkill = skill;
     }
+
 	public void Purchase(){
-        
+
         if (selectedSkill.isPurchaseable() && skillPoints >= selectedSkill.cost)
         {
             Debug.Log("Purchase Skill");
@@ -24,8 +31,6 @@ public class SkillManager : MonoBehaviour {
             {
                 selectedSkill.leftChild.GetComponent<SkillTreeNode>().UnlockSkill();
             }
-            
-
         }
         else
         {

@@ -19,6 +19,7 @@ public class SkillTreeNode : MonoBehaviour {
 
     void Awake()
     {
+        cost = 1;
         equipedText = equipedSkillText.text;
         if (gameObject.transform.parent.gameObject.tag == "SkillTreeNode")
         {
