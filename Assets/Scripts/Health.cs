@@ -27,14 +27,12 @@ public class Health : MonoBehaviour {
 	public void ApplyDMG(int DMG) {
 		HealthPoints -= DMG;
 	}
-
-
-	// This is what happends when dead.
-	public void Death() {
-		if (isPlayer) { // If Player then do something different than enemy.
-			SendMessage("ChangeLevel");
-		} else { // If anything else just destroy the object.
-			Destroy (gameObject);
-		}
+    // This is what happends when dead.
+    public void Death() {
+        if (isPlayer) { // If Player then do something different than enemy.
+            SendMessage("ChangeLevel");
+        } else { // If anything else just destroy the object.
+            Destroy(gameObject);
+        }
 	}
 }
