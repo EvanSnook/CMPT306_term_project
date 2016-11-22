@@ -11,7 +11,12 @@ public class BossAIBasic : MonoBehaviour {
 	public GameObject BossSkillsManagerObject; // This is the object that manages what skills and attacks the boss has unlocked.
 	public float[] BossMeleeSkills; // The type of this is just a place holder. This is the array of Melee Skills the boss has unlocked.
 
+	public int BossLowHealth; // This is what is considered as low health for the boss. It is done in percentage so 1% to 100%.
+
+
 	void Start () {
+		SavedDataObject = GameObject.Find ("SavedDataObject");
+
 		BossMeleeSkills = BossSkillsManagerObject.GetComponent<BossSkillsManager> ().UnlockedMeleeSkills;
 	}
 
@@ -37,6 +42,13 @@ public class BossAIBasic : MonoBehaviour {
 	}
 
 	private void isPlayerInMeleeRange() {
+		
+	}
+
+	// This is a check to see of the Boss is at low health.
+	private void isBossLowHealth() {
+		int BossHealth = gameObject.GetComponent<BossHealth> ().HealthPoints;
+
 
 	}
 
