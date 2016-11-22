@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class SceneTransition : MonoBehaviour {
 	public Texture2D FadeOutTexture; // This is the texture that will black out the screen.
 	public float FadeOutSpeed; // This is how fast the fade out takes.
-	public string LoadLevel; // This is the level that will be loaded.
 
 	private int DrawDepth = -1000; // This is the texture's order in the draw hierarchy. The lower the number renders on top.
 	private float Alpha = 1.0f; // This is the alpha value of the testure. It goes between 0 and 1.
@@ -37,7 +36,7 @@ public class SceneTransition : MonoBehaviour {
 	IEnumerator ChangeLevel() {
 		float FadeTime = BeginFade (1);
 		yield return new WaitForSeconds (FadeTime);
-		SceneManager.LoadScene (LoadLevel); // This is for if the Player Dies to go to Spawn Room.
+		SendMessage ("ChangeScene");
 	}
 
 

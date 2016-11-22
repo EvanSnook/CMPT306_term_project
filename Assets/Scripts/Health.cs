@@ -6,8 +6,10 @@ public class Health : MonoBehaviour {
 	public float HealthPoints; // This is the total number of Health this Object Has.
 
 	private bool isPlayer; // If this is the player have it's death do something different.
+	private float StartingHealthPoints; // This is the health points that the player has at the start.
 
 	void Start() {
+		StartingHealthPoints = HealthPoints; // This just sets the StartingHealthPoints to the health points that were there when they started.
 		if (gameObject.tag == "Player") { // Check if the current object is the player or not.
 			isPlayer = true;
 		} else {
@@ -34,5 +36,14 @@ public class Health : MonoBehaviour {
         } else { // If anything else just destroy the object.
             Destroy(gameObject);
         }
+	}
+
+	// This checks to see if this is at full health.
+	public bool isFullHealth() {
+		if (HealthPoints == StartingHealthPoints) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
