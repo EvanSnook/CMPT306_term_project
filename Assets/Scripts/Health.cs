@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Health : MonoBehaviour {
 
-	public float HealthPoints; // This is the total number of Health this Object Has.
+	public int HealthPoints; // This is the total number of Health this Object Has.
 
 	private bool isPlayer; // If this is the player have it's death do something different.
 	private float StartingHealthPoints; // This is the health points that the player has at the start.

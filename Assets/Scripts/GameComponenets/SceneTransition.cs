@@ -23,21 +23,17 @@ public class SceneTransition : MonoBehaviour {
 		GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height),FadeOutTexture); // This draws the texture to fit the screen.
 	}
 
+	// This is what begins the Fade out and fade in depending on the Direction.
 	public float BeginFade(int Direction) {
 		FadeDirection = Direction;
 		return(FadeOutSpeed);
 	}
 
+	// This starts when the level is loaded.
 	void OnLevelWasLoaded() {
 		BeginFade (-1); // Call the Fade In function.	
 	}
 
-	// This will change to anotherLevel.
-	IEnumerator ChangeLevel() {
-		float FadeTime = BeginFade (1);
-		yield return new WaitForSeconds (FadeTime);
-		SendMessage ("ChangeScene");
-	}
 
 
 }
