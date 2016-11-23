@@ -10,10 +10,14 @@ public class BossSavedData : MonoBehaviour {
 	public int BossNumberOfDeaths; // This is the number of times that the Boss has been killed.
 
 
+	// This will be called to save any information that is needed for the boss when the player dies.
+	public void PlayerDeathSaveBoss() {
+		BossCurrentHealth = GetComponent<BossHealth> ().HealthPoints;
+	}
 
-	void Start() {
+	// This will be called to save and reset any information that is needed for the boss after it dies.
+	public void BossDeathSaveBoss() {
 		BossCurrentHealth = BossStartingHealth;
-		BossSkillsInitialized = false;
 	}
 
 
