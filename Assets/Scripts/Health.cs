@@ -31,9 +31,7 @@ public class Health : MonoBehaviour {
 	}
     // This is what happends when dead.
     public void Death() {
-        if (isPlayer) { // If Player then do something different than enemy.
-            SendMessage("ChangeLevel");
-        } else { // If anything else just destroy the object.
+        if (!isPlayer) { // If this is the player then do not destroy it
             Destroy(gameObject);
         }
 	}
