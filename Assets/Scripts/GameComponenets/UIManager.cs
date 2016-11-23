@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     {
         SkillsCanvas.enabled = false;
         MainMenuCanvas.enabled = true;
+        mainCamera.GetComponent<Camera>().orthographicSize = 6;
+        mainCamera.GetComponent<Transform>().position = new Vector3(0, 1, -10);
     }
     public void ShowSkills()
     {
@@ -33,5 +35,10 @@ public class UIManager : MonoBehaviour
         //turn off the skills UI main menu on
         SkillsCanvas.enabled = false;
         MainMenuCanvas.enabled = true;
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }
