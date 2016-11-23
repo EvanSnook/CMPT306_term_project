@@ -12,6 +12,7 @@ public class BossSavedData : MonoBehaviour {
 
 
 	void Start() {
+		BossCurrentHealth = BossStartingHealth;
 		BossSkillsInitialized = false;
 	}
 

@@ -9,7 +9,7 @@ public class BossHealth : MonoBehaviour {
 	
 
 	void Start() {
-		SavedDataObject = GameObject.Find ("SavedDataObject"); // Set the reference of the saved data.
+		SavedDataObject = GameObject.Find ("SavedData"); // Set the reference of the saved data.
 		HealthPoints = SavedDataObject.GetComponent<BossSavedData> ().BossCurrentHealth; // The boss' Health will be set from the BossSavedData.
 	}
 

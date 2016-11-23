@@ -32,7 +32,7 @@ public class GameTimer : MonoBehaviour {
 		This is the helper function that sends the number of skill points to the saved data.
 	 */
 	public void SendSkillPoint() {
-		SavedData.SendMessage ("AddSkillPoints", SkillPointGain);
+		SavedData.GetComponent<PlayerSavedData>().SendMessage ("AddSkillPoints", SkillPointGain);
 
 	}
 
