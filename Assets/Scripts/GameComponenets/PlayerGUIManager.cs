@@ -14,10 +14,10 @@ public class PlayerGUIManager : MonoBehaviour {
 	private Text Timer; // This is the Text for the TextGUI that holds the Timer.
 
 	void Start () {
-		TimerObject = GameObject.Find("TimerObject"); // This finds the object that Holds the Timer.
+		//TimerObject = GameObject.Find("TimerObject"); // This finds the object that Holds the Timer.
 
-		HealthNumberGUI = GameObject.Find ("HealthNumber"); // Find the Object that holds that HealthNumberGUI.
-		TimerGUI = GameObject.Find("Timer");
+		//HealthNumberGUI = GameObject.Find ("HealthNumber"); // Find the Object that holds that HealthNumberGUI.
+		//TimerGUI = GameObject.Find("Timer");
 
 		HealthNumber = HealthNumberGUI.GetComponent<Text> (); // This is the text of the GUI object.
 		Timer = TimerGUI.GetComponent<Text>(); // This is the text of the GUI object for the Timer.
