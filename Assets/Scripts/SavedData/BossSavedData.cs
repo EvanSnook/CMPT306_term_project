@@ -9,6 +9,9 @@ public class BossSavedData : MonoBehaviour {
 
 	public int BossNumberOfDeaths; // This is the number of times that the Boss has been killed.
 
+	void Start() {
+		BossCurrentHealth = BossStartingHealth; // Initializes the Bosses Health.
+	}
 
 	// This will be called to save any information that is needed for the boss when the player dies.
 	public void PlayerDeathSaveBoss() {
