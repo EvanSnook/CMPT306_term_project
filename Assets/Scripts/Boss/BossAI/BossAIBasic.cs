@@ -26,7 +26,6 @@ public class BossAIBasic : MonoBehaviour {
 		float DistanceToPlayer = Vector3.Distance (ThePlayer.transform.position, gameObject.transform.position);
 
 
-
 		isAnyMeleeSkillsInRange (DistanceToPlayer);
 
 	}
