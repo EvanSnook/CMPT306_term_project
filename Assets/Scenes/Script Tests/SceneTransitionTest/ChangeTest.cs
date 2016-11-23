@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ToBossRoom : MonoBehaviour {
+public class ChangeTest : MonoBehaviour {
 
 	public GameObject SceneControllerObject; // This is the object that holds the transition scripts for changeing scenes.
 
@@ -11,6 +11,7 @@ public class ToBossRoom : MonoBehaviour {
 
 	// When the Player collides with this gameobject then go to the Boss_room.
 	void OnTriggerEnter2D(Collider2D other) {
-		SceneControllerObject.GetComponent<SceneController>().SendMessage ("ChangeScene");
+		Debug.Log ("ChangedTestScene");
+		SceneControllerObject.GetComponent<SceneController>().SendMessage ("ChangeTestScene");
 	}
 }
