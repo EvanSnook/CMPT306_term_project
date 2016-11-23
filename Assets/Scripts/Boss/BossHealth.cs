@@ -3,15 +3,14 @@ using System.Collections;
 
 public class BossHealth : MonoBehaviour {
 
-	public int HealthPoints; // This is the total number of Health this Object Has.
+	public int HealthPoints; // This is the total number of Health the boss has.
 
 	public GameObject SavedDataObject; // This is the object that Holds the Scripts that Hold saved Data.
 	
 
-
 	void Start() {
-		SavedDataObject = GameObject.Find ("SavedDataObject");
-		HealthPoints = SavedDataObject.GetComponent<BossSavedData> ().BossCurrentHealth;
+		SavedDataObject = GameObject.Find ("SavedDataObject"); // Set the reference of the saved data.
+		HealthPoints = SavedDataObject.GetComponent<BossSavedData> ().BossCurrentHealth; // The boss' Health will be set from the BossSavedData.
 	}
 
 
@@ -21,7 +20,7 @@ public class BossHealth : MonoBehaviour {
 		}
 	}
 
-	// Apply damage to this object.
+	// Apply damage to the Boss.
 	public void ApplyDMG(int DMG) {
 		HealthPoints -= DMG;
 	}
