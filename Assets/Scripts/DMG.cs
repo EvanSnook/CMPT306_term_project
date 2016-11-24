@@ -26,8 +26,9 @@ public class DMG : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D coll) {
-		// If the colliding object has health and is not the owner
-		if (coll.gameObject.GetComponent("Health") != null && coll.gameObject != Owner) {
+		// If the colliding object has health or bossHealth and is not the owner
+		if ((coll.gameObject.GetComponent("Health") != null
+		 			|| coll.gameObject.GetComponent("BossHealth") != null) && coll.gameObject != Owner) {
 			coll.gameObject.SendMessage("ApplyDMG", DMGDone); // Deal damage
 			if (DamageRepeatTime > 0) { // If this can hit multiple times
 				CollidingWith.Add(coll.gameObject); // Add the colliding object to the array of colliding objects
