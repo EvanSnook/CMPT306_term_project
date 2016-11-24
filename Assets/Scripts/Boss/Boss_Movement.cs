@@ -37,9 +37,9 @@ public class Boss_Movement : MonoBehaviour {
 	}
 
 	void doNothing(){
-		
+
 	}
-	
+
 	public void RandomWalk(){
 		transform.position = Vector2.MoveTowards(transform.position,randomPoint, move_speed);
 	}
@@ -78,11 +78,11 @@ public class Boss_Movement : MonoBehaviour {
 			decision = 4;
 		}
 		Timer = CooldownTimer; // Set Cooldown Timer.
-		
+
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (Timer <= 0) { // This Checks that the Cooldown Time has passed.
 			Decision();
 		} else {
