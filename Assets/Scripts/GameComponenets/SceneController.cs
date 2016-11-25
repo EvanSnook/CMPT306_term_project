@@ -6,11 +6,12 @@ public class SceneController : MonoBehaviour {
 
 	public string CurrentlyLoadedScene; // This holds the name of the currently loaded scene.
 	private string LevelName; // This will hold the name of the scene that will be loaded if there needs to be a scene change.
+    private GameObject savedData;// the save data object that holds all the data to be saved.
 
-
-	// This gets the scene that is currently loaded.
-	void Start () {
-		CurrentlyLoadedScene = SceneManager.GetActiveScene().name; // This gets the name of the scene that is currently loaded.
+    // This gets the scene that is currently loaded.
+    void Start () {
+        savedData = GameObject.Find("SavedData");
+        CurrentlyLoadedScene = SceneManager.GetActiveScene().name; // This gets the name of the scene that is currently loaded.
 	}
 
 
@@ -23,7 +24,7 @@ public class SceneController : MonoBehaviour {
 
 	// This looks at what the current scene is and then changes scene respectively.
 	public void ChangeScene() {
-
+        savedData = GameObject.Find("SavedData");// save data before changing the level.
         switch (CurrentlyLoadedScene)
         {
             case "spawn_room"://if in the spawn room go to boss room
@@ -58,7 +59,7 @@ public class SceneController : MonoBehaviour {
 
 	// This changes the scene to the Scene called LevelName.
 	IEnumerator ChangeLevel() {
-		float FadeTime = gameObject.GetComponent<SceneTransition>().BeginFade(1); // This begins the fade between scenes.
+        float FadeTime = gameObject.GetComponent<SceneTransition>().BeginFade(1); // This begins the fade between scenes.
 		yield return new WaitForSeconds (FadeTime); // This makes it wait until it has fully faded out.
 		SceneManager.LoadScene (LevelName); // This changes the scene.
 	}
@@ -89,15 +90,17 @@ public class SceneController : MonoBehaviour {
 		}
 	}
 
-
-    //the player has died, return to spawn/main menu
-    public void PlayerDied() {
-        //save the things
+    public void Save()
+    {
         GameObject savedData = GameObject.Find("SavedData");
         if(savedData != null) {
             savedData.SendMessage("SaveData");
         }
-        
+    }
+    //the player has died, return to spawn/main menu
+    public void PlayerDied() {
+        //save the things
+        Save();
         //change the scene
         ChangeScene();
     }

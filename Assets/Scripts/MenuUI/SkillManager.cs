@@ -32,6 +32,7 @@ public class SkillManager : MonoBehaviour {
             //Debug.Log("Purchase Skill");
             //deduct skill points
             skillPoints = skillPoints - selectedSkill.cost;
+            GameObject.Find("SavedData").SendMessage("SubtractSkillPoints", selectedSkill.cost);
             selectedSkill.PurchaseSkill();
             //unlock the next level if there is one
             if(selectedSkill.rightChild != null){

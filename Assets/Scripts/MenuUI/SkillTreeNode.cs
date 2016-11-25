@@ -102,6 +102,7 @@ public class SkillTreeNode : MonoBehaviour {
         return (!this.locked && !this.bought);
     }
 
+    //locks the skill turns the node dark and disables tool tip.
     public void LockSkill()
     {
         this.locked = true;
@@ -109,6 +110,7 @@ public class SkillTreeNode : MonoBehaviour {
         gameObject.GetComponent<Image>().color = new Color(0f, 0f, 0f);
     }
 
+    //purchases the skill turns the skill white.
     public void PurchaseSkill()
     {
         this.locked = false;
@@ -117,6 +119,7 @@ public class SkillTreeNode : MonoBehaviour {
         gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
     }
 
+    //unlocks the skill so you can see the tool tip and purchase the skill.
     public void UnlockSkill()
     {
         this.locked = false;
