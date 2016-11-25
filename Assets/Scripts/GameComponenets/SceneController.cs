@@ -27,7 +27,7 @@ public class SceneController : MonoBehaviour {
         savedData = GameObject.Find("SavedData");// save data before changing the level.
         switch (CurrentlyLoadedScene)
         {
-            case "spawn_room"://if in the spawn room go to boss room
+            case "Spawn_room"://if in the spawn room go to boss room
                 {
                     LevelName = "boss_room"; // This is the level name that the scene will be changed to.
                     StartCoroutine("ChangeLevel"); // This is the call to change scene.
@@ -35,7 +35,7 @@ public class SceneController : MonoBehaviour {
                 }
             default://if in any other scene go to spawn room
                 {
-                    LevelName = "spawn_room"; // This is the level name that the scene will be changed to.
+                    LevelName = "Spawn_room"; // This is the level name that the scene will be changed to.
 			        StartCoroutine ("ChangeLevel"); // This is the call to change scene.
                     break;
                 }
@@ -52,7 +52,7 @@ public class SceneController : MonoBehaviour {
 
 	// This changes the Scene to the the spawn Room for starting a new game.
 	public void StartGame() {
-		LevelName = "spawn_room";
+		LevelName = "Spawn_room";
 		StartCoroutine ("ChangeLevel");
 	}
 
