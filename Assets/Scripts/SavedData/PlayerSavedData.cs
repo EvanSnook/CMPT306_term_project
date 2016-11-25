@@ -17,4 +17,9 @@ public class PlayerSavedData : MonoBehaviour {
 		SkillPoints += NumberOfPoints;
 	}
 
+    public void SubtractSkillPoints(int NumberOfPoints)
+    {
+        SkillPoints -= NumberOfPoints;
+    }
+
 }

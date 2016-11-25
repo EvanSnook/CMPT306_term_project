@@ -6,11 +6,12 @@ public class SceneController : MonoBehaviour {
 
 	public string CurrentlyLoadedScene; // This holds the name of the currently loaded scene.
 	private string LevelName; // This will hold the name of the scene that will be loaded if there needs to be a scene change.
+    private GameObject savedData;// the save data object that holds all the data to be saved.
 
-
-	// This gets the scene that is currently loaded.
-	void Start () {
-		CurrentlyLoadedScene = SceneManager.GetActiveScene().name; // This gets the name of the scene that is currently loaded.
+    // This gets the scene that is currently loaded.
+    void Start () {
+        savedData = GameObject.Find("SavedData");
+        CurrentlyLoadedScene = SceneManager.GetActiveScene().name; // This gets the name of the scene that is currently loaded.
 	}
 
 
@@ -23,13 +24,22 @@ public class SceneController : MonoBehaviour {
 
 	// This looks at what the current scene is and then changes scene respectively.
 	public void ChangeScene() {
-		if (CurrentlyLoadedScene == "boss_room") { // If the current scene is boss_room then change scene to the spawn_room else, change to the boss_room. 
-			LevelName = "spawn_room"; // This is the level name that the scene will be changed to.
-			StartCoroutine ("ChangeLevel"); // This is the call to change scene.
-		} else {
-			LevelName = "boss_room"; // This is the level name that the scene will be changed to.
-			StartCoroutine ("ChangeLevel"); // This is the call to change scene.
-		}
+        savedData = GameObject.Find("SavedData");// save data before changing the level.
+        switch (CurrentlyLoadedScene)
+        {
+            case "Spawn_room"://if in the spawn room go to boss room
+                {
+                    LevelName = "boss_room"; // This is the level name that the scene will be changed to.
+                    StartCoroutine("ChangeLevel"); // This is the call to change scene.
+                    break;
+                }
+            default://if in any other scene go to spawn room
+                {
+                    LevelName = "Spawn_room"; // This is the level name that the scene will be changed to.
+			        StartCoroutine ("ChangeLevel"); // This is the call to change scene.
+                    break;
+                }
+        }
 	}
 
 
@@ -42,14 +52,14 @@ public class SceneController : MonoBehaviour {
 
 	// This changes the Scene to the the spawn Room for starting a new game.
 	public void StartGame() {
-		LevelName = "spawn_room";
+		LevelName = "Spawn_room";
 		StartCoroutine ("ChangeLevel");
 	}
 
 
 	// This changes the scene to the Scene called LevelName.
 	IEnumerator ChangeLevel() {
-		float FadeTime = gameObject.GetComponent<SceneTransition>().BeginFade(1); // This begins the fade between scenes.
+        float FadeTime = gameObject.GetComponent<SceneTransition>().BeginFade(1); // This begins the fade between scenes.
 		yield return new WaitForSeconds (FadeTime); // This makes it wait until it has fully faded out.
 		SceneManager.LoadScene (LevelName); // This changes the scene.
 	}
@@ -67,9 +77,7 @@ public class SceneController : MonoBehaviour {
 		yield return new WaitForSeconds (FadeTime); // This makes it wait until it has fully faded out.
 		Application.Quit(); // This Closes the application quiting the game.
 	}
-
-
-
+    
 
 	// This is only used in the test scenes and will be removed in final product.
 	public void ChangeTestScene() {
@@ -81,5 +89,20 @@ public class SceneController : MonoBehaviour {
 			StartCoroutine ("ChangeLevel");
 		}
 	}
+
+    public void Save()
+    {
+        GameObject savedData = GameObject.Find("SavedData");
+        if(savedData != null) {
+            savedData.SendMessage("SaveData");
+        }
+    }
+    //the player has died, return to spawn/main menu
+    public void PlayerDied() {
+        //save the things
+        Save();
+        //change the scene
+        ChangeScene();
+    }
 
 }
