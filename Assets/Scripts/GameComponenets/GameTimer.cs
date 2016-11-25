@@ -4,8 +4,8 @@ using System.Collections;
 public class GameTimer : MonoBehaviour {
 
 	[HideInInspector] public float GameCountdown; // This is the time in the Game Left before you fail. It is set from the Saved data object.
-	public float TimePerSkillPoint; // This is how often the player will recieve a skill point for time.
-	public int SkillPointGain; // This is how many skill points are gained at each time point.
+	public float TimePerSkillPoint = 10; // This is how often the player will recieve a skill point for time.
+	public int SkillPointGain = 1; // This is how many skill points are gained at each time point.
 	public GameObject SavedData; // This is a reference to the saved data that will hold any information that is needed to not be lost. 
 
 	public GameObject SceneControllerObject; // This is a reference to the onject that changes scenes.

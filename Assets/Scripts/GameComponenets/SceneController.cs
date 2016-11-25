@@ -23,13 +23,22 @@ public class SceneController : MonoBehaviour {
 
 	// This looks at what the current scene is and then changes scene respectively.
 	public void ChangeScene() {
-		if (CurrentlyLoadedScene == "boss_room") { // If the current scene is boss_room then change scene to the spawn_room else, change to the boss_room. 
-			LevelName = "spawn_room"; // This is the level name that the scene will be changed to.
-			StartCoroutine ("ChangeLevel"); // This is the call to change scene.
-		} else {
-			LevelName = "boss_room"; // This is the level name that the scene will be changed to.
-			StartCoroutine ("ChangeLevel"); // This is the call to change scene.
-		}
+
+        switch (CurrentlyLoadedScene)
+        {
+            case "spawn_room"://if in the spawn room go to boss room
+                {
+                    LevelName = "boss_room"; // This is the level name that the scene will be changed to.
+                    StartCoroutine("ChangeLevel"); // This is the call to change scene.
+                    break;
+                }
+            default://if in any other scene go to spawn room
+                {
+                    LevelName = "spawn_room"; // This is the level name that the scene will be changed to.
+			        StartCoroutine ("ChangeLevel"); // This is the call to change scene.
+                    break;
+                }
+        }
 	}
 
 
@@ -67,9 +76,7 @@ public class SceneController : MonoBehaviour {
 		yield return new WaitForSeconds (FadeTime); // This makes it wait until it has fully faded out.
 		Application.Quit(); // This Closes the application quiting the game.
 	}
-
-
-
+    
 
 	// This is only used in the test scenes and will be removed in final product.
 	public void ChangeTestScene() {
@@ -81,5 +88,18 @@ public class SceneController : MonoBehaviour {
 			StartCoroutine ("ChangeLevel");
 		}
 	}
+
+
+    //the player has died, return to spawn/main menu
+    public void PlayerDied() {
+        //save the things
+        GameObject savedData = GameObject.Find("SavedData");
+        if(savedData != null) {
+            savedData.SendMessage("SaveData");
+        }
+        
+        //change the scene
+        ChangeScene();
+    }
 
 }

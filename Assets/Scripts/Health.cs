@@ -14,7 +14,8 @@ public class Health : MonoBehaviour {
 
 	void Update() {
 		if (HealthPoints <= 0) { // If health is 0 or less call Death.
-			Death ();
+            
+			SendMessage("Death");
 		}
 	}
 
@@ -24,9 +25,10 @@ public class Health : MonoBehaviour {
 		HealthPoints -= DMG;
 	}
 	
-  // This is what happends when dead.
-  public void Death() {
-			Destroy(gameObject);
+    // This is what happends when dead.
+    public void Death() {
+        
+	    Destroy(gameObject);
 	}
 
 	// This checks to see if this is at full health.
