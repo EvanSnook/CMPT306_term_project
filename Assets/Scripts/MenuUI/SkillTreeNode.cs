@@ -4,29 +4,48 @@ using UnityEngine.UI;
 
 public class SkillTreeNode : MonoBehaviour {
 
+    //tree nodes
     public GameObject parent;
     public GameObject rightChild;
     public GameObject leftChild;
+    //manages the skills and skill points
     public GameObject skillsManager;
+    //number of skill points requied to buy
+    public int cost;
+
+    //Status of the node
+    public bool locked;// true: unable to see. false: can see name and description.
+    public bool bought;// true: completely unlocked and equipable. false: able to purchase, unable to equip.
+    //texts
     public Text currentSkillText;
     public Text equipedSkillText;
-    public int cost;
-    public bool locked;
-    public bool bought;
     private string selectedText = "Selected Ability: ";
     private string equipedText;
     // Use this for initialization
 
     void Awake()
     {
-        cost = 1;
-        equipedText = equipedSkillText.text;
+        cost = 1;// set the default cost
+        equipedText = equipedSkillText.text; // set the default text
 
         //setting up the tree based on unity hiearchy. right trees come first and left trees second.
         if (gameObject.transform.parent.gameObject.tag == "SkillTreeNode")
         {
+            //set the parent if there is one
             parent = gameObject.transform.parent.gameObject;
-            LockSkill();
+            //because it has a parent lock the skill
+            if (parent.GetComponent<SkillTreeNode>().bought)
+            {
+                if (this.bought){
+                    PurchaseSkill();
+                }
+                UnlockSkill();
+            }
+            else
+            {
+                LockSkill();
+            }
+            
         }
         else
         {

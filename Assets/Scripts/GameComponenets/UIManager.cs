@@ -10,10 +10,7 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        SkillsCanvas.enabled = false;
-        MainMenuCanvas.enabled = true;
-        mainCamera.GetComponent<Camera>().orthographicSize = 6;
-        mainCamera.GetComponent<Transform>().position = new Vector3(0, 1, -10);
+        MainMenu();
     }
     public void ShowSkills()
     {

@@ -7,8 +7,15 @@ public class SkillManager : MonoBehaviour {
     public SkillTreeNode selectedSkill;
     public Text skillPointText;
 
+    void Awake()
+    {
+        //fetching the skill points from the saved data
+        skillPoints = GameObject.Find("SavedData").GetComponent<PlayerSavedData>().SkillPoints;
+    }
+
     void FixedUpdate()
     {
+        //updating the text for when points are spent
         skillPointText.text = "Skill Points: " + skillPoints;
     }
 
@@ -22,9 +29,11 @@ public class SkillManager : MonoBehaviour {
 
         if (selectedSkill.isPurchaseable() && skillPoints >= selectedSkill.cost)
         {
-            Debug.Log("Purchase Skill");
+            //Debug.Log("Purchase Skill");
+            //deduct skill points
             skillPoints = skillPoints - selectedSkill.cost;
             selectedSkill.PurchaseSkill();
+            //unlock the next level if there is one
             if(selectedSkill.rightChild != null){
                 selectedSkill.rightChild.GetComponent<SkillTreeNode>().UnlockSkill();
             }
@@ -32,10 +41,6 @@ public class SkillManager : MonoBehaviour {
             {
                 selectedSkill.leftChild.GetComponent<SkillTreeNode>().UnlockSkill();
             }
-        }
-        else
-        {
-            Debug.Log("Cannot Purchase Skill");
         }
     }
 }
