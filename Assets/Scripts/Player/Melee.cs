@@ -12,7 +12,7 @@ public class Melee : MonoBehaviour {
 	public GameObject swing1Prefab;
 	public GameObject swing2Prefab;
 	public GameObject swing3Prefab;
-	
+
 	[Header("Prefab Sizes")]
 	[Range(0.1f, 1f)]
 	public float swing1Size;
@@ -20,7 +20,6 @@ public class Melee : MonoBehaviour {
 	public float swing2Size;
 	[Range(0.1f, 1f)]
 	public float swing3Size;
-	[Space(20)]
 
 	private GameObject swing; // The swing itself
 	private bool canSwing;
