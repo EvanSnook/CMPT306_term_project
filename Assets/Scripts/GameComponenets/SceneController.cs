@@ -97,6 +97,7 @@ public class SceneController : MonoBehaviour {
             savedData.SendMessage("SaveData");
         }
     }
+
     //the player has died, return to spawn/main menu
     public void PlayerDied() {
         //save the things
