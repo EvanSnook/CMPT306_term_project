@@ -5,8 +5,9 @@ public class Melee : MonoBehaviour {
 
 	public float cooldownDuration;
 	public GameObject swingPrefab;
-	private GameObject swing; // The swing itself
+	public float swingSize;
 
+	private GameObject swing; // The swing itself
 	private bool canSwing;
 
 	// Use this for initialization
@@ -30,7 +31,7 @@ public class Melee : MonoBehaviour {
 			Quaternion AngleToMouse = Quaternion.FromToRotation(Vector3.right, MousePosition - transform.position);
 			swing = Instantiate(swingPrefab, transform.position, AngleToMouse) as GameObject;
 			swing.SendMessage("SetOwner", gameObject);
-			swing.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+			swing.transform.localScale = new Vector3(swingSize, swingSize, swingSize);
 			swing.transform.parent = gameObject.transform;
 
 			StartCoroutine("RefreshSwing");
