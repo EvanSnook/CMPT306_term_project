@@ -3,69 +3,33 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class SkillTreeNode : MonoBehaviour {
-
+    public enum SkillType { Q, E, RW, RS, MW, MS };
     //tree nodes
-    public GameObject parent;
-    public GameObject rightChild;
-    public GameObject leftChild;
+    //public GameObject parent;
+    //public GameObject rightChild;
+    //public GameObject leftChild;
     //manages the skills and skill points
     public GameObject skillsManager;
     //number of skill points requied to buy
     public int cost;
-
+    public Object skillScript;
+    public SkillType skillType;
     //Status of the node
     public bool locked;// true: unable to see. false: can see name and description.
     public bool bought;// true: completely unlocked and equipable. false: able to purchase, unable to equip.
-    //texts
-    public Text currentSkillText;
-    public Text equipedSkillText;
+    
     private string selectedText = "Selected Ability: ";
     private string equipedText;
     // Use this for initialization
 
-    void Awake()
+    void Start()
     {
-        cost = 1;// set the default cost
-        equipedText = equipedSkillText.text; // set the default text
+        LoadSavedData();
+    }
 
-        //setting up the tree based on unity hiearchy. right trees come first and left trees second.
-        if (gameObject.transform.parent.gameObject.tag == "SkillTreeNode")
-        {
-            //set the parent if there is one
-            parent = gameObject.transform.parent.gameObject;
-            //because it has a parent lock the skill
-            if (parent.GetComponent<SkillTreeNode>().bought)
-            {
-                if (this.bought){
-                    PurchaseSkill();
-                }
-                UnlockSkill();
-            }
-            else
-            {
-                LockSkill();
-            }
-            
-        }
-        else
-        {
-            UnlockSkill();
-        }
-        foreach(Transform child in transform)
-        {
-            if (child.gameObject.tag == "SkillTreeNode")
-            {
-                if (rightChild == null)
-                {
-                    rightChild = child.gameObject;
-                }
-                else if (leftChild == null)
-                {
-                    leftChild = child.gameObject;
-                }
-            }
-        }
-        
+    void Update()
+    {
+        LoadSavedData();
     }
 
     void OnMouseDown()
@@ -74,11 +38,7 @@ public class SkillTreeNode : MonoBehaviour {
         if (!this.locked)
         {
             skillsManager.SendMessage("SkillSelected", this);
-            currentSkillText.text = selectedText + GetComponentInChildren<Text>().text;
-            if (this.bought)
-            {
-                equipedSkillText.text = equipedText + GetComponentInChildren<Text>().text;
-            }
+            //select the skill
         }
     }
 
@@ -115,7 +75,6 @@ public class SkillTreeNode : MonoBehaviour {
     {
         this.locked = false;
         this.bought = true;
-        equipedSkillText.text = equipedText + GetComponentInChildren<Text>().text;
         gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
     }
 
@@ -125,5 +84,79 @@ public class SkillTreeNode : MonoBehaviour {
         this.locked = false;
         this.bought = false;
         gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+    }
+
+    public void LoadSavedData()
+    {
+        GameObject SavedData = GameObject.Find("SavedData");
+        BinaryTree QTree = SavedData.GetComponent<SkillSavedData>().QTree;
+        BinaryTree ETree = SavedData.GetComponent<SkillSavedData>().ETree;
+        BinaryTree MSTree = SavedData.GetComponent<SkillSavedData>().MSTree;
+        BinaryTree MWTree = SavedData.GetComponent<SkillSavedData>().MWTree;
+        BinaryTree RSTree = SavedData.GetComponent<SkillSavedData>().RSTree;
+        BinaryTree RWTree = SavedData.GetComponent<SkillSavedData>().RWTree;
+        BinaryTree foundTree;
+        switch (skillType)
+        {
+            case (SkillType.Q):
+                {
+                    //search the tree for matching script
+                    foundTree = QTree.findSkillElement(skillScript.name);
+                    break;
+                }
+            case (SkillType.E):
+                {
+                    //search the tree for matching script
+                    foundTree = ETree.findSkillElement(skillScript.name);
+                    break;
+                }
+            case (SkillType.MS):
+                {
+                    //search the tree for matching script
+                    foundTree = MSTree.findSkillElement(skillScript.name);
+                    break;
+                }
+            case (SkillType.MW):
+                {
+                    //search the tree for matching script
+                    foundTree = MWTree.findSkillElement(skillScript.name);
+                    break;
+                }
+            case (SkillType.RS):
+                {
+                    //search the tree for matching script
+                    foundTree = RSTree.findSkillElement(skillScript.name);
+                    break;
+                }
+            case (SkillType.RW):
+                {
+                    //search the tree for matching script
+                    foundTree = RWTree.findSkillElement(skillScript.name);
+                    break;
+                }
+            default:
+                {
+                    foundTree = null;
+                    break;
+                }
+        }
+        if (foundTree != null)
+        {
+            this.locked = foundTree.skillElement.locked;
+            this.bought = foundTree.skillElement.bought;
+            this.cost = foundTree.skillElement.cost;
+        }
+        if (locked)
+        {
+            LockSkill();
+        }
+        else if (bought)
+        {
+            PurchaseSkill();
+        }
+        else
+        {
+            UnlockSkill();
+        }
     }
 }

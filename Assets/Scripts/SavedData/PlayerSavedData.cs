@@ -4,10 +4,15 @@ using System.Collections;
 public class PlayerSavedData : MonoBehaviour {
 
 	public int SkillPoints; // This is the number of skill points that the player currently has.
+    //currently equipped skills
+    public Object QSkill;
+    public Object ESkill;
+    public Object RWSkill;
+    public Object RSSkill;
+    public Object MWSkill;
+    public Object MSSkill;
 
-	// Use this for initialization
-	void Start () {
-		SkillPoints = 0; // Initializes Skill Points to 0.
+    void Start () {
 	}
 	
 	/*
@@ -21,5 +26,4 @@ public class PlayerSavedData : MonoBehaviour {
     {
         SkillPoints -= NumberOfPoints;
     }
-
 }

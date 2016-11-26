@@ -7,12 +7,12 @@ public class BinaryTree : ScriptableObject {
     public BinaryTree RightChild;
     public BinaryTree LeftChild;
     
-    public GameObject UINode;
+    public Skill skillElement;
     
-    public BinaryTree(BinaryTree inParent, GameObject inElement)
+    public BinaryTree(BinaryTree inParent, Skill inElement)
     {
         Parent = inParent;
-        UINode = inElement;
+        skillElement = inElement;
     }
 
     public BinaryTree getParent()
@@ -30,10 +30,37 @@ public class BinaryTree : ScriptableObject {
         return LeftChild;
     }
 
-    public GameObject getSkillTreeNode()
+    public Skill getSkillTreeNode()
     {
-        return UINode;
+        return skillElement;
     }
 
+    //this function finds a BinaryTree object with a skill script named skillName it returns null if none can be found.
+    public BinaryTree findSkillElement(string skillName)
+    {
+        BinaryTree returnTree;
+        if (skillElement.Script.name == skillName)
+        {
+            return this;
+        }
+        else if(RightChild != null)
+        {
+            if(LeftChild != null)
+            {
+                returnTree = LeftChild.findSkillElement(skillName);
+                if (returnTree != null)
+                {
+                    return returnTree;
+                }
+            }
+            
+             returnTree = RightChild.findSkillElement(skillName);
+            if (returnTree != null)
+            {
+                return returnTree;
+            }
+        }
+        return null;
+    }
     
 }
