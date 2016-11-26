@@ -29,11 +29,11 @@ public class BossHealth : MonoBehaviour {
 
 
 	// This returns a decimal equivelent of a percentage of the health remaining.
-	public float PercentHealthRemaining() {
+	public float FractionHealthRemaining() {
 		if (HealthPoints <= 0) {
 			return 0;
 		} else {
-			return HealthPoints / StartingHealthPoints;
+			return (float) HealthPoints / (float) StartingHealthPoints;
 		}
 	}
 
