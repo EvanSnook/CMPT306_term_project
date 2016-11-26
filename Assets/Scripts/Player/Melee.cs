@@ -9,6 +9,7 @@ public class Melee : MonoBehaviour {
 	public GameObject swing3Prefab;
 	public float swingSize;
 	public float comboTimeout;
+	public float pushIntensity;
 
 	private GameObject swing; // The swing itself
 	private bool canSwing;
@@ -52,6 +53,7 @@ public class Melee : MonoBehaviour {
 				case 2:
 					swing = Instantiate(swing3Prefab, transform.position, AngleToMouse) as GameObject;
 					swing.transform.localScale = new Vector3(swingSize*2f, swingSize*2f, swingSize*2f);
+					gameObject.SendMessage("Push", new Vector2(MousePosition.x - transform.position.x, MousePosition.y - transform.position.y).normalized * pushIntensity);
 					comboState = 0;
 					break;
 				default:
