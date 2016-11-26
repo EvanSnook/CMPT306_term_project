@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 7a2cb94f40866eb4593c0dd31e8ab0bf
-timeCreated: 1478162967
+guid: 393af6040a83e4c4ea2e62b788c29dc3
+timeCreated: 1480118114
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BasicCombo1_0
-    21300002: BasicCombo1_1
-    21300004: BasicCombo1_2
-    21300006: BasicCombo1_3
+    21300000: BasicCombo1_HiRez2_0
+    21300002: BasicCombo1_HiRez2_1
+    21300004: BasicCombo1_HiRez2_2
+    21300006: BasicCombo1_HiRez2_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -57,52 +57,52 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BasicCombo1_0
+      name: BasicCombo1_HiRez2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
-        width: 256
-        height: 256
+        y: 2048
+        width: 2048
+        height: 2048
       alignment: 4
       pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: BasicCombo1_1
+      name: BasicCombo1_HiRez2_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 256
-        width: 256
-        height: 256
+        x: 2048
+        y: 2048
+        width: 2048
+        height: 2048
       alignment: 4
       pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: BasicCombo1_2
+      name: BasicCombo1_HiRez2_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 2048
+        height: 2048
       alignment: 4
       pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: BasicCombo1_3
+      name: BasicCombo1_HiRez2_3
       rect:
         serializedVersion: 2
-        x: 256
+        x: 2048
         y: 0
-        width: 256
-        height: 256
+        width: 2048
+        height: 2048
       alignment: 4
       pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
