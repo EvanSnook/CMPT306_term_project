@@ -13,6 +13,9 @@ public class Boss_Movement : MonoBehaviour {
 	public float CooldownTimer = 10f; // How long until next decision
 	private float Timer = 0; // This is the the clock that keeps track of how much of a cooldown is left.
 
+	public float MaxDistanceFromPlayer; // This is the max Distance that the boss can be from the player.
+	public float DistanceToPlayer; // This is the current distance to the player.
+
 	public bool randomBoolean(){
 		if (Random.value >= 0.5){
 			return true;
@@ -32,7 +35,6 @@ public class Boss_Movement : MonoBehaviour {
 	}
 
 	public void MoveAtPlayer(){
-		player = GameObject.FindWithTag("Player");
 		transform.position = Vector3.MoveTowards(transform.position, player.transform.position, move_speed);
 	}
 
@@ -45,14 +47,9 @@ public class Boss_Movement : MonoBehaviour {
 	}
 
 	public void Retreat(){
-		player = GameObject.FindWithTag("Player");
 		transform.position = Vector3.MoveTowards(transform.position, player.transform.position, -move_speed);
 	}
 
-	// Use this for initialization
-	void Start () {
-
-	}
 
 	// move to random 	0
 	// move to Middle 	1
@@ -83,11 +80,23 @@ public class Boss_Movement : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
+
 		if (Timer <= 0) { // This Checks that the Cooldown Time has passed.
 			Decision();
 		} else {
 			Timer -= Time.deltaTime; // If the Cooldown Time hasn't Passed Keep counting down.
 		}
+
+		if (player == null) { // This is because when the scene loads it wont find the player since it has to be instantiated in and so if it hasn't been found yet then find it but once found you don't need to find it anymore.
+			player = GameObject.FindWithTag ("Player"); // This finds the player and gets a reference to it.
+		} else {
+			DistanceToPlayer = Vector2.Distance (gameObject.transform.position, player.transform.position); // This will find the distance between the player and the boss. It is in the else statement because if we don't have a player reference then no point in trying to find the distance between them.
+			if (DistanceToPlayer > MaxDistanceFromPlayer) { // If the distandce is greated than the max distance from player then move towards the player.
+				decision = 2;
+			}
+		}
+
+
 
 		if(decision == 0){
 			RandomWalk();
@@ -105,4 +114,5 @@ public class Boss_Movement : MonoBehaviour {
 			Retreat();
 		}
 	}
+
 }
