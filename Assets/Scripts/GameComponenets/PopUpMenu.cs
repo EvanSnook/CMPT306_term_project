@@ -4,13 +4,25 @@ using System.Collections;
 public class PopUpMenu : MonoBehaviour {
 
 	public bool GamePaused;
+	public GameObject MainMenuButton;
+	public GameObject QuitGameButton;
+
+	void Start() {
+		MainMenuButton = GameObject.Find ("MainMenuButton"); // This gets a reference to the MainMenuButton.
+		QuitGameButton = GameObject.Find ("QuitGameButton"); // This gets a reference to the QuitGameButton.
+	}
 
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)) { // If the Player Hits the Excape key pause the game and open a menu.
 			TogglePauseGame();
 		}
-		if (GamePaused) {
 
+		if (GamePaused) {
+			MainMenuButton.SetActive (true);
+			QuitGameButton.SetActive (true);
+		} else {
+			MainMenuButton.SetActive (false);
+			QuitGameButton.SetActive (false);
 		}
 	}
 
