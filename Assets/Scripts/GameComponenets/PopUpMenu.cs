@@ -3,14 +3,29 @@ using System.Collections;
 
 public class PopUpMenu : MonoBehaviour {
 
-	public bool GamePaused;
+	public bool GamePaused; // This is set to true if the game time is set to 0 so the game is paused.
+	public GameObject MainMenuButton; // This is a reference to the MainMenu Button.
+	public GameObject QuitGameButton; // THis is a reference to the QuitGame Button.
+
+	public GameObject SceneControllerObject; // This is holds a reference to the scene controller object.
+
+	void Start() {
+		MainMenuButton = GameObject.Find ("MainMenuButton"); // This gets a reference to the MainMenuButton.
+		QuitGameButton = GameObject.Find ("QuitGameButton"); // This gets a reference to the QuitGameButton.
+		SceneControllerObject = GameObject.Find("SceneControllerObject"); // This gets a reference to the SceneControllerObject.
+	}
 
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)) { // If the Player Hits the Excape key pause the game and open a menu.
 			TogglePauseGame();
 		}
-		if (GamePaused) {
 
+		if (GamePaused) { // IF the game is paused then make the menu visible.
+			MainMenuButton.SetActive (true); 
+			QuitGameButton.SetActive (true);
+		} else { // If the game is not paused make the menu not visible.
+			MainMenuButton.SetActive (false);
+			QuitGameButton.SetActive (false);
 		}
 	}
 
@@ -23,6 +38,18 @@ public class PopUpMenu : MonoBehaviour {
 			Time.timeScale = 0f;
 			GamePaused = true;
 		}
+	}
+
+	// This unpauses the game and changes the scene to the menu.
+	public void PopUpGoToMainMenu() {
+		TogglePauseGame ();
+		SceneControllerObject.GetComponent<SceneController> ().ChangeToMainMenu ();
+	}
+
+	// This unpauses the game and quits the game.
+	public void PopUpQuitGame() {
+		TogglePauseGame ();
+		SceneControllerObject.GetComponent<SceneController> ().ExitGame ();
 	}
 
 }
