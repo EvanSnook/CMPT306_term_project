@@ -35,7 +35,9 @@ public class Boss_Movement : MonoBehaviour {
 	}
 
 	public void MoveAtPlayer(){
-		transform.position = Vector3.MoveTowards(transform.position, player.transform.position, move_speed);
+		if (player != null) {
+			transform.position = Vector3.MoveTowards (transform.position, player.transform.position, move_speed);
+		}
 	}
 
 	void doNothing(){
