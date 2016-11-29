@@ -5,11 +5,9 @@ public class RandomSpawnPoint : MonoBehaviour {
 
 	public GameObject PlayerSpawnPrefab; // This is the prefab for the player that will be spawned.
 	public GameObject CameraSpawnPrefab; // This is the prefab for the camera that will be spawned.
-	public GameObject MiniMapSpawnPrefab; // This is the prefab for the camera that will be the minimap.
 
 	private GameObject[] Respawns; // This is an array of all the different spawn points.
 	private GameObject TheCamera; // This is the main camera that was spawned.
-	private GameObject MiniMap;
 
 	void Start() {
 		Respawns = GameObject.FindGameObjectsWithTag ("Respawn"); // This sets the array of Respawns to all the respawns.
@@ -20,8 +18,5 @@ public class RandomSpawnPoint : MonoBehaviour {
 
 		TheCamera = Instantiate (CameraSpawnPrefab, Respawns [RNG].transform.position, Respawns [RNG].transform.rotation) as GameObject; // This spawns the main camera that will follow the player.
 		TheCamera.transform.position = new Vector3 (TheCamera.transform.position.x, TheCamera.transform.position.y, -10); // This moves the camera to where the player spawned.
-
-		MiniMap = Instantiate (MiniMapSpawnPrefab, Respawns [RNG].transform.position, Respawns [RNG].transform.rotation) as GameObject; // This spawnes the camera that will be the minimap.
-		MiniMap.transform.position = new Vector3 (MiniMap.transform.position.x, MiniMap.transform.position.y, -10); // This moves the minimap to the position the player spawned.
 	}	
 }
