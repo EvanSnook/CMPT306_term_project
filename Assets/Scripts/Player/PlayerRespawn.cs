@@ -3,16 +3,16 @@ using System.Collections;
 
 public class PlayerRespawn : MonoBehaviour {
 
-    public GameObject SceneController;
-	public GameObject SavedData;
+    public GameObject SceneController; // This will hold a reference to the SceneController Object.
+	public GameObject SavedData; // This will hold a reference to the SavedData Object.
 
-    void Awake() {
-        SceneController = GameObject.Find("SceneControllerObject");
-		SavedData = GameObject.Find ("SavedData");
+    void Start () {
+        SceneController = GameObject.Find("SceneControllerObject"); // Get reference to the scene controller object.
+		SavedData = GameObject.Find ("SavedData"); // Get reference to the saveddata object.
     }
 
-    void Death() {
-		SavedData.GetComponent<BossSavedData> ().SendMessage("PlayerDeathSaveBoss");
-        SceneController.SendMessage("PlayerDied");
+    void PlayerOrBossDied () {
+		SavedData.GetComponent<SavedData> ().SendMessage("SaveData"); // Save data needed for when the Player dies
+        SceneController.SendMessage("ChangeScene"); // Change Scene.
     }
 }
