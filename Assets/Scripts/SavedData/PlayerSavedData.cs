@@ -12,12 +12,8 @@ public class PlayerSavedData : MonoBehaviour {
     public Object MWSkill;
     public Object MSSkill;
 
-    void Start () {
-	}
-	
-	/*
-		This is called to add a specific number of points when sent message.
-	 */
+
+	// This is called to add a specific number of points when sent message.
 	public void AddSkillPoints(int NumberOfPoints) {
 		SkillPoints += NumberOfPoints;
 	}
@@ -26,4 +22,9 @@ public class PlayerSavedData : MonoBehaviour {
     {
         SkillPoints -= NumberOfPoints;
     }
+
+	// Save any Data for the player.
+	public void DeathSavePlayer () {
+		// Currently Do nothing.
+	}
 }

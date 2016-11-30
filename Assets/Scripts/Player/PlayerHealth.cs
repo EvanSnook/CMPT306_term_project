@@ -27,8 +27,8 @@ public class PlayerHealth : MonoBehaviour {
 
 	// This is what happends when dead.
 	public void Death() {
-		DeathManagerObject.GetComponent<PlayerRespawn> ().SendMessage("PlayerDied");
-		Destroy(gameObject);
+		DeathManagerObject.GetComponent<PlayerRespawn> ().SendMessage("PlayerDied"); // Player Died send message to tell the Gravekeeper about it.
+		Destroy(gameObject); // Destroy the body.
 
 	}
 }
