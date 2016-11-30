@@ -45,7 +45,7 @@ public class SceneController : MonoBehaviour {
 
 	// This changes the Scene to the Main Menu
 	public void ChangeToMainMenu() {
-		LevelName = "MainMenu";
+		LevelName = "MainMenu-Redesign";
 		StartCoroutine ("ChangeLevel");
 	}
 
