@@ -21,7 +21,7 @@ public class PlayerGUIManager : MonoBehaviour {
 	// Update all Parts of the GUI.
 	void Update() {
 		HealthNumber.text = "Health: " + Player.GetComponent<Health> ().HealthPoints; // This gets the current Health Component and sets the GUI object to it.
-		Timer.text = "Time Remaining: " + TimerObject.GetComponent<GameTimer> ().GameCountdown; // This gets the current TimeRemaining and sets the GUI object to it.
+		Timer.text = "Time Remaining: " + TimerObject.GetComponent<GameTimer> ().GameCountdown.ToString("N0"); // This gets the current TimeRemaining and sets the GUI object to it.
 	}
 
 

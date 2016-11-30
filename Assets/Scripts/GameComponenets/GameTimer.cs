@@ -13,8 +13,7 @@ public class GameTimer : MonoBehaviour {
 	void Start() {
 		SavedData = GameObject.Find("SavedData"); // This finds and sets the Saved Data to the Saved Data Object.
 		InvokeRepeating("SendSkillPoint", TimePerSkillPoint, TimePerSkillPoint); // This will repeatedly send skillpoints to the saved data.
-        if(SavedData != null)
-        {
+        if(SavedData != null) {
             GameCountdown = SavedData.GetComponent<SavedData>().TimeRemaining; // This gets and sets the Time Remaining from the saved data.
         }
 		
@@ -35,8 +34,7 @@ public class GameTimer : MonoBehaviour {
 		This is the helper function that sends the number of skill points to the saved data.
 	 */
 	public void SendSkillPoint() {
-        if(SavedData != null)
-        {
+        if(SavedData != null) {
             SavedData.GetComponent<PlayerSavedData>().SendMessage ("AddSkillPoints", SkillPointGain);
         }
 	}
