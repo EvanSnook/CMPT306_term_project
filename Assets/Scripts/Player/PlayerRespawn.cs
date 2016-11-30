@@ -6,13 +6,13 @@ public class PlayerRespawn : MonoBehaviour {
     public GameObject SceneController;
 	public GameObject SavedData;
 
-    void Awake() {
+    void Start () {
         SceneController = GameObject.Find("SceneControllerObject");
 		SavedData = GameObject.Find ("SavedData");
     }
 
-    void Death() {
-		SavedData.GetComponent<BossSavedData> ().SendMessage("PlayerDeathSaveBoss");
-        SceneController.SendMessage("PlayerDied");
+    void PlayerDied () {
+		SavedData.GetComponent<SavedData> ().SendMessage("SaveData");
+        SceneController.SendMessage("ChangeScene");
     }
 }

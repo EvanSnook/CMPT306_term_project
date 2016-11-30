@@ -89,21 +89,4 @@ public class SceneController : MonoBehaviour {
 			StartCoroutine ("ChangeLevel");
 		}
 	}
-
-    public void Save()
-    {
-        GameObject savedData = GameObject.Find("SavedData");
-        if(savedData != null) {
-            savedData.SendMessage("SaveData");
-        }
-    }
-
-    //the player has died, return to spawn/main menu
-    public void PlayerDied() {
-        //save the things
-        Save();
-        //change the scene
-        ChangeScene();
-    }
-
 }

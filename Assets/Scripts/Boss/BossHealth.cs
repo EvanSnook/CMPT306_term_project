@@ -7,10 +7,12 @@ public class BossHealth : MonoBehaviour {
 	public int HealthPoints; // This is the total number of Health the boss has.
 
 	public GameObject SavedDataObject; // This is the object that Holds the Scripts that Hold saved Data.
+	public GameObject DeathManagerObject; // This will hold a reference to the object that holds the death management scripts.
 	
 
 	void Start() {
 		SavedDataObject = GameObject.Find ("SavedData"); // Set the reference of the saved data.
+		DeathManagerObject = GameObject.Find("DeathManagerObject"); // Set the reference of DeathManagerObject.
 		HealthPoints = SavedDataObject.GetComponent<BossSavedData> ().BossCurrentHealth; // The boss' Health will be set from the BossSavedData.
 		StartingHealthPoints = SavedDataObject.GetComponent<BossSavedData>().BossStartingHealth; // This gets and stores the starting health of the boss.
 	}
@@ -18,7 +20,8 @@ public class BossHealth : MonoBehaviour {
 
 	void Update() {
 		if (HealthPoints <= 0) { // If health is 0 or less SendMessage that the Boss Died.
-			gameObject.GetComponent<BossAIBasic>().SendMessage("BossDeath");
+			DeathManagerObject.GetComponent<BossDeath>().SendMessage("BossDied");
+			Destroy (gameObject); // Destroy Boss
 		}
 	}
 
