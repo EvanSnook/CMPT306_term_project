@@ -4,14 +4,15 @@ using System.Collections;
 public class PlayerRespawn : MonoBehaviour {
 
     public GameObject SceneController;
+	public GameObject SavedData;
 
-    void Awake()
-    {
+    void Awake() {
         SceneController = GameObject.Find("SceneControllerObject");
+		SavedData = GameObject.Find ("SavedData");
     }
 
-    void Death()
-    {
+    void Death() {
+		SavedData.GetComponent<BossSavedData> ().SendMessage("PlayerDeathSaveBoss");
         SceneController.SendMessage("PlayerDied");
     }
 }
