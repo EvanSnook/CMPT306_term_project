@@ -29,7 +29,7 @@ public class SceneController : MonoBehaviour {
         {
             case "Spawn_room"://if in the spawn room go to boss room
                 {
-                    LevelName = "boss_room"; // This is the level name that the scene will be changed to.
+                    LevelName = "boss_room-Redesign"; // This is the level name that the scene will be changed to.
                     StartCoroutine("ChangeLevel"); // This is the call to change scene.
                     break;
                 }
