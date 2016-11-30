@@ -8,17 +8,15 @@ public class BossMelee : MonoBehaviour {
     public float cooldownTimer;
     public float meleeDuration;
     public float meleeSpeed;
-    public float startDistanceFromPlayer;
     public float futureTime;
     public float swingRadius;
+    public float jabSpeed;
 
     private GameObject player;
     private GameObject meleeAttack;
     private bool isAttacking;
     private bool onCooldown;
-    private Quaternion angleToPlayer;
     private Quaternion angleToFuture;
-    private Vector3 startAngleFromPlayer;
     private float edgeAt45DegOut;
     private Vector3 futurePos;
     private int attackDirection;
@@ -28,8 +26,6 @@ public class BossMelee : MonoBehaviour {
         isAttacking = false;
         onCooldown = false;
         setRadiusAt45();
-
-        startAngleFromPlayer = new Vector3(startDistanceFromPlayer, startDistanceFromPlayer, 0f);
     }
 	
     //creates a float thats on the edge of the boss 45 degrees out
@@ -71,7 +67,7 @@ public class BossMelee : MonoBehaviour {
             }
             else
             {
-                //JAB
+                meleeAttack.transform.Translate(jabSpeed, 0f, 0f);
             }
         }
     }
@@ -99,7 +95,7 @@ public class BossMelee : MonoBehaviour {
         }
 
         else {
-            angleToPlayer = Quaternion.FromToRotation(Vector3.right, player.transform.position - transform.position);
+            angleToFuture = Quaternion.FromToRotation(Vector3.right, player.transform.position - transform.position);
             attackDirection = 0;
         }
         
