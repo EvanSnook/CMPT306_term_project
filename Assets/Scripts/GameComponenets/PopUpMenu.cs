@@ -5,11 +5,13 @@ public class PopUpMenu : MonoBehaviour {
 
 	public bool GamePaused; // This is set to true if the game time is set to 0 so the game is paused.
 	public GameObject MainMenuButton; // This is a reference to the MainMenu Button.
-	public GameObject QuitGameButton; // THis is a reference to the QuitGame Button.
+	public GameObject QuitGameButton; // This is a reference to the QuitGame Button.
+	public GameObject GamePausedText; // This is a reference to the GamePaused Text.
 
 	public GameObject SceneControllerObject; // This is holds a reference to the scene controller object.
 
 	void Start() {
+		GamePausedText = GameObject.Find ("GamePausedText"); // This gets a reference to the GamePausedText.
 		MainMenuButton = GameObject.Find ("MainMenuButton"); // This gets a reference to the MainMenuButton.
 		QuitGameButton = GameObject.Find ("QuitGameButton"); // This gets a reference to the QuitGameButton.
 		SceneControllerObject = GameObject.Find("SceneControllerObject"); // This gets a reference to the SceneControllerObject.
@@ -21,9 +23,11 @@ public class PopUpMenu : MonoBehaviour {
 		}
 
 		if (GamePaused) { // IF the game is paused then make the menu visible.
+			GamePausedText.SetActive (true);
 			MainMenuButton.SetActive (true); 
 			QuitGameButton.SetActive (true);
 		} else { // If the game is not paused make the menu not visible.
+			GamePausedText.SetActive (false);
 			MainMenuButton.SetActive (false);
 			QuitGameButton.SetActive (false);
 		}
