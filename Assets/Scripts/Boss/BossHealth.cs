@@ -20,7 +20,7 @@ public class BossHealth : MonoBehaviour {
 
 	void Update() {
 		if (HealthPoints <= 0) { // If health is 0 or less SendMessage that the Boss Died.
-			DeathManagerObject.GetComponent<BossDeath>().SendMessage("BossDied");
+			DeathManagerObject.GetComponent<RespawnController>().SendMessage("PlayerOrBossDied");
 			Destroy (gameObject); // Destroy Boss
 		}
 	}
