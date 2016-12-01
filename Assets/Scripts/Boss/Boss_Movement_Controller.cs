@@ -5,6 +5,7 @@ public class Boss_Movement_Controller : MonoBehaviour {
 
 	public float moveSpeed; // move speed of moveTo and persue
 	public float chargeSpeed; // move speed of chargeTo
+	public float chargeOvershoot; // Distance to charge past its original target
 	public float lungeSpeed; // move speed of lunge
 	public int lungeWindUpTime; // time (in frames) before wind up before lunging
 	public float lungeWindUpSpeed; // the speed at wich the boss moves backwards during the wind up
@@ -30,8 +31,16 @@ public class Boss_Movement_Controller : MonoBehaviour {
 
 	public IEnumerator ChargeTo(Vector3 destination) { // Charges at a high speed to target location after a short build up, overshoots
 		StopAllCoroutines(); // We don't want to be doing multiple movement routines at the same time, stop any active ones.
-		yield return new WaitForFixedUpdate();
-		movementDecisions.SetBusy(false); // Then we're done here, set busy to false so a new move can start
+		Vector3 heading = (transform.position - destination).normalized * -1; // change the destination to a normalized heading
+
+		while (Vector3.Distance(transform.position, destination) < chargeOvershoot // Keep charging if we are close to our destination (This allows for the overshoot)
+						|| Vector3.Angle((transform.position - destination), heading) >= 90) { // OR if we are pointing towards our destination (No longer pointing towards it once we pass it)
+
+			transform.position = Vector3.MoveTowards(transform.position, transform.position + heading, chargeSpeed); // Do the charging
+			yield return new WaitForFixedUpdate(); // Wait for a frame, basically fixedUpdate
+		}
+
+		movementDecisions.SetBusy(false); // We're done the lunge, get ready to do another movement
 	}
 
 	public IEnumerator Lunge(Vector3 destination) { // Short distance charge after a short delay
