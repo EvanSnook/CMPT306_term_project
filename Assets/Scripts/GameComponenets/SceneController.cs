@@ -10,7 +10,7 @@ public class SceneController : MonoBehaviour {
 
     // This gets the scene that is currently loaded.
     void Start () {
-        savedData = GameObject.Find("SavedData");        
+        savedData = GameObject.Find("SavedData"); // This gets a reference to the SavedData Object.
         CurrentlyLoadedScene = SceneManager.GetActiveScene().name; // This gets the name of the scene that is currently loaded.
 	}
 
@@ -19,7 +19,7 @@ public class SceneController : MonoBehaviour {
 	public void ChangeSceneGameOver() {
 //		LevelName = "GameOver"; // This is the level name that the scene will be changed to.
 //		StartCoroutine ("ChangeLevel"); // This is the call to change scene.
-		savedData.GetComponent<SavedData>().TimeReset();
+		savedData.GetComponent<SavedData>().TimeReset(); // This resets the time Remaining to the Original time.
 		ChangeToMainMenu(); // This is temporarry until the GameOver Scene is finished.
 	}
 
@@ -47,7 +47,7 @@ public class SceneController : MonoBehaviour {
 
 	// This changes the Scene to the Main Menu
 	public void ChangeToMainMenu() {
-		savedData.GetComponent<SavedData>().TimeReset();
+		savedData.GetComponent<SavedData>().TimeReset(); // This resets the time Remaining to the Original time.
 		LevelName = "MainMenu-Redesign";
 		StartCoroutine ("ChangeLevel");
 	}

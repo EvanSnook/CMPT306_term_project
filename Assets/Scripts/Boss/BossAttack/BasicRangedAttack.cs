@@ -31,8 +31,8 @@ public class BasicRangedAttack : MonoBehaviour {
 
 
 	void Update () {
-		if (player == null) {
-			player = GameObject.FindGameObjectWithTag ("Player");
+		if (player == null) { // This checks to see if the player has been found. 
+			player = GameObject.FindGameObjectWithTag ("Player"); // Find the player if not found already.
 		} else {
 			//if the player is withing the max and min range
 			if (Vector3.Distance (player.transform.position, gameObject.transform.position) <= maxRange && Vector3.Distance (player.transform.position, gameObject.transform.position) >= minRange) {
@@ -54,7 +54,8 @@ public class BasicRangedAttack : MonoBehaviour {
 					// Creates a new projectile to fire and rotating it towards where the player is going
 					projectile = (Instantiate (ProjectilePrefab, projectileLauncher.transform.position, projectileLauncher.transform.rotation)) as GameObject;
 					projectile.transform.rotation = angleToFuture;
-					projectile.GetComponent<DMG> ().Owner = this.gameObject;
+					projectile.GetComponent<DMG> ().Owner = this.gameObject; // Set the Owner of the projectile to the boss so it wont damage itself.
+
 					// Launches the new projectile forwards
 					projectile.GetComponent<Rigidbody2D> ().AddRelativeForce (new Vector3 (projectileSpeed, 0, 0)); 
 					Destroy (projectile, DestroyAfter);
