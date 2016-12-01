@@ -6,7 +6,7 @@ public class SkillManager : MonoBehaviour {
 
     private int skillPoints;
     public SkillTreeNode selectedSkill;
-
+    //all the txt components for the display
     public Text skillPointText;
     public Text selectedSkillText;
     public Text equipedQText;
@@ -35,6 +35,7 @@ public class SkillManager : MonoBehaviour {
             {
                 equipedQText.text = Qstring + SavedData.GetComponent<PlayerSavedData>().QSkill.name;
             }
+            //TODO add cases for the other skills once implemented
             //equipedEText.text = Estring + SavedData.GetComponent<PlayerSavedData>().ESkill.name;
             //equipedMWText.text = MWstring + SavedData.GetComponent<PlayerSavedData>().MWSkill.name;
             //equipedMSText.text = MSstring + SavedData.GetComponent<PlayerSavedData>().MSSkill.name;
@@ -136,6 +137,7 @@ public class SkillManager : MonoBehaviour {
                     break;
                 }
         }
+        //finally apply the skills to the player.
         SavedData.SendMessage("ApplySkillsToPlayer", Player);
         return TreeNode;
     }

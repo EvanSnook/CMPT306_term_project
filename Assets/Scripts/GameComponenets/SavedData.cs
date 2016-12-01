@@ -11,7 +11,7 @@ public class SavedData : MonoBehaviour {
         DontDestroyOnLoad (gameObject);
 
         TimeRemaining = StartingTimeRemaining; // This initializes the Time the first time the game is loaded.
-        
+        //make sure there is an object that can be destroyed.
 		if(GameObject.FindObjectsOfType(GetType()).Length >1)
         {
             Destroy(gameObject);

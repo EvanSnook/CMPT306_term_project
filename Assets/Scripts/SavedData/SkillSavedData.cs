@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SkillSavedData : MonoBehaviour {
     
+    //binaryTree and GameObject versions of each tree.
     public BinaryTree QTree;
     private GameObject QTreeRootNode;
     public BinaryTree ETree;
@@ -16,7 +17,6 @@ public class SkillSavedData : MonoBehaviour {
     public BinaryTree RWTree;
     private GameObject RWTreeRootNode;
     
-
     void Awake () {
         // set up tree data structure from TreeRootNodes
         QTreeRootNode = GameObject.Find("QTree");
@@ -25,14 +25,17 @@ public class SkillSavedData : MonoBehaviour {
         
     }
 	
+    //generates a Binary tree based on the heiarchy of the skill tree nodes
     public BinaryTree generateTree(GameObject NodeGameObject)
     {
-        
         BinaryTree Root;
         Root = (BinaryTree)ScriptableObject.CreateInstance("BinaryTree");
         Root.skillElement = (Skill)ScriptableObject.CreateInstance("Skill");
         setSkillsInfo(Root.skillElement, NodeGameObject);
-        
+        //children on the right are first in the heiarchy.
+        //children on the left are next in the heiarchy.
+        //only works with binary expansion or linear.
+        //only looks at children with the tag "SkillTreeNode"
         foreach (Transform child in NodeGameObject.transform)
         {
             if (child.gameObject.tag == "SkillTreeNode")
@@ -49,7 +52,6 @@ public class SkillSavedData : MonoBehaviour {
                 }
             }
         }
-        
         return Root;
     }
 

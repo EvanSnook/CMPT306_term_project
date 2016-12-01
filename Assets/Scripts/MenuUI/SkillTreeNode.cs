@@ -86,6 +86,7 @@ public class SkillTreeNode : MonoBehaviour {
         gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
     }
 
+    //loads from save data into the binary tree for remembering locked/unlock/bought skills.
     public void LoadSavedData()
     {
         GameObject SavedData = GameObject.Find("SavedData");
@@ -142,10 +143,12 @@ public class SkillTreeNode : MonoBehaviour {
         }
         if (foundTree != null)
         {
+            //only if we found the tree we load its attributes
             this.locked = foundTree.skillElement.locked;
             this.bought = foundTree.skillElement.bought;
             this.cost = foundTree.skillElement.cost;
         }
+        //change the properties (color, tooltip activation)
         if (locked)
         {
             LockSkill();

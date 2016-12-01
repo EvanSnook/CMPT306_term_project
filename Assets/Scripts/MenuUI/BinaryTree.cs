@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class BinaryTree : ScriptableObject {
-
+    //binary tree class for the skill tree
     public BinaryTree Parent;
     public BinaryTree RightChild;
     public BinaryTree LeftChild;
-    
+    //the content of the binary tree is a Skill
     public Skill skillElement;
     
     public BinaryTree(BinaryTree inParent, Skill inElement)
@@ -36,9 +36,10 @@ public class BinaryTree : ScriptableObject {
     }
 
     //this function finds a BinaryTree object with a skill script named skillName it returns null if none can be found.
+    //recurses to find the element
     public BinaryTree findSkillElement(string skillName)
     {
-        BinaryTree returnTree;
+        BinaryTree returnTree = null ;
         if (skillElement.Script.name == skillName)
         {
             return this;
@@ -53,14 +54,13 @@ public class BinaryTree : ScriptableObject {
                     return returnTree;
                 }
             }
-            
              returnTree = RightChild.findSkillElement(skillName);
             if (returnTree != null)
             {
                 return returnTree;
             }
         }
-        return null;
+        return returnTree;
     }
     
 }

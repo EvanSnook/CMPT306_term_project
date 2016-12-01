@@ -8,14 +8,14 @@ public class Skill : ScriptableObject {
     public bool bought;
     public SkillTreeNode.SkillType skillType = SkillTreeNode.SkillType.Q;
     public Object Script;
-
+    
     public void LockSkill()
     {
         this.locked = true;
         this.bought = false;
     }
 
-    //purchases the skill turns the skill white.
+    //purchases the skill
     public void PurchaseSkill()
     {
         this.locked = false;
