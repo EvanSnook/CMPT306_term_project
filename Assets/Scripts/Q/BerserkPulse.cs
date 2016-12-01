@@ -20,9 +20,9 @@ public class BerserkPulse : MonoBehaviour {
     {
         canInvuln = true;
         isInvuln = false;
-
+        
         //get the renderer for the object
-        render = GetComponent<SpriteRenderer>();
+        render = gameObject.transform.parent.GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -69,7 +69,7 @@ public class BerserkPulse : MonoBehaviour {
             render.color = new Color(1f, 0f, 0.804f, 1f);
             
             //disable health so that the player takes no damage
-            GetComponent<Health>().enabled = false;
+            gameObject.transform.parent.GetComponent<Health>().enabled = false;
 
             //start cooldowns
             StartCoroutine("RefreshInvuln");
@@ -93,6 +93,6 @@ public class BerserkPulse : MonoBehaviour {
         render.color = new Color(0.56f, 0f, 0.56f, 1f);
 
         //enable health so the player can take damage again
-        GetComponent<Health>().enabled = true;
+        gameObject.transform.parent.GetComponent<Health>().enabled = true;
     }
 }
