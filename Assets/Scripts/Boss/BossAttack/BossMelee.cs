@@ -12,6 +12,9 @@ public class BossMelee : MonoBehaviour {
     public float swingRadius;
     public float jabSpeed;
 
+	public float MeleeLengthScale; // This will scale the length of the melee's attack.
+	public float MeleeWidthScale; // This will scale the width of the melee's attack.
+
     private GameObject player;
     private GameObject meleeAttack;
     private bool isAttacking;
@@ -55,6 +58,8 @@ public class BossMelee : MonoBehaviour {
 					//make a new attack
 					meleeAttack = Instantiate (meleePrefab, transform.position, angleToFuture) as GameObject;
 					meleeAttack.GetComponent<DMG> ().Owner = this.gameObject;
+
+					meleeAttack.transform.localScale = new Vector3 (MeleeLengthScale, MeleeWidthScale, 0); // This will scale the meleeAttack to the scale input.
 
 					//parent the object to the boss
 					meleeAttack.transform.parent = gameObject.transform;
