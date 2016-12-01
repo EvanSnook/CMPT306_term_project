@@ -8,8 +8,8 @@ public class Reflecting : MonoBehaviour {
     {
         if (col.gameObject.tag == "EnemyShot")
         {
-            // acquire the rigid body for the character that the shield is attatched too
-            Rigidbody2D parent = transform.parent.GetComponent<Rigidbody2D>();
+            // acquire the rigid body for the character that the shield is attatched too (the purple square)
+            Rigidbody2D parent = gameObject.transform.parent.parent.GetComponent<Rigidbody2D>();
 
             // acquire the rigid body for the bullet the shield is colliding with
             Rigidbody2D bullet = col.gameObject.GetComponent<Rigidbody2D>();
