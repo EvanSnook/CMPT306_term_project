@@ -63,6 +63,9 @@ public class Boss_Movement_Controller : MonoBehaviour {
 	}
 
 	public IEnumerator Pursue(GameObject target, int duration) { // Follows target gameObject at a slow speed
+		if (target == null) { // If the player died, kill the IEnumerator to avoid errors
+			yield break;
+		}
 		transform.position = Vector3.MoveTowards(transform.position, target.transform.position, pursueSpeed); // Move toward the position of the player
 
 		if (duration <= 0) { // If the duration of this move is zero (or somehow below zero)
@@ -74,7 +77,9 @@ public class Boss_Movement_Controller : MonoBehaviour {
 	}
 
 	public IEnumerator Orbit(GameObject target, float distance, bool clockwise, int duration) { // Rotates around the target gameObject at a moderate speed
-
+		if (target == null) { // If the player died, kill the IEnumerator to avoid errors
+			yield break;
+		}
 		Vector3 heading = target.transform.position - transform.position; // Get the direction towards the player
 		heading = heading.normalized; // Normalize that direction
 		heading = Vector3.Cross(heading, Vector3.forward); // Move it paralell

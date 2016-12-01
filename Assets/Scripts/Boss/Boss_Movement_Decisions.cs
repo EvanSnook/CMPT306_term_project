@@ -23,13 +23,16 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 
 	void Start() {
 		busy = false;
-		player = GameObject.FindWithTag ("Player");
 		movementController = GetComponent<Boss_Movement_Controller>();
 	}
 
 	void FixedUpdate() {
-		if (!busy) { // If you aren't busy, make a decision to do something and do it
-			Decide(MakeDecision());
+		if (player == null) {
+			player = GameObject.FindWithTag ("Player");
+		} else {
+			if (!busy) { // If you aren't busy, make a decision to do something and do it
+				Decide(MakeDecision());
+			}
 		}
 	}
 
