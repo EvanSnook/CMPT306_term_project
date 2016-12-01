@@ -54,6 +54,7 @@ public class BossMelee : MonoBehaviour {
 
 					//make a new attack
 					meleeAttack = Instantiate (meleePrefab, transform.position, angleToFuture) as GameObject;
+					meleeAttack.GetComponent<DMG> ().Owner = this.gameObject;
 
 					//parent the object to the boss
 					meleeAttack.transform.parent = gameObject.transform;
