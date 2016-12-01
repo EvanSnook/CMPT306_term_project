@@ -35,7 +35,7 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 	}
 
 	int MakeDecision() { // Hard coded to test decisions, will contain the decision tree
-		return 3;
+		return 2;
 	}
 
 	/* Call the appropiate movement method
@@ -54,7 +54,7 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 				StartCoroutine(movementController.ChargeTo(new Vector2()));
 			break;
 			case 2:
-				StartCoroutine(movementController.Lunge(new Vector2()));
+				StartCoroutine(movementController.Lunge(player.transform.position));
 			break;
 			case 3:
 				StartCoroutine(movementController.Pursue(player, (int)Random.Range(pursueTimeMin, pursueTimeMax)));
