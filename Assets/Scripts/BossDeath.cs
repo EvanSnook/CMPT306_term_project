@@ -12,7 +12,7 @@ public class BossDeath : MonoBehaviour {
 	}
 
 	public void BossDied() {
-		SavedData.GetComponent<SavedData> ().SendMessage("SaveData");
+		SavedData.GetComponent<SavedData>().SendMessage("SaveData");
 		SceneController.SendMessage("ChangeScene");
 	}
 }

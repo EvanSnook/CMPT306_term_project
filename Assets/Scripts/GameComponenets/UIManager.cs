@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
+using UnityEditor;
 public class UIManager : MonoBehaviour
 {
 
@@ -30,7 +31,11 @@ public class UIManager : MonoBehaviour
         //move camera upwards
         mainCamera.GetComponent<Transform>().position = new Vector3(0, 1, -10);
         //turn off the skills UI main menu on
-        SkillsCanvas.enabled = false;
+        
+        if(SceneManager.GetActiveScene().name == "Spawn_room")
+        {
+            SkillsCanvas.enabled = false;
+        }
         MainMenuCanvas.enabled = true;
     }
 

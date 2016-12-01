@@ -11,8 +11,8 @@ public class PlayerRespawn : MonoBehaviour {
 		SavedData = GameObject.Find ("SavedData"); // Get reference to the saveddata object.
     }
 
-    void PlayerOrBossDied () {
-		SavedData.GetComponent<SavedData> ().SendMessage("SaveData"); // Save data needed for when the Player dies
+    void PlayerDied () {
+		SavedData.GetComponent<SavedData>().SendMessage("SaveData"); // Save data needed for when the Player dies
         SceneController.SendMessage("ChangeScene"); // Change Scene.
     }
 }

@@ -62,6 +62,6 @@ public class SkillSavedData : MonoBehaviour {
         infoOut.bought = treeNode.bought;
         infoOut.locked = treeNode.locked;
         infoOut.skillType = treeNode.skillType;
-        infoOut.Script = treeNode.skillScript;
+        infoOut.Script = treeNode.skillObject;
     }
 }

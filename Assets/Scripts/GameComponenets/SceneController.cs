@@ -10,7 +10,7 @@ public class SceneController : MonoBehaviour {
 
     // This gets the scene that is currently loaded.
     void Start () {
-        savedData = GameObject.Find("SavedData");
+        savedData = GameObject.Find("SavedData");        
         CurrentlyLoadedScene = SceneManager.GetActiveScene().name; // This gets the name of the scene that is currently loaded.
 	}
 

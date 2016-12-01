@@ -5,6 +5,15 @@ public class PlayerController : MonoBehaviour {
 
 	private bool canJump;
 
+    void Awake()
+    {
+        GameObject savedData = GameObject.Find("SavedData");
+        if(savedData != null)
+        {
+            savedData.SendMessage("ApplySkillsToPlayer", gameObject);
+        }
+    }
+
 	void Start () {
 		canJump = true;
 	}
@@ -32,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 			this.SendMessage ("SwingAtMouse");
 		}
         if (Input.GetAxisRaw("Defensive Ability") > 0.1) { // This get's the input for the Q and sends message to use shield if pushed.
-            this.SendMessage("UseShield");
+            this.BroadcastMessage("UseShield");
         }
     }
 }

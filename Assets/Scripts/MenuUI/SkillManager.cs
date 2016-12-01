@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class SkillManager : MonoBehaviour {
 
     private int skillPoints;
     public SkillTreeNode selectedSkill;
+
     public Text skillPointText;
     public Text selectedSkillText;
     public Text equipedQText;
@@ -19,74 +21,44 @@ public class SkillManager : MonoBehaviour {
     public string MSstring = "Melee Up:\n";
     public string RWstring = "Ranged Up:\n";
     public string RSstring = "Ranged Down:\n";
-    private GameObject SavedData;
 
+    private GameObject SavedData;
+    private GameObject Player;
 
     void Awake(){
-        SavedData = GameObject.Find("SavedData");
-        skillPoints = SavedData.GetComponent<PlayerSavedData>().SkillPoints;
-        //equipedQText.text = Qstring + SavedData.GetComponent<PlayerSavedData>().QSkill.name;
-        //equipedEText.text = Estring + SavedData.GetComponent<PlayerSavedData>().ESkill.name;
-        //equipedMWText.text = MWstring + SavedData.GetComponent<PlayerSavedData>().MWSkill.name;
-        //equipedMSText.text = MSstring + SavedData.GetComponent<PlayerSavedData>().MSSkill.name;
-        //equipedRWText.text = RWstring + SavedData.GetComponent<PlayerSavedData>().RWSkill.name;
-        //equipedRSText.text = RSstring + SavedData.GetComponent<PlayerSavedData>().RSSkill.name;
+        Player = GameObject.Find("Character");
+        if (SceneManager.GetActiveScene().name == "Spawn_room")
+        {
+            SavedData = GameObject.Find("SavedData");
+            skillPoints = SavedData.GetComponent<PlayerSavedData>().SkillPoints;
+            if (SavedData.GetComponent<PlayerSavedData>().QSkill != null)
+            {
+                equipedQText.text = Qstring + SavedData.GetComponent<PlayerSavedData>().QSkill.name;
+            }
+            //equipedEText.text = Estring + SavedData.GetComponent<PlayerSavedData>().ESkill.name;
+            //equipedMWText.text = MWstring + SavedData.GetComponent<PlayerSavedData>().MWSkill.name;
+            //equipedMSText.text = MSstring + SavedData.GetComponent<PlayerSavedData>().MSSkill.name;
+            //equipedRWText.text = RWstring + SavedData.GetComponent<PlayerSavedData>().RWSkill.name;
+            //equipedRSText.text = RSstring + SavedData.GetComponent<PlayerSavedData>().RSSkill.name;
+        }
+        
+        
     }
     void FixedUpdate(){
         //updating the text for when points are spent
-        skillPointText.text = "Skill Points: " + SavedData.GetComponent<PlayerSavedData>().SkillPoints;
+        if (SceneManager.GetActiveScene().name == "Spawn_room")
+        {
+            skillPointText.text = "Skill Points: " + SavedData.GetComponent<PlayerSavedData>().SkillPoints;
+        }
     }
 
+    //this is called when we click on a skill node
     void SkillSelected(SkillTreeNode skill){
         //Apply the skill to the player
         selectedSkill = skill;
         selectedSkillText.text = "Selected Ability:\n" +selectedSkill.GetComponentInChildren<Text>().text;
         if (selectedSkill.bought){
-            //find what text to update based on skill type
-            switch (selectedSkill.skillType)
-            {
-                case (SkillTreeNode.SkillType.Q):
-                    {
-                        equipedQText.text = Qstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        SavedData.GetComponent<PlayerSavedData>().QSkill = selectedSkill.skillScript;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.E):
-                    {
-                        //equip the skill
-                        equipedQText.text = Estring + selectedSkill.GetComponentInChildren<Text>().text;
-                        SavedData.GetComponent<PlayerSavedData>().ESkill = selectedSkill.skillScript;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.MS):
-                    {
-                        //equip the skill
-                        equipedQText.text = MSstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        SavedData.GetComponent<PlayerSavedData>().MSSkill = selectedSkill.skillScript;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.MW):
-                    {
-                        //equip the skill
-                        equipedQText.text = MWstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        SavedData.GetComponent<PlayerSavedData>().MWSkill = selectedSkill.skillScript;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.RS):
-                    {
-                        //equip the skill
-                        equipedQText.text = RSstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        SavedData.GetComponent<PlayerSavedData>().RSSkill = selectedSkill.skillScript;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.RW):
-                    {
-                        //equip the skill
-                        equipedRWText.text = RWstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        SavedData.GetComponent<PlayerSavedData>().RWSkill = selectedSkill.skillScript;
-                        break;
-                    }
-            }
+            findAndReplaceSkill();
         }
     }
 
@@ -102,57 +74,8 @@ public class SkillManager : MonoBehaviour {
             //deduct skill points
             SavedData.GetComponent<PlayerSavedData>().SkillPoints = skillPoints - selectedSkill.cost;
             selectedSkill.PurchaseSkill();
-
-            //decide what tree to look in based on skill type of the selected skill
-            switch (selectedSkill.skillType){
-                case (SkillTreeNode.SkillType.Q):{
-                        //look for the Skill object
-                        foundTree = SavedData.GetComponent<SkillSavedData>().QTree.findSkillElement(selectedSkill.skillScript.name);
-                        //equip the skill
-                        equipedQText.text = Qstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.E):{
-                        //look for the Skill object
-                        foundTree = SavedData.GetComponent<SkillSavedData>().ETree.findSkillElement(selectedSkill.skillScript.name);
-                        //equip the skill
-                        equipedQText.text = Estring + selectedSkill.GetComponentInChildren<Text>().text;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.MS):{
-                        //look for the Skill object
-                        foundTree = SavedData.GetComponent<SkillSavedData>().MSTree.findSkillElement(selectedSkill.skillScript.name);
-                        //equip the skill
-                        equipedQText.text = MSstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.MW):{
-                        //look for the Skill object
-                        foundTree = SavedData.GetComponent<SkillSavedData>().MWTree.findSkillElement(selectedSkill.skillScript.name);
-                        //equip the skill
-                        equipedQText.text = MWstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.RS):{
-                        //look for the Skill object
-                        foundTree = SavedData.GetComponent<SkillSavedData>().RSTree.findSkillElement(selectedSkill.skillScript.name);
-                        //equip the skill
-                        equipedQText.text = RSstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        break;
-                    }
-                case (SkillTreeNode.SkillType.RW):{
-                        //look for the Skill object
-                        foundTree = SavedData.GetComponent<SkillSavedData>().RWTree.findSkillElement(selectedSkill.skillScript.name);
-                        //equip the skill
-                        equipedRWText.text = RSstring + selectedSkill.GetComponentInChildren<Text>().text;
-                        break;
-                    }
-                default:{
-                        foundTree = null;
-                        break;
-                    }
-            }
-            if(foundTree != null){
+            foundTree = findAndReplaceSkill();
+            if (foundTree != null){
                 //purchase the Skill
                 foundTree.skillElement.PurchaseSkill();
                 //unlock its children
@@ -165,4 +88,56 @@ public class SkillManager : MonoBehaviour {
             }
         }
     }
+
+    public BinaryTree findAndReplaceSkill()
+    {
+        BinaryTree TreeNode = null;
+        //decide what tree to look in based on skill type of the selected skill
+        switch (selectedSkill.skillType)
+        {
+            case (SkillTreeNode.SkillType.Q):
+                {
+                    //find the Binary tree node with the selected skill in it
+                    TreeNode = SavedData.GetComponent<SkillSavedData>().QTree.findSkillElement(selectedSkill.skillObject.name);
+                    //remove old skill
+                    if (SavedData.GetComponent<PlayerSavedData>().QSkill != null)
+                    {
+                        Destroy(Player.transform.FindChild(SavedData.GetComponent<PlayerSavedData>().QSkill.name + "(Clone)").gameObject);
+                    }
+                    //update all texts needed
+                    equipedQText.text = Qstring + selectedSkill.GetComponentInChildren<Text>().text;
+                    //save data
+                    SavedData.GetComponent<PlayerSavedData>().QSkill = selectedSkill.skillObject;
+                    break;
+                }
+            case (SkillTreeNode.SkillType.E):
+                {
+                    //TODO add the same case as Q just for all the other cases.
+                    break;
+                }
+            case (SkillTreeNode.SkillType.MS):
+                {
+                    break;
+                }
+            case (SkillTreeNode.SkillType.MW):
+                {
+                    break;
+                }
+            case (SkillTreeNode.SkillType.RS):
+                {
+                    break;
+                }
+            case (SkillTreeNode.SkillType.RW):
+                {
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+        SavedData.SendMessage("ApplySkillsToPlayer", Player);
+        return TreeNode;
+    }
+    
 }
