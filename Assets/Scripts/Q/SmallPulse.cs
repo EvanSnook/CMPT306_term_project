@@ -4,7 +4,7 @@ using System.Collections;
 public class SmallPulse : MonoBehaviour {
 
     public float cooldownTimer;
-    public float shieldDespawnTime;
+    public float shieldRespawnTime;
     public float pulseDespawnTime;
     public float pulseGrowthRate;
     public GameObject shieldPrefab;
@@ -107,7 +107,7 @@ public class SmallPulse : MonoBehaviour {
     IEnumerator ShieldCooldown()
     {
         //Wait for cooldown then create a shield
-        yield return new WaitForSeconds(shieldDespawnTime);
+        yield return new WaitForSeconds(shieldRespawnTime);
         createShield();
     }
 

@@ -80,7 +80,8 @@ public class OrbShoot : MonoBehaviour {
             for (int i = 0; i < numberOfOrbs; i++)
             {
                 orbs[i].transform.rotation = angleToMouse;
-
+                //unparent the shot orb.
+                orbs[i].transform.parent = null;
                 //start cooldowns
                 Destroy(orbs[i], orbShootTime);
             }
