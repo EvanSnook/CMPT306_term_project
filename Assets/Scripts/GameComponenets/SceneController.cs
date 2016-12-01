@@ -17,8 +17,10 @@ public class SceneController : MonoBehaviour {
 
 	// This is called when the game is over and will go to the game over screen.
 	public void ChangeSceneGameOver() {
-		LevelName = "GameOver"; // This is the level name that the scene will be changed to.
-		StartCoroutine ("ChangeLevel"); // This is the call to change scene.
+//		LevelName = "GameOver"; // This is the level name that the scene will be changed to.
+//		StartCoroutine ("ChangeLevel"); // This is the call to change scene.
+		savedData.GetComponent<SavedData>().TimeReset();
+		ChangeToMainMenu(); // This is temporarry until the GameOver Scene is finished.
 	}
 
 
@@ -45,6 +47,7 @@ public class SceneController : MonoBehaviour {
 
 	// This changes the Scene to the Main Menu
 	public void ChangeToMainMenu() {
+		savedData.GetComponent<SavedData>().TimeReset();
 		LevelName = "MainMenu-Redesign";
 		StartCoroutine ("ChangeLevel");
 	}
