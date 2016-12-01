@@ -3,8 +3,12 @@ using System.Collections;
 
 public class Boss_Movement_Decisions : MonoBehaviour {
 
+	public float moveTimeMin; // Minimum time to MoveTo before changing movement patterns (Measured in frames so values of around 500 are required)
+	public float moveTimeMax; // Maximum time to MoveTo before changing movement patterns (Measured in frames so values of around 500 are required)
+	public float pursueTimeMin; // Minimum time to pursue before changing movement patterns (Measured in frames so values of around 500 are required)
+	public float pursueTimeMax; // Maximum time to pursue before changing movement patterns (Measured in frames so values of around 500 are required)
 	public float orbitTimeMin; // Minimum time to do the orbit movement before changing movement patterns (Measured in frames so values of around 500 are required)
-	public float orbitTimeMax; // Maximum time to orbit before changing
+	public float orbitTimeMax; // Maximum time to orbit before changing movement patterns (Measured in frames so values of around 500 are required)
 	public float orbitDistance; // Distance to "orbit" the player at
 
 	private bool busy; // Sets to true after a decision is made, when the action finishes, is set back to true so the next action can take place
@@ -31,20 +35,20 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 	}
 
 	int MakeDecision() { // Hard coded to test decisions, will contain the decision tree
-		return 4;
+		return 3;
 	}
 
 	/* Call the appropiate movement method
 	0 = MoveTo
 	1 = ChargeTo
 	2 = Lunge
-	3 = Persue
+	3 = Pursue
 	4 = Orbit
 	*/
 	void Decide(int decision) {
 		switch (decision) {
 			case 0:
-				StartCoroutine(movementController.MoveTo(new Vector2()));
+				StartCoroutine(movementController.MoveTo(new Vector2(), (int)Random.Range(moveTimeMin, moveTimeMax)));
 			break;
 			case 1:
 				StartCoroutine(movementController.ChargeTo(new Vector2()));
@@ -53,7 +57,7 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 				StartCoroutine(movementController.Lunge(new Vector2()));
 			break;
 			case 3:
-				StartCoroutine(movementController.Persue(player));
+				StartCoroutine(movementController.Pursue(player, (int)Random.Range(pursueTimeMin, pursueTimeMax)));
 			break;
 			case 4:
 				StartCoroutine(movementController.Orbit(player, orbitDistance, RandomTrue(), (int)Random.Range(orbitTimeMin, orbitTimeMax)));

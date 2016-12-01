@@ -6,6 +6,7 @@ public class Boss_Movement_Controller : MonoBehaviour {
 	public float moveSpeed; // move speed of moveTo and persue
 	public float chargeSpeed; // move speed of chargeTo
 	public float lungeSpeed; // move speed of lunge
+	public float pursueSpeed; // move speed of pursue
 	public float orbitSpeed; // move speed of orbit
 
 	private Boss_Movement_Decisions movementDecisions;
@@ -14,20 +15,41 @@ public class Boss_Movement_Controller : MonoBehaviour {
 		movementDecisions = GetComponent<Boss_Movement_Decisions>();
 	}
 
-	public IEnumerator MoveTo(Vector2 destination) { // Moves at a slow speed to target location
-		yield return new WaitForFixedUpdate();
+	public IEnumerator MoveTo(Vector3 destination, int duration) { // Moves at a slow speed to target location
+		if (duration <= 0 || transform.position == destination) {
+			movementDecisions.SetBusy(false);
+		} else {
+			yield return new WaitForFixedUpdate();
+			StartCoroutine(MoveTo(destination, duration - 1));
+		}
 	}
 
-	public IEnumerator ChargeTo(Vector2 destination) { // Charges at a high speed to target location after a short build up, overshoots
-		yield return new WaitForFixedUpdate();
+	public IEnumerator ChargeTo(Vector3 destination) { // Charges at a high speed to target location after a short build up, overshoots
+		if (transform.position == destination) {
+			movementDecisions.SetBusy(false);
+		} else {
+			yield return new WaitForFixedUpdate();
+			StartCoroutine(ChargeTo(destination));
+		}
 	}
 
-	public IEnumerator Lunge(Vector2 destination) { // Short distance charge after a short delay
-		yield return new WaitForFixedUpdate();
+	public IEnumerator Lunge(Vector3 destination) { // Short distance charge after a short delay
+		if (transform.position == destination) {
+			movementDecisions.SetBusy(false);
+		} else {
+			yield return new WaitForFixedUpdate();
+			StartCoroutine(Lunge(destination));
+		}
 	}
 
-	public IEnumerator Persue(GameObject target) { // Follows target gameObject at a slow speed
-		yield return new WaitForFixedUpdate();
+	public IEnumerator Pursue(GameObject target, int duration) { // Follows target gameObject at a slow speed
+		transform.position = Vector3.MoveTowards(transform.position, target.transform.position, pursueSpeed); // Move toward the position of the player
+		if (duration <= 0) {
+			movementDecisions.SetBusy(false);
+		} else {
+			yield return new WaitForFixedUpdate();
+			StartCoroutine(Pursue(target, duration - 1));
+		}
 	}
 
 	public IEnumerator Orbit(GameObject target, float distance, bool clockwise, int duration) { // Rotates around the target gameObject at a moderate speed
