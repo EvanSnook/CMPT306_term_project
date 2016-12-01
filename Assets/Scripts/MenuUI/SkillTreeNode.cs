@@ -12,7 +12,7 @@ public class SkillTreeNode : MonoBehaviour {
     public GameObject skillsManager;
     //number of skill points requied to buy
     public int cost;
-    public Object skillScript;
+    public GameObject skillObject;
     public SkillType skillType;
     //Status of the node
     public bool locked;// true: unable to see. false: can see name and description.
@@ -101,37 +101,37 @@ public class SkillTreeNode : MonoBehaviour {
             case (SkillType.Q):
                 {
                     //search the tree for matching script
-                    foundTree = QTree.findSkillElement(skillScript.name);
+                    foundTree = QTree.findSkillElement(skillObject.name);
                     break;
                 }
             case (SkillType.E):
                 {
                     //search the tree for matching script
-                    foundTree = ETree.findSkillElement(skillScript.name);
+                    foundTree = ETree.findSkillElement(skillObject.name);
                     break;
                 }
             case (SkillType.MS):
                 {
                     //search the tree for matching script
-                    foundTree = MSTree.findSkillElement(skillScript.name);
+                    foundTree = MSTree.findSkillElement(skillObject.name);
                     break;
                 }
             case (SkillType.MW):
                 {
                     //search the tree for matching script
-                    foundTree = MWTree.findSkillElement(skillScript.name);
+                    foundTree = MWTree.findSkillElement(skillObject.name);
                     break;
                 }
             case (SkillType.RS):
                 {
                     //search the tree for matching script
-                    foundTree = RSTree.findSkillElement(skillScript.name);
+                    foundTree = RSTree.findSkillElement(skillObject.name);
                     break;
                 }
             case (SkillType.RW):
                 {
                     //search the tree for matching script
-                    foundTree = RWTree.findSkillElement(skillScript.name);
+                    foundTree = RWTree.findSkillElement(skillObject.name);
                     break;
                 }
             default:
