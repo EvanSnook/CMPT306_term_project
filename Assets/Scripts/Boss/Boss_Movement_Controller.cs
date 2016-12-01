@@ -20,8 +20,8 @@ public class Boss_Movement_Controller : MonoBehaviour {
 	}
 
 	public IEnumerator MoveTo(Vector3 destination, int duration) { // Moves at a slow speed to target location
-		StopAllCoroutines(); // We don't want to be doing multiple movement routines at the same time, stop any active ones.
-		if (duration <= 0) { // If the duration of this move is zero (or somehow below zero)
+		transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed); // Move to the target location
+		if (duration <= 0 || transform.position == destination) { // If the duration of this move is zero (or somehow below zero) or the destination is reached
 			movementDecisions.SetBusy(false); // Then we're done here, set busy to false so a new move can start
 		} else {
 			yield return new WaitForFixedUpdate(); // Otherwise, wait a frame
@@ -30,7 +30,6 @@ public class Boss_Movement_Controller : MonoBehaviour {
 	}
 
 	public IEnumerator ChargeTo(Vector3 destination) { // Charges at a high speed to target location after a short build up, overshoots
-		StopAllCoroutines(); // We don't want to be doing multiple movement routines at the same time, stop any active ones.
 		Vector3 heading = (transform.position - destination).normalized * -1; // change the destination to a normalized heading
 
 		while (Vector3.Distance(transform.position, destination) < chargeOvershoot // Keep charging if we are close to our destination (This allows for the overshoot)
@@ -44,7 +43,6 @@ public class Boss_Movement_Controller : MonoBehaviour {
 	}
 
 	public IEnumerator Lunge(Vector3 destination) { // Short distance charge after a short delay
-		StopAllCoroutines(); // We don't want to be doing multiple movement routines at the same time, stop any active ones.
 		// ----------------------------------WIND UP------------------------------------------------
 		Vector3 heading = (transform.position - destination).normalized; // change the destination to a normalized heading
 		for (int i=0; i < lungeWindUpTime; i++) { // Wind up for this many frames
@@ -65,7 +63,6 @@ public class Boss_Movement_Controller : MonoBehaviour {
 	}
 
 	public IEnumerator Pursue(GameObject target, int duration) { // Follows target gameObject at a slow speed
-		StopAllCoroutines(); // We don't want to be doing multiple movement routines at the same time, stop any active ones.
 		transform.position = Vector3.MoveTowards(transform.position, target.transform.position, pursueSpeed); // Move toward the position of the player
 
 		if (duration <= 0) { // If the duration of this move is zero (or somehow below zero)
@@ -77,7 +74,6 @@ public class Boss_Movement_Controller : MonoBehaviour {
 	}
 
 	public IEnumerator Orbit(GameObject target, float distance, bool clockwise, int duration) { // Rotates around the target gameObject at a moderate speed
-		StopAllCoroutines(); // We don't want to be doing multiple movement routines at the same time, stop any active ones.
 
 		Vector3 heading = target.transform.position - transform.position; // Get the direction towards the player
 		heading = heading.normalized; // Normalize that direction
@@ -94,5 +90,10 @@ public class Boss_Movement_Controller : MonoBehaviour {
 			yield return new WaitForFixedUpdate(); // Otherwise, wait a frame
 			StartCoroutine(Orbit(target, distance, clockwise, duration - 1)); // Wait for a frame, basically fixedUpdate
 		}
+	}
+
+	public IEnumerator Wait(float duration) { // Just chills in place
+		yield return new WaitForSeconds(duration); // Chillin'
+		movementDecisions.SetBusy(false); // Back to work
 	}
 }

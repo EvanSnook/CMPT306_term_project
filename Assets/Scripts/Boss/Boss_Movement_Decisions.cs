@@ -5,11 +5,14 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 
 	public float moveTimeMin; // Minimum time to MoveTo before changing movement patterns (Measured in frames so values of around 500 are required)
 	public float moveTimeMax; // Maximum time to MoveTo before changing movement patterns (Measured in frames so values of around 500 are required)
+	public float moveRange; // Potential range of random positions around player to move to
 	public float pursueTimeMin; // Minimum time to pursue before changing movement patterns (Measured in frames so values of around 500 are required)
 	public float pursueTimeMax; // Maximum time to pursue before changing movement patterns (Measured in frames so values of around 500 are required)
 	public float orbitTimeMin; // Minimum time to do the orbit movement before changing movement patterns (Measured in frames so values of around 500 are required)
 	public float orbitTimeMax; // Maximum time to orbit before changing movement patterns (Measured in frames so values of around 500 are required)
 	public float orbitDistance; // Distance to "orbit" the player at
+	public float waitTimeMin;
+	public float waitTimeMax;
 
 	private bool busy; // Sets to true after a decision is made, when the action finishes, is set back to true so the next action can take place
 	private GameObject player;
@@ -35,7 +38,7 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 	}
 
 	int MakeDecision() { // Hard coded to test decisions, will contain the decision tree
-		return 1;
+		return 5;
 	}
 
 	/* Call the appropiate movement method
@@ -44,11 +47,12 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 	2 = Lunge
 	3 = Pursue
 	4 = Orbit
+	5 - Wait
 	*/
 	void Decide(int decision) {
 		switch (decision) {
 			case 0:
-				StartCoroutine(movementController.MoveTo(new Vector2(), (int)Random.Range(moveTimeMin, moveTimeMax)));
+				StartCoroutine(movementController.MoveTo(player.transform.position + new Vector3(Random.Range(-moveRange, moveRange), Random.Range(-moveRange, moveRange), 0), (int)Random.Range(moveTimeMin, moveTimeMax)));
 			break;
 			case 1:
 				StartCoroutine(movementController.ChargeTo(player.transform.position));
@@ -61,6 +65,9 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 			break;
 			case 4:
 				StartCoroutine(movementController.Orbit(player, orbitDistance, RandomTrue(), (int)Random.Range(orbitTimeMin, orbitTimeMax)));
+			break;
+			case 5:
+				StartCoroutine(movementController.Wait(Random.Range(waitTimeMin, waitTimeMax)));
 			break;
 		}
 		busy = true; // Set busy to true until the coroutine that was called sets it back to false
