@@ -38,49 +38,48 @@ public class BossMelee : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //relocate the boss and player
-        setRadiusAt45();
-        player = GameObject.FindGameObjectWithTag("Player");
+		if (player == null) {
+			player = GameObject.FindGameObjectWithTag ("Player");
+		} else {
 
-        if (Vector3.Distance(player.transform.position, gameObject.transform.position) <= meleeDistance)
-        {
-            if (!onCooldown)
-            {
-                isAttacking = true;
-                onCooldown = true;
+			//relocate the boss and player
+			setRadiusAt45 ();
+
+			if (Vector3.Distance (player.transform.position, gameObject.transform.position) <= meleeDistance) {
+				if (!onCooldown) {
+					isAttacking = true;
+					onCooldown = true;
                 
-                FindAngleOfAttack();
+					FindAngleOfAttack ();
 
-                //make a new attack
-                meleeAttack = Instantiate(meleePrefab, transform.position, angleToFuture) as GameObject;
+					//make a new attack
+					meleeAttack = Instantiate (meleePrefab, transform.position, angleToFuture) as GameObject;
+					meleeAttack.GetComponent<DMG> ().Owner = this.gameObject;
 
-                //parent the object to the boss
-                meleeAttack.transform.parent = gameObject.transform;
+					//parent the object to the boss
+					meleeAttack.transform.parent = gameObject.transform;
                 
-                //start cooldowns
-                StartCoroutine("MeleeDuration");
-                StartCoroutine("CooldownTimer");
-            }
-        }
-        if(meleeAttack != null )
-        {
-            if (attackDirection != 0)
-            {
-                //reposition the attack to follow the boss
-                meleeAttack.transform.position = gameObject.transform.position;
+					//start cooldowns
+					StartCoroutine ("MeleeDuration");
+					StartCoroutine ("CooldownTimer");
+				}
+			}
+			if (meleeAttack != null) {
+				if (attackDirection != 0) {
+					//reposition the attack to follow the boss
+					meleeAttack.transform.position = gameObject.transform.position;
 
-                //rotate the asttack to move it abit
-                meleeAttack.transform.Rotate(0f, 0f, meleeSpeed * attackDirection);
+					//rotate the asttack to move it abit
+					meleeAttack.transform.Rotate (0f, 0f, meleeSpeed * attackDirection);
 
-                //translate the attack back out a ways
-                meleeAttack.transform.Translate(swingRadius, 0f, 0f);
-            }
-            else
-            {
-                //translate the attack outward to stab at player
-                meleeAttack.transform.Translate(jabSpeed, 0f, 0f);
-            }
-        }
+					//translate the attack back out a ways
+					meleeAttack.transform.Translate (swingRadius, 0f, 0f);
+				} else {
+					//translate the attack outward to stab at player
+					meleeAttack.transform.Translate (jabSpeed, 0f, 0f);
+				}
+			}
+		}
     }
 
     //find the players location around the boss and check where the player is headed too
