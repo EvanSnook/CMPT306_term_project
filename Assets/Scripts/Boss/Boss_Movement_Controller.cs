@@ -14,20 +14,20 @@ public class Boss_Movement_Controller : MonoBehaviour {
 		movementDecisions = GetComponent<Boss_Movement_Decisions>();
 	}
 
-	public void MoveTo(Vector2 destination) { // Moves at a slow speed to target location
-
+	public IEnumerator MoveTo(Vector2 destination) { // Moves at a slow speed to target location
+		yield return new WaitForFixedUpdate();
 	}
 
-	public void ChargeTo(Vector2 destination) { // Charges at a high speed to target location after a short build up, overshoots
-
+	public IEnumerator ChargeTo(Vector2 destination) { // Charges at a high speed to target location after a short build up, overshoots
+		yield return new WaitForFixedUpdate();
 	}
 
-	public void Lunge(Vector2 destination) { // Short distance charge after a short delay
-
+	public IEnumerator Lunge(Vector2 destination) { // Short distance charge after a short delay
+		yield return new WaitForFixedUpdate();
 	}
 
-	public void Persue(GameObject target) { // Follows target gameObject at a slow speed
-
+	public IEnumerator Persue(GameObject target) { // Follows target gameObject at a slow speed
+		yield return new WaitForFixedUpdate();
 	}
 
 	public IEnumerator Orbit(GameObject target, float distance, bool clockwise, int duration) { // Rotates around the target gameObject at a moderate speed

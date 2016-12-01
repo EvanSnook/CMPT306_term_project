@@ -26,16 +26,16 @@ public class Boss_Movement_Decisions : MonoBehaviour {
 	void Decide(int decision) {
 		switch (decision) {
 			case 0:
-				movementController.MoveTo(new Vector2());
+				StartCoroutine(movementController.MoveTo(new Vector2()));
 			break;
 			case 1:
-				movementController.ChargeTo(new Vector2());
+				StartCoroutine(movementController.ChargeTo(new Vector2()));
 			break;
 			case 2:
-				movementController.Lunge(new Vector2());
+				StartCoroutine(movementController.Lunge(new Vector2()));
 			break;
 			case 3:
-				movementController.Persue(player);
+				StartCoroutine(movementController.Persue(player));
 			break;
 			case 4:
 				StartCoroutine(movementController.Orbit(player, 30, false, 1000));
