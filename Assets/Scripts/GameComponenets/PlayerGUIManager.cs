@@ -8,7 +8,7 @@ public class PlayerGUIManager : MonoBehaviour {
 	public GameObject TimerObject; // This is the TimerObject where you can get the Time remaining.
 
 	public GameObject HealthNumberGUI; // This is the Element that Holds how much Health the player has.
-	public GameObject TimerGUI;
+	public GameObject TimerGUI; // This is the Element that Holds how much time is remaining.
 
 	private Text HealthNumber; // This is the Text for the TextGUI that holds the HealthNumber.
 	private Text Timer; // This is the Text for the TextGUI that holds the Timer.
