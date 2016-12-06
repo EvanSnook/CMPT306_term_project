@@ -78,16 +78,4 @@ public class SceneController : MonoBehaviour {
 		yield return new WaitForSeconds (FadeTime); // This makes it wait until it has fully faded out.
 		Application.Quit(); // This Closes the application quiting the game.
 	}
-    
-
-	// This is only used in the test scenes and will be removed in final product.
-	public void ChangeTestScene() {
-		if (CurrentlyLoadedScene == "TestScene1") { // This is for testing the change scene. 
-			LevelName = "TestScene2";
-			StartCoroutine ("ChangeLevel");
-		} else {
-			LevelName = "TestScene1";
-			StartCoroutine ("ChangeLevel");
-		}
-	}
 }
