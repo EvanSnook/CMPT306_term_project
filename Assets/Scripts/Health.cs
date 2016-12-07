@@ -7,11 +7,12 @@ public class Health : MonoBehaviour {
 
 	private float StartingHealthPoints; // This is the health points that the player has at the start.
 	public GameObject DeathManagerObject; // This is the object that holds what to 
-
+    public GameObject SavedData; // This is the savedDataObject.
 
 	void Start() {
 		DeathManagerObject = GameObject.Find ("DeathManagerObject"); // This gets a reference to the death Manager Object.
 		StartingHealthPoints = HealthPoints; // This just sets the StartingHealthPoints to the health points that were there when they started.
+        SavedData = GameObject.Find ("SavedData"); // This gets a reference to the saved data object.
 	}
 
 
@@ -39,6 +40,7 @@ public class Health : MonoBehaviour {
 	// This is what happends when the player dies.
 	public void PlayerDeath() {
 		DeathManagerObject.GetComponent<RespawnController> ().SendMessage("PlayerOrBossDied"); // Player Died send message to tell the Gravekeeper about it.
+        SavedData.GetComponent<PlayerSavedData> ().SendMessage ("PlayerDied"); // This sends a message that the player died.
 		Destroy(gameObject); // Destroy the body.
 	}
 }
