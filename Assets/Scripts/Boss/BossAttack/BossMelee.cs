@@ -11,8 +11,11 @@ public class BossMelee : MonoBehaviour {
     public float futureTime;
     public float swingRadius;
     public float jabSpeed;
+    public float minFutureDistance;
+    public float maxFutureDistance;
 
-	public float MeleeLengthScale; // This will scale the length of the melee's attack.
+
+    public float MeleeLengthScale; // This will scale the length of the melee's attack.
 	public float MeleeWidthScale; // This will scale the width of the melee's attack.
 
     private GameObject player;
@@ -93,39 +96,196 @@ public class BossMelee : MonoBehaviour {
         //calculate thwere the player is headed too with futureTime
         futurePos = new Vector3(player.transform.position.x + (player.GetComponent<Rigidbody2D>().velocity.x * futureTime), player.transform.position.y + (player.GetComponent<Rigidbody2D>().velocity.y * futureTime), player.transform.position.z);
 
+
+
         //check what quadrant the player is in aroynd the boss and what its velocity is
         if      ((player.transform.position.x > gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y > 0) ||
-                 (player.transform.position.x < gameObject.transform.position.x - edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y < 0) ||
-                 (player.transform.position.y > gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x < 0) ||
-                 (player.transform.position.y < gameObject.transform.position.x - edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x > 0))
+                 (player.transform.position.y > gameObject.transform.position.y + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x < 0))
         {
-            //assign the angle to the players future position
-            angleToFuture = Quaternion.FromToRotation(Vector3.right, futurePos - transform.position);
-
+            if (futurePos.x - player.transform.position.x < minFutureDistance)
+            {
+                futurePos.x = player.transform.position.x - minFutureDistance;
+            }
+            else if (futurePos.x - player.transform.position.x > maxFutureDistance)
+            {
+                futurePos.x = player.transform.position.x - maxFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y < minFutureDistance)
+            {
+                futurePos.y = player.transform.position.y + minFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y > maxFutureDistance)
+            {
+                futurePos.y = player.transform.position.y + maxFutureDistance;
+            }
             //in these cases the boss needs to swing in the negative direction of degrees
             attackDirection = -1;
         }
         //check what quadrant the player is in aroynd the boss and what its velocity is
         else if ((player.transform.position.x > gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y < 0) ||
-                 (player.transform.position.x < gameObject.transform.position.x - edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y > 0) ||
-                 (player.transform.position.y > gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x > 0) ||
-                 (player.transform.position.y < gameObject.transform.position.x - edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x < 0))
+                 (player.transform.position.y > gameObject.transform.position.y - edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x < 0))
         {
-            //assign the angle to the players future position
-            angleToFuture = Quaternion.FromToRotation(Vector3.right, futurePos - transform.position);
-
+            if (futurePos.x - player.transform.position.x < minFutureDistance)
+            {
+                futurePos.x = player.transform.position.x - minFutureDistance;
+            }
+            else if (futurePos.x - player.transform.position.x > maxFutureDistance)
+            {
+                futurePos.x = player.transform.position.x - maxFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y < minFutureDistance)
+            {
+                futurePos.y = player.transform.position.y - minFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y > maxFutureDistance)
+            {
+                futurePos.y = player.transform.position.y - maxFutureDistance;
+            }
             //in these cases the boss needs to swing in the negative direction of degrees
             attackDirection = 1;
         }
-
+        else if ((player.transform.position.x > gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y < 0) ||
+                 (player.transform.position.y > gameObject.transform.position.y + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x > 0))
+        {
+            if (futurePos.x - player.transform.position.x < minFutureDistance)
+            {
+                futurePos.x = player.transform.position.x + minFutureDistance;
+            }
+            else if (futurePos.x - player.transform.position.x > maxFutureDistance)
+            {
+                futurePos.x = player.transform.position.x + maxFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y < minFutureDistance)
+            {
+                futurePos.y = player.transform.position.y - minFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y > maxFutureDistance)
+            {
+                futurePos.y = player.transform.position.y - maxFutureDistance;
+            }
+            //in these cases the boss needs to swing in the negative direction of degrees
+            attackDirection = 1;
+        }
+        //check what quadrant the player is in aroynd the boss and what its velocity is
+        else if ((player.transform.position.x > gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y > 0) ||
+                 (player.transform.position.y > gameObject.transform.position.y - edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x > 0))
+        {
+            if (futurePos.x - player.transform.position.x < minFutureDistance)
+            {
+                futurePos.x = player.transform.position.x + minFutureDistance;
+            }
+            else if (futurePos.x - player.transform.position.x > maxFutureDistance)
+            {
+                futurePos.x = player.transform.position.x + maxFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y < minFutureDistance)
+            {
+                futurePos.y = player.transform.position.y + minFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y > maxFutureDistance)
+            {
+                futurePos.y = player.transform.position.y + maxFutureDistance;
+            }
+            //in these cases the boss needs to swing in the negative direction of degrees
+            attackDirection = -1;
+        }
+        //check what quadrant the player is in aroynd the boss and what its velocity is
+        else if ((player.transform.position.x < gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y > 0) ||
+                 (player.transform.position.y < gameObject.transform.position.y + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x < 0))
+        {
+            if (futurePos.x - player.transform.position.x < minFutureDistance)
+            {
+                futurePos.x = player.transform.position.x - minFutureDistance;
+            }
+            else if (futurePos.x - player.transform.position.x > maxFutureDistance)
+            {
+                futurePos.x = player.transform.position.x - maxFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y < minFutureDistance)
+            {
+                futurePos.y = player.transform.position.y + minFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y > maxFutureDistance)
+            {
+                futurePos.y = player.transform.position.y + maxFutureDistance;
+            }
+            //in these cases the boss needs to swing in the negative direction of degrees
+            attackDirection = 1;
+        }
+        //check what quadrant the player is in aroynd the boss and what its velocity is
+        else if ((player.transform.position.x < gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y < 0) ||
+                 (player.transform.position.y < gameObject.transform.position.y - edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x < 0))
+        {
+            if (futurePos.x - player.transform.position.x < minFutureDistance)
+            {
+                futurePos.x = player.transform.position.x - minFutureDistance;
+            }
+            else if (futurePos.x - player.transform.position.x > maxFutureDistance)
+            {
+                futurePos.x = player.transform.position.x - maxFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y < minFutureDistance)
+            {
+                futurePos.y = player.transform.position.y - minFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y > maxFutureDistance)
+            {
+                futurePos.y = player.transform.position.y - maxFutureDistance;
+            }
+            //in these cases the boss needs to swing in the negative direction of degrees
+            attackDirection = -1;
+        }
+        else if ((player.transform.position.x < gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y < 0) ||
+                 (player.transform.position.y < gameObject.transform.position.y + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x > 0))
+        {
+            if (futurePos.x - player.transform.position.x < minFutureDistance)
+            {
+                futurePos.x = player.transform.position.x + minFutureDistance;
+            }
+            else if (futurePos.x - player.transform.position.x > maxFutureDistance)
+            {
+                futurePos.x = player.transform.position.x + maxFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y < minFutureDistance)
+            {
+                futurePos.y = player.transform.position.y - minFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y > maxFutureDistance)
+            {
+                futurePos.y = player.transform.position.y - maxFutureDistance;
+            }
+            //in these cases the boss needs to swing in the negative direction of degrees
+            attackDirection = -1;
+        }
+        //check what quadrant the player is in aroynd the boss and what its velocity is
+        else if ((player.transform.position.x < gameObject.transform.position.x + edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.y > 0) ||
+                 (player.transform.position.y < gameObject.transform.position.y - edgeAt45DegOut && player.GetComponent<Rigidbody2D>().velocity.x > 0))
+        {
+            if (futurePos.x - player.transform.position.x < minFutureDistance)
+            {
+                futurePos.x = player.transform.position.x + minFutureDistance;
+            }
+            else if (futurePos.x - player.transform.position.x > maxFutureDistance)
+            {
+                futurePos.x = player.transform.position.x + maxFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y < minFutureDistance)
+            {
+                futurePos.y = player.transform.position.y + minFutureDistance;
+            }
+            else if (futurePos.y - player.transform.position.y > maxFutureDistance)
+            {
+                futurePos.y = player.transform.position.y + maxFutureDistance;
+            }
+            //in these cases the boss needs to swing in the negative direction of degrees
+            attackDirection = 1;
+        }
         else {
-            //assign the angle to the players current position
-            angleToFuture = Quaternion.FromToRotation(Vector3.right, player.transform.position - transform.position);
-
             //the melee does not rotate because this is the jab attack
             attackDirection = 0;
         }
-        
+        //assign the angle to the players current position
+        angleToFuture = Quaternion.FromToRotation(Vector3.right, futurePos - transform.position);
 
     }
     IEnumerator MeleeDuration()
