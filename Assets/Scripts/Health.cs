@@ -17,7 +17,7 @@ public class Health : MonoBehaviour {
 
 	void Update() {
 		if (HealthPoints <= 0) { // If health is 0 or less call Death.
-			if (gameObject.tag == "Player") {
+			if (gameObject.tag == "Player") { // If this object is the player call PlayerDeath.
 				PlayerDeath ();
 			} else {
 				Death ();
@@ -31,23 +31,14 @@ public class Health : MonoBehaviour {
 		HealthPoints -= DMG;
 	}
 	
-    // This is what happends when dead.
+    // This is what happends when objects other than the player die.
     public void Death() {
-	    Destroy(gameObject);
+	    Destroy(gameObject); // Destroy this object.
 	}
 
 	// This is what happends when the player dies.
 	public void PlayerDeath() {
 		DeathManagerObject.GetComponent<RespawnController> ().SendMessage("PlayerOrBossDied"); // Player Died send message to tell the Gravekeeper about it.
 		Destroy(gameObject); // Destroy the body.
-	}
-
-	// This checks to see if this is at full health.
-	public bool isFullHealth() {
-		if (HealthPoints == StartingHealthPoints) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }
