@@ -46,11 +46,6 @@ public class PlayerSavedData : MonoBehaviour {
         SkillPoints -= NumberOfPoints;
     }
 
-	// Save any Data for the player.
-	public void DeathSavePlayer () {
-		// Do nothing.
-	}
-
     // This is called when the player dies and increments the number of deaths for the player.
     public void PlayerDied () {
         NumberOfDeaths++;
