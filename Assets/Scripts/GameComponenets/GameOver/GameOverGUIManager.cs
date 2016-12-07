@@ -25,19 +25,19 @@ public class GameOverGUIManager : MonoBehaviour {
 
 		PlayerDeaths = GameObject.Find ("PlayerNumberOfDeathsText"); // This gets a reference to the PlayerDeathsText GUI Object.
 		PlayerDeathsText = PlayerDeaths.GetComponent<Text> (); // This gets the Text Component of the PlayerDeaths.
-//		PlayerDeathsText = SavedData.GetComponent<PlayerSavedData>().PlayerNumberofDeaths; // This gets the Number of Deaths for the Player.
+		PlayerDeathsText.text = "Deaths:" + SavedData.GetComponent<PlayerSavedData> ().NumberOfDeaths; // This gets the Number of Deaths for the Player.
 
 		PlayerDamageDone = GameObject.Find ("DamageDoneToBossText"); // This gets a reference to the DamagerDoneToBossText GUI Object.
 		PlayerDamageDoneText = PlayerDamageDone.GetComponent<Text> (); // This gets the Text Component of the PlayerDamageDone.
-//		PlayerDamageDoneText = SavedData.GetComponent<PlayerSavedData> ().DamageDoneToBoss; // This gets the amount of damage done to the boss.
+		PlayerDamageDoneText.text = "Damage Done to Boss: " + SavedData.GetComponent<PlayerSavedData> ().DamageDoneToBoss; // This gets the amount of damage done to the boss.
 
 		BossDeaths = GameObject.Find ("BossNumberOfDeathsText"); // This gets a refernce to the BossDeathsText GUI Object.
 		BossDeathsText = BossDeaths.GetComponent<Text>(); // This gets the Text Component of the Bossdeaths.
-//		BossDeathsText = SavedData.GetComponent<BossSavedData> ().BossNumberOfDeaths; // This gets the NUmber of Deaths for the Boss.
+		BossDeathsText.text = "Number of Deaths:" + SavedData.GetComponent<BossSavedData> ().NumberOfDeaths; // This gets the NUmber of Deaths for the Boss.
 
 		BossDamageDone = GameObject.Find ("DamageDoneToPlayerText"); // This gets a reference to the DamageDonetoPlayer GUI Object.
 		BossDamageDoneText = BossDamageDone.GetComponent<Text>(); // This gets the Text Component of the BossDamageDone.
-//		BossDamageDoneText = SavedData.GetComponent<BossSavedData>().BossDamageDone; // This Gets the amount of damage done to the player.
+		BossDamageDoneText.text = "Damage Done to Player: " + SavedData.GetComponent<BossSavedData> ().DamageDoneToPlayer; // This Gets the amount of damage done to the player.
 
 
 	}
