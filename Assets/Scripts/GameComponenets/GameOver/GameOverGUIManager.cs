@@ -35,27 +35,38 @@ public class GameOverGUIManager : MonoBehaviour {
 		PlayerDeathsText = PlayerDeaths.GetComponent<Text> (); // This gets the Text Component of the PlayerDeaths.
 		PlayerDeathsText.text = "Number of Deaths: " + SavedData.GetComponent<PlayerSavedData> ().NumberOfDeaths; // This gets the Number of Deaths for the Player.
 
-		PlayerDamageDone = GameObject.Find ("PlayerDMGDoneText"); // This gets a reference to the DamagerDoneToBossText GUI Object.
+		PlayerDamageDone = GameObject.Find ("PlayerTotalDMGDoneText"); // This gets a reference to the DamagerDoneToBossText GUI Object.
 		PlayerDamageDoneText = PlayerDamageDone.GetComponent<Text> (); // This gets the Text Component of the PlayerDamageDone.
-		PlayerDamageDoneText.text = "Damage Done to Boss: " + SavedData.GetComponent<PlayerSavedData> ().TotalDamageDoneToBoss(); // This gets the amount of damage done to the boss.
+		PlayerDamageDoneText.text = "Total Damage to Boss: " + SavedData.GetComponent<PlayerSavedData> ().TotalDamageDoneToBoss(); // This gets the amount of damage done to the boss.
 
         PlayerMeleeDMGDone = GameObject.Find ("PlayerMeleeDMGDoneText");
         PlayerMeleeDMGDoneText = PlayerMeleeDMGDone.GetComponent<Text> ();
-        PlayerMeleeDMGDoneText.text = "Melee Damage Done: " + SavedData.GetComponent<PlayerSavedData> ().MeleeDamageDone;
+        PlayerMeleeDMGDoneText.text = "Melee Damage: " + SavedData.GetComponent<PlayerSavedData> ().MeleeDamageDone;
 
         PlayerRangedDMGDone = GameObject.Find ("PlayerRangedDMGDoneText");
-        PlayerRangedDMGDoneText = PlayerMeleeDMGDone.GetComponent<Text> ();
-        PlayerRangedDMGDoneText.text = "Ranged Damage Done: " + SavedData.GetComponent<PlayerSavedData> ().RangedDamageDone;
+        PlayerRangedDMGDoneText = PlayerRangedDMGDone.GetComponent<Text> ();
+        PlayerRangedDMGDoneText.text = "Ranged Damage: " + SavedData.GetComponent<PlayerSavedData> ().RangedDamageDone;
 
 
 		BossDeaths = GameObject.Find ("BossNumberOfDeathsText"); // This gets a refernce to the BossDeathsText GUI Object.
 		BossDeathsText = BossDeaths.GetComponent<Text>(); // This gets the Text Component of the Bossdeaths.
 		BossDeathsText.text = "Number of Deaths: " + SavedData.GetComponent<BossSavedData> ().NumberOfDeaths; // This gets the NUmber of Deaths for the Boss.
 
-		BossDamageDone = GameObject.Find ("BossDMGText"); // This gets a reference to the BossDamageText GUI Object.
+		BossDamageDone = GameObject.Find ("BossTotalDMGDoneText"); // This gets a reference to the BossDamageText GUI Object.
 		BossDamageDoneText = BossDamageDone.GetComponent<Text>(); // This gets the Text Component of the BossDamageDone.
-		BossDamageDoneText.text = "Damage Done to Player: " + SavedData.GetComponent<BossSavedData> ().TotalDamageDoneToPlayer(); // This Gets the amount of damage done to the player.
+		BossDamageDoneText.text = "Total Damage to Player: " + SavedData.GetComponent<BossSavedData> ().TotalDamageDoneToPlayer(); // This Gets the amount of damage done to the player.
 
+        BossCollisionDMGDone = GameObject.Find ("BossCollisionDMGDoneText");
+        BossCollisionDMGDoneText = BossCollisionDMGDone.GetComponent<Text> ();
+        BossCollisionDMGDoneText.text = "Collision Damage: " + SavedData.GetComponent<BossSavedData> ().BossCollisionDamage;
+
+        BossMeleeDMGDone = GameObject.Find ("BossMeleeDMGDoneText");
+        BossMeleeDMGDoneText = BossMeleeDMGDone.GetComponent<Text> ();
+        BossMeleeDMGDoneText.text = "Melee Damage: " + SavedData.GetComponent<BossSavedData> ().BossMeleeDamage;
+
+        BossRangedDMGDone = GameObject.Find ("BossRangedDMGDoneText");
+        BossRangedDMGDoneText = BossRangedDMGDone.GetComponent<Text> ();
+        BossRangedDMGDoneText.text = "Ranged Damage: " + SavedData.GetComponent<BossSavedData> ().BossRangedDamage;
 
 	}
 	
