@@ -52,4 +52,16 @@ public class BossSavedData : MonoBehaviour {
         BossRangedDamage = 0; // This resets teh BossRangedDamage done to the player.
     }
 
+    public void BossCollisionDMG (int DMGDone) {
+        BossCollisionDamage += DMGDone;
+    }
+
+    public void BossMeleeDMG (int DMGDone) {
+        BossMeleeDamage += DMGDone;
+    }
+
+    public void BossRangedDMG (int DMGDone) {
+        BossRangedDamage += DMGDone;
+    }
+
 }

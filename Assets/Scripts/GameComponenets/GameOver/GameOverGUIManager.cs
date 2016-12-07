@@ -29,7 +29,7 @@ public class GameOverGUIManager : MonoBehaviour {
 
 		PlayerDamageDone = GameObject.Find ("DamageDoneToBossText"); // This gets a reference to the DamagerDoneToBossText GUI Object.
 		PlayerDamageDoneText = PlayerDamageDone.GetComponent<Text> (); // This gets the Text Component of the PlayerDamageDone.
-		PlayerDamageDoneText.text = "Damage Done to Boss: " + SavedData.GetComponent<PlayerSavedData> ().DamageDoneToBoss; // This gets the amount of damage done to the boss.
+		PlayerDamageDoneText.text = "Damage Done to Boss: " + SavedData.GetComponent<PlayerSavedData> ().TotalDamageDoneToBoss(); // This gets the amount of damage done to the boss.
 
 		BossDeaths = GameObject.Find ("BossNumberOfDeathsText"); // This gets a refernce to the BossDeathsText GUI Object.
 		BossDeathsText = BossDeaths.GetComponent<Text>(); // This gets the Text Component of the Bossdeaths.
@@ -37,7 +37,7 @@ public class GameOverGUIManager : MonoBehaviour {
 
 		BossDamageDone = GameObject.Find ("DamageDoneToPlayerText"); // This gets a reference to the DamageDonetoPlayer GUI Object.
 		BossDamageDoneText = BossDamageDone.GetComponent<Text>(); // This gets the Text Component of the BossDamageDone.
-		BossDamageDoneText.text = "Damage Done to Player: " + SavedData.GetComponent<BossSavedData> ().DamageDoneToPlayer; // This Gets the amount of damage done to the player.
+		BossDamageDoneText.text = "Damage Done to Player: " + SavedData.GetComponent<BossSavedData> ().TotalDamageDoneToPlayer(); // This Gets the amount of damage done to the player.
 
 
 	}
