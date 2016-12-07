@@ -6,11 +6,12 @@ public class PlayerFlashOnDamage : MonoBehaviour {
     public float FlashDuration; // This is the length of time that the sprite with this script changes colour.
 
     private SpriteRenderer Sprite; // This is the sprite renderer which is where the colour can be edited.
-    private Color original = new Color(143, 0, 139, 255);
+    private Color original;
 
     void Start()
     {
         Sprite = GetComponent<SpriteRenderer>(); // This gets the sprite renderer component of this object.
+        original = Sprite.color;
     }
 
     // This is called when damage is done to this object. It will change the colour of this object.
