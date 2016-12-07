@@ -23,7 +23,6 @@ public class SavedData : MonoBehaviour {
 	// Save any important Data.
     public void SaveData() {
 		gameObject.GetComponent<BossSavedData>().SendMessage ("DeathSaveBoss"); // This sends a message to the BossSavedData to save anything it needs.
-		gameObject.GetComponent<PlayerSavedData> ().SendMessage ("DeathSavePlayer"); // This sends a message to the PlayerSavedData to save anything it needs.
         TimeRemaining = GameObject.Find("TimerObject").GetComponent<GameTimer>().GameCountdown; // This saves the remaining time.
     }
 
