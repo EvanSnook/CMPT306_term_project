@@ -39,7 +39,7 @@ public class BossMelee : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		if (player == null) { // If the player hasn't been found look for the player.
 			player = GameObject.FindGameObjectWithTag ("Player"); // Find the Player and set the player to it.
@@ -55,8 +55,8 @@ public class BossMelee : MonoBehaviour {
                 
 					FindAngleOfAttack ();
 
-					//make a new attack
-					meleeAttack = Instantiate (meleePrefab, transform.position, angleToFuture) as GameObject;
+                    //make a new attack
+                    meleeAttack = Instantiate(meleePrefab, new Vector3(transform.position.x, transform.position.y, 0f), angleToFuture) as GameObject;
 					meleeAttack.GetComponent<DMG> ().Owner = this.gameObject; // Set the owner of the melee attack to the boss so it won't attack itself.
 
 					meleeAttack.transform.localScale = new Vector3 (MeleeLengthScale, MeleeWidthScale, 0); // This will scale the meleeAttack to the scale input.
