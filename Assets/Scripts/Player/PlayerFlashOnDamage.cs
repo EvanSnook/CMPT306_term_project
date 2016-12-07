@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FlashOnDamage : MonoBehaviour {
+public class PlayerFlashOnDamage : MonoBehaviour {
 
     public float FlashDuration; // This is the length of time that the sprite with this script changes colour.
 
     private SpriteRenderer Sprite; // This is the sprite renderer which is where the colour can be edited.
+    private Color original = new Color(143, 0, 139, 255);
 
     void Start()
     {
@@ -23,6 +24,8 @@ public class FlashOnDamage : MonoBehaviour {
     IEnumerator RevertColor()
     {
         yield return new WaitForSeconds(FlashDuration);
-        Sprite.color = Color.red;
+        Sprite.color = original;
     }
+
+
 }
