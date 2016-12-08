@@ -25,10 +25,15 @@ public class Melee : MonoBehaviour {
 	private int comboState;
 	private float timeOfLastSwing;
 
-	// Use this for initialization
-	void Start () {
+    bool StartCooldown;
+    float CurrentCooldown;
+
+
+    // Use this for initialization
+    void Start () {
 		canSwing = true;
 		comboState = 0;
+        StartCooldown = false;
 	}
 
 	void SwingAtMouse () {
@@ -77,9 +82,29 @@ public class Melee : MonoBehaviour {
 		}
 	}
 
+
 	IEnumerator RefreshSwing() { // Sets canSwing to true, used to control the cooldown of swing
+        CurrentCooldown = cooldownDuration;
+        StartCooldown = true;
+
 		yield return new WaitForSeconds(cooldownDuration);
+        StartCooldown = false;
 
 		canSwing = true;
 	}
+
+    void Update() {
+        if (StartCooldown == true) {
+            CurrentCooldown = CurrentCooldown - Time.deltaTime;
+        }
+        else {
+            CurrentCooldown = cooldownDuration;
+        }
+    }
+
+    // This give the fraction of how much cooldown is left.
+    public float FractionCooldown() {
+        return CurrentCooldown / cooldownDuration;
+    }
+
 }

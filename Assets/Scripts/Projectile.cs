@@ -21,9 +21,13 @@ public class Projectile : MonoBehaviour {
 		}
 	}
 
+    // This give the fraction of how much cooldown is left.
+    public float FractionCooldown () {
+        return Timer / CooldownTimer;
+    }
 
-	// This Finds the Mouse and Fires a Projectile in the Mouses Direction.
-	private void FireProjectileAtMouse() {
+    // This Finds the Mouse and Fires a Projectile in the Mouses Direction.
+    private void FireProjectileAtMouse() {
 		if (CanFire) { // If Fire1 pressed and CanFire then FireProjectileAtMouse.
 			CanFire = false;
 			GetComponent<PlayerController> ().startGlobalCooldown();
