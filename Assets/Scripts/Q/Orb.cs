@@ -62,6 +62,7 @@ public class Orb : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
+            GetComponent<PlayerController> ().startGlobalCooldown();
             orbFollowing = true;
 
             //start cooldowns
@@ -75,7 +76,7 @@ public class Orb : MonoBehaviour {
         // Get the Mouse Position on the screen
         mousePosition = Input.mousePosition;
 
-        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game 
+        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game
         mousePosition.z = transform.position.z - Camera.main.transform.position.z;
 
         //change the cooridinate type from screen position of the computer to the world position within the game
