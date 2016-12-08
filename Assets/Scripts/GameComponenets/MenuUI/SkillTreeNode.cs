@@ -73,6 +73,11 @@ public class SkillTreeNode : MonoBehaviour {
     {
         return (!this.locked && this.numberOfInvests < this.maxNumberOfInvests);
     }
+    
+    public void SelectSkill()
+    {
+        gameObject.GetComponent<Image>().color = new Color(0.95f, 0.90f, 0.24f);
+    }
 
     public void MaxSkill()
     {
@@ -166,20 +171,28 @@ public class SkillTreeNode : MonoBehaviour {
             this.numberOfInvests = foundTree.skillElement.numberOfInvests;
         }
         //change the properties (color, tooltip activation)
+        
         if (this.locked)
         {
             LockSkill();
         }
         else if (this.bought)
         {
-            if(this.numberOfInvests >= this.maxNumberOfInvests)
+            if(skillsManager.GetComponent<SkillManager>().selectedSkill.skillObject == this.skillObject)
             {
-                MaxSkill();
-            }
-            else
+                SelectSkill();
+            }else
             {
-                PurchaseSkill();
+                if(this.numberOfInvests >= this.maxNumberOfInvests)
+                {
+                    MaxSkill();
+                }
+                else
+                {
+                    PurchaseSkill();
+                }
             }
+            
                 
         }
         else
