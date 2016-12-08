@@ -31,6 +31,11 @@ public class Shield : MonoBehaviour {
         }
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        //catch message
+    }
+
     void UseShield()
     {
         if (canShield)

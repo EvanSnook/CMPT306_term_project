@@ -30,6 +30,11 @@ public class Directable : MonoBehaviour {
         }
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        //catch message
+    }
+
     void FixedUpdate()
     {
         //if the player has a shield active
