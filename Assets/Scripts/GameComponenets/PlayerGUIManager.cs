@@ -39,6 +39,9 @@ public class PlayerGUIManager : MonoBehaviour {
 			Player = GameObject.FindGameObjectWithTag ("Player"); // This gets a reference to the player if this has not be found.
 		} else {
 			HealthBar.fillAmount = Player.GetComponent<Health> ().HealthPoints / 100f;
+			MeleeCooldown.fillAmount = Player.GetComponent<PlayerController> ().getGlobalCooldown();
+			RangedCooldown.fillAmount = Player.GetComponent<PlayerController> ().getGlobalCooldown();
+			QCooldown.fillAmount = Player.GetComponent<PlayerController> ().getGlobalCooldown();
 			HealthNumber.text = "Health: " + Player.GetComponent<Health> ().HealthPoints; // This gets the current Health Component and sets the GUI object to it.
 			Timer.text = "Time Remaining: " + TimerObject.GetComponent<GameTimer> ().GameCountdown.ToString("N0"); // This gets the current TimeRemaining and sets the GUI object to it.
 		}

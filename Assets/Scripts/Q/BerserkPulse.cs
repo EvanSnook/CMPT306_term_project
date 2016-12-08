@@ -9,7 +9,7 @@ public class BerserkPulse : MonoBehaviour {
     public float growthRate;
     public int damageMultiplier;
     public GameObject pulsePrefab;
-    
+
     private GameObject pulse;
     private bool canInvuln;
     private bool isInvuln;
@@ -20,7 +20,7 @@ public class BerserkPulse : MonoBehaviour {
     {
         canInvuln = true;
         isInvuln = false;
-        
+
         //get the renderer for the object
         render = gameObject.transform.parent.GetComponent<SpriteRenderer>();
     }
@@ -34,7 +34,7 @@ public class BerserkPulse : MonoBehaviour {
     {
         if (pulse != null)
         {
-            //make the shield and collider grow 
+            //make the shield and collider grow
             pulse.transform.localScale += new Vector3(growthRate, growthRate, 0);
             Destroy(pulse, pulseDespawnTime);
         }
@@ -58,7 +58,7 @@ public class BerserkPulse : MonoBehaviour {
             pulse.transform.parent = gameObject.transform;
 
             //start cooldowns
-            
+
             StartCoroutine("RefreshCooldown");
         }
 
@@ -70,9 +70,10 @@ public class BerserkPulse : MonoBehaviour {
         {
             canInvuln = false;
             isInvuln = true;
+            GetComponent<PlayerController> ().startGlobalCooldown();
             //change character color
             render.color = new Color(1f, 0f, 0.804f, 1f);
-            
+
             //disable health so that the player takes no damage
             gameObject.transform.parent.GetComponent<Health>().enabled = false;
 

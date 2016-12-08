@@ -34,6 +34,7 @@ public class Melee : MonoBehaviour {
 	void SwingAtMouse () {
 		if (canSwing) { // Checks the swing cooldown
 			canSwing = false; // Ensures no more swing
+			GetComponent<PlayerController> ().startGlobalCooldown();
 
 			if (Time.time - timeOfLastSwing > comboTimeout) { // If more time has passed since the last swing than our combo timeout, reset our combo
 				comboState = 0;

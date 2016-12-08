@@ -3,23 +3,24 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	private bool canJump;
-    private bool canAttack;
-    private float attackCooldown = 0.1f;
+	public int globalCooldownSet;
 
-    void Awake()
+	private bool canJump;
+  private int globalCooldown;
+
+  void Awake()
+  {
+    GameObject savedData = GameObject.Find("SavedData");
+    if(savedData != null)
     {
-        GameObject savedData = GameObject.Find("SavedData");
-        if(savedData != null)
-        {
-            savedData.SendMessage("ApplySkillsToPlayer", gameObject);
-        }
+      savedData.SendMessage("ApplySkillsToPlayer", gameObject);
     }
+  }
 
 	void Start () {
 		canJump = true;
-        canAttack = true;
-    }
+    globalCooldown = 0;
+  }
 
 	void FixedUpdate () {
 		if (Input.GetAxisRaw ("Horizontal") < -0.1) { // This get's the Horizontal input and checks to see if you are pushing the left or right key's.
@@ -37,33 +38,27 @@ public class PlayerController : MonoBehaviour {
 		} else if (Input.GetAxisRaw("Jump") < 0.1) {
 			canJump = true;
 		}
-        
-        if (Input.GetAxisRaw("Fire1") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
-            if (canAttack)
-            {
-                this.SendMessage("FireProjectileAtMouse");
-                canAttack = false;
-                StartCoroutine("AttackCooldown");
-            }
-        }
-        if (Input.GetAxisRaw("Fire2") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
-            if (canAttack)
-            {
-                this.SendMessage("SwingAtMouse");
-                canAttack = false;
-                StartCoroutine("AttackCooldown");
-            }
-       
-        }
-        if (Input.GetAxisRaw("Defensive Ability") > 0.1) { // This get's the input for the Q and sends message to use shield if pushed.
-            this.BroadcastMessage("UseShield");
-            StartCoroutine("AttackCooldown");
-        }
-    }
+		if (globalCooldown <= 0) {
+	    if (Input.GetAxisRaw("Fire1") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
+        this.SendMessage("FireProjectileAtMouse");
+	    }
+	    if (Input.GetAxisRaw("Fire2") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
+        this.SendMessage("SwingAtMouse");
+	    }
+	    if (Input.GetAxisRaw("Defensive Ability") > 0.1) { // This get's the input for the Q and sends message to use shield if pushed.
+	      this.BroadcastMessage("UseShield");
+	    }
+		} else {
+			globalCooldown--;
+		}
+  }
 
-    IEnumerator AttackCooldown()
-    {
-        yield return new WaitForSeconds(attackCooldown);
-        canAttack = true;
-    }
+	public void startGlobalCooldown() {
+		globalCooldown = globalCooldownSet;
+	}
+
+	public float getGlobalCooldown() {
+		float fraction = globalCooldown / (float) globalCooldownSet;
+		return fraction;
+	}
 }

@@ -18,7 +18,7 @@ public class OrbSpin : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        
+
         canSpin = true;
         orbsSpinning = false;
 
@@ -75,6 +75,7 @@ public class OrbSpin : MonoBehaviour {
         if (canSpin)
         {
             canSpin = false;
+            GetComponent<PlayerController> ().startGlobalCooldown();
             orbsSpinning = true;
 
             //start cooldowns
