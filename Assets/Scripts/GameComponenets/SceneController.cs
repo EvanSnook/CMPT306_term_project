@@ -21,9 +21,13 @@ public class SceneController : MonoBehaviour {
 		StartCoroutine ("ChangeLevel"); // This is the call to change scene.
 	}
 
+    public void ChangeSceneControls () {
+        LevelName = "Controls"; // This is the level name that the scene will be changed to.
+        StartCoroutine ("ChangeLevel"); // This is the call to change scene.
+    }
 
-	// This looks at what the current scene is and then changes scene respectively.
-	public void ChangeScene() {
+    // This looks at what the current scene is and then changes scene respectively.
+    public void ChangeScene() {
         savedData = GameObject.Find("SavedData");// save data before changing the level.
         switch (CurrentlyLoadedScene)
         {
