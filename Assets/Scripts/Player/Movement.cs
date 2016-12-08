@@ -9,6 +9,8 @@ public class Movement : MonoBehaviour {
 	public float JumpSpeed; // This is how fast the jump is.
 	public float horizontalDrag;
 	public float horizontalFriction;
+	public float terminalX;
+	public float terminalY;
 
 	private List<GameObject> groundedOn = new List<GameObject>(); // This list stores all of the objects the player is touching that are considered ground. If this list has one or more objects in it, the player is considered grounded.
 	private bool airJump;
@@ -36,6 +38,16 @@ public class Movement : MonoBehaviour {
 	public void SlowMovement () {
 		if (rigidBody != null) {
 			rigidBody.velocity = new Vector2(rigidBody.velocity.x*(1.0f - horizontalDrag), rigidBody.velocity.y);
+			if (rigidBody.velocity.x > terminalX) {
+				rigidBody.velocity = new Vector2(terminalX, rigidBody.velocity.y);
+			} else if (rigidBody.velocity.x < -terminalX) {
+				rigidBody.velocity = new Vector2(-terminalX, rigidBody.velocity.y);
+			}
+			if (rigidBody.velocity.y > terminalY) {
+				rigidBody.velocity = new Vector2(rigidBody.velocity.x , terminalY);
+			} else if (rigidBody.velocity.y < -terminalY) {
+				rigidBody.velocity = new Vector2(rigidBody.velocity.x , -terminalY);
+			}
 		}
 	}
 
