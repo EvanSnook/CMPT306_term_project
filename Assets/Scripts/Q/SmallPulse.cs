@@ -74,7 +74,7 @@ public class SmallPulse : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown();
 
             //create the shield at players position
             pulse = Instantiate(pulsePrefab, transform.position, transform.rotation) as GameObject;
