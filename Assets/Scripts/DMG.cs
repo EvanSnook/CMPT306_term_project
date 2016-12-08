@@ -12,10 +12,6 @@ public class DMG : MonoBehaviour {
 
 	private List<GameObject> CollidingWith = new List<GameObject>();
 
-    void Start () {
-        SavedData = GameObject.Find ("SavedData"); // This finds and sets the saved Data.
-    }
-
 	void SetOwner (GameObject OwnerIn) {
 		Owner = OwnerIn;
 	}
@@ -69,7 +65,7 @@ public class DMG : MonoBehaviour {
 
 				theObject.SendMessage("ApplyDMG", DMGDone); // Damage object
                 SendToSavedData (DMGDone); // This sends the damage to the saved data.
-
+ 
                 StartCoroutine ("DamageRepeat", theObject); // and Call self
 			}
 		}
@@ -78,6 +74,7 @@ public class DMG : MonoBehaviour {
 
     // This sends the Damage done to the saved data.
     private void SendToSavedData(int DMGDone) {
+        SavedData = GameObject.Find ("SavedData"); // This finds and sets the saved Data.
         // This figures out who's attack is being used and sends that damage to the saved data.
         if (this.tag == "PlayerShot") {
             SavedData.GetComponent<PlayerSavedData> ().SendMessage ("PlayerRangedDMG", DMGDone); // This passes the PlayerRanged DMG to the Saved Data.
@@ -85,7 +82,7 @@ public class DMG : MonoBehaviour {
         else if (this.tag == "PlayerMelee") {
             SavedData.GetComponent<PlayerSavedData> ().SendMessage ("PlayerMeleeDMG", DMGDone); // This passes the PlayerMelee DMG to the Saved Data.
         }
-        else if (this.tag == "BossRanged") {
+        else if (this.tag == "EnemyShot") {
             SavedData.GetComponent<BossSavedData> ().SendMessage ("BossRangedDMG", DMGDone); // This passes the BossRanged DMG to the Saved Data.
         }
         else if (this.tag == "BossMelee") {
