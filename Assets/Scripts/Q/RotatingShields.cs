@@ -62,6 +62,11 @@ public class RotatingShields : MonoBehaviour {
         }
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        numberOfShields = num;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {

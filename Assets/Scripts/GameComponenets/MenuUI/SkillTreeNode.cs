@@ -12,6 +12,8 @@ public class SkillTreeNode : MonoBehaviour {
     public GameObject skillsManager;
     //number of skill points requied to buy
     public int cost;
+    public int numberOfInvests;
+    public int maxNumberOfInvests;
     public GameObject skillObject;
     public SkillType skillType;
     //Status of the node
@@ -51,6 +53,16 @@ public class SkillTreeNode : MonoBehaviour {
         }
     }
 
+    public void invest()
+    {
+        if (numberOfInvests<=maxNumberOfInvests)
+        {
+            //allow another invest
+            numberOfInvests++;
+        }
+        //dont invest
+    }
+
     void OnMouseExit()
     {
         //Hide popup description.
@@ -59,7 +71,12 @@ public class SkillTreeNode : MonoBehaviour {
 
     public bool isPurchaseable()
     {
-        return (!this.locked && !this.bought);
+        return (!this.locked && this.numberOfInvests < this.maxNumberOfInvests);
+    }
+
+    public void MaxSkill()
+    {
+        gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
     }
 
     //locks the skill turns the node dark and disables tool tip.
@@ -75,7 +92,7 @@ public class SkillTreeNode : MonoBehaviour {
     {
         this.locked = false;
         this.bought = true;
-        gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+        gameObject.GetComponent<Image>().color = new Color(0.7f, 0.7f, 0.7f);
     }
 
     //unlocks the skill so you can see the tool tip and purchase the skill.
@@ -83,7 +100,7 @@ public class SkillTreeNode : MonoBehaviour {
     {
         this.locked = false;
         this.bought = false;
-        gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+        gameObject.GetComponent<Image>().color = new Color(0.7f, 0.7f, 0.7f);
     }
 
     //loads from save data into the binary tree for remembering locked/unlock/bought skills.
@@ -146,16 +163,24 @@ public class SkillTreeNode : MonoBehaviour {
             //only if we found the tree we load its attributes
             this.locked = foundTree.skillElement.locked;
             this.bought = foundTree.skillElement.bought;
-            this.cost = foundTree.skillElement.cost;
+            this.numberOfInvests = foundTree.skillElement.numberOfInvests;
         }
         //change the properties (color, tooltip activation)
-        if (locked)
+        if (this.locked)
         {
             LockSkill();
         }
-        else if (bought)
+        else if (this.bought)
         {
-            PurchaseSkill();
+            if(this.numberOfInvests >= this.maxNumberOfInvests)
+            {
+                MaxSkill();
+            }
+            else
+            {
+                PurchaseSkill();
+            }
+                
         }
         else
         {

@@ -30,6 +30,7 @@ public class SkillSavedData : MonoBehaviour
     //Reset the binary tree structure of a skill tree
     public void ResetSkillTree(BinaryTree root)
     {
+        root.skillElement.numberOfInvests = 0;
         //set the root if given if it has a parent
         if (root.Parent == null)
         {
@@ -86,11 +87,12 @@ public class SkillSavedData : MonoBehaviour
     public void setSkillsInfo(Skill infoOut, GameObject infoIn)
     {
         SkillTreeNode treeNode = infoIn.GetComponent<SkillTreeNode>();
-
         infoOut.cost = treeNode.cost;
         infoOut.bought = treeNode.bought;
         infoOut.locked = treeNode.locked;
         infoOut.skillType = treeNode.skillType;
         infoOut.Script = treeNode.skillObject;
+        infoOut.numberOfInvests = treeNode.numberOfInvests;
+        infoOut.maxNumberOfInvests = treeNode.maxNumberOfInvests;
     }
 }
