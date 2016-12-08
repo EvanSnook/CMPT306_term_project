@@ -6,6 +6,8 @@ public class Skill : ScriptableObject {
     public int cost;    
     public bool locked;
     public bool bought;
+    public int numberOfInvests;
+    public int maxNumberOfInvests;
     public SkillTreeNode.SkillType skillType = SkillTreeNode.SkillType.Q;
     public Object Script;
     

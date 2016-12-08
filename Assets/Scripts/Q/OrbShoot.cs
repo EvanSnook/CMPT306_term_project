@@ -41,6 +41,11 @@ public class OrbShoot : MonoBehaviour {
         }
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        numberOfOrbs = num;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {

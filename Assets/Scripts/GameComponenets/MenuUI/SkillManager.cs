@@ -78,15 +78,21 @@ public class SkillManager : MonoBehaviour
         //make sure that you are able to purchase the skill
         if (selectedSkill != null && selectedSkill.isPurchaseable() && skillPoints >= selectedSkill.cost)
         {
-
+            selectedSkill.invest();
             //deduct skill points
             SavedData.GetComponent<PlayerSavedData>().SkillPoints = skillPoints - selectedSkill.cost;
             selectedSkill.PurchaseSkill();
             foundTree = findAndReplaceSkill();
+            foundTree.skillElement.maxNumberOfInvests = selectedSkill.maxNumberOfInvests;
+            foundTree.skillElement.numberOfInvests = selectedSkill.numberOfInvests;
             if (foundTree != null)
             {
                 //purchase the Skill
                 foundTree.skillElement.PurchaseSkill();
+                if (foundTree.skillElement.numberOfInvests == foundTree.skillElement.maxNumberOfInvests)
+                {
+                    selectedSkill.MaxSkill();
+                }
                 //unlock its children
                 if (foundTree.RightChild != null)
                 {
@@ -98,6 +104,7 @@ public class SkillManager : MonoBehaviour
                 }
             }
         }
+        
     }
 
     public BinaryTree findAndReplaceSkill()

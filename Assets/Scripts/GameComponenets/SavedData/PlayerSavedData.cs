@@ -34,6 +34,11 @@ public class PlayerSavedData : MonoBehaviour
         {
             newskill = Instantiate(QSkill);
             newskill.transform.SetParent(Player.transform, false);
+            try
+            {
+                Player.BroadcastMessage("SetNumOfOrbs", gameObject.GetComponent<SkillSavedData>().QTree.findSkillElement(QSkill.name).skillElement.numberOfInvests);
+            }
+            catch { }
         }
         //TODO add cases for all the other skills keys
     }
@@ -42,14 +47,10 @@ public class PlayerSavedData : MonoBehaviour
     {
         //remove the children from player
         int count = Player.transform.childCount;
-        Debug.Log("Saysomething1");
-
         for (int i = 0; i < count; i++)
         {
             QSkill = null;
             Destroy(Player.transform.GetChild(i).gameObject);
-
-            Debug.Log("Saysomething2");
         }
 
 
