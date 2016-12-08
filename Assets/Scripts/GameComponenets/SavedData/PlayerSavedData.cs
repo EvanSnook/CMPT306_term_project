@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerSavedData : MonoBehaviour {
+public class PlayerSavedData : MonoBehaviour
+{
 
-	public int SkillPoints; // This is the number of skill points that the player currently has.
+    public int SkillPoints; // This is the number of skill points that the player currently has.
 
     public int NumberOfDeaths; // This is the number of times that the player has died.
 
@@ -18,7 +19,8 @@ public class PlayerSavedData : MonoBehaviour {
     public GameObject MWSkill;
     public GameObject MSSkill;
 
-    void Start() {
+    void Start()
+    {
         NumberOfDeaths = 0;
         RangedDamageDone = 0;
         MeleeDamageDone = 0;
@@ -28,7 +30,7 @@ public class PlayerSavedData : MonoBehaviour {
     public void ApplySkillsToPlayer(GameObject Player)
     {
         GameObject newskill;
-        if(QSkill != null)
+        if (QSkill != null)
         {
             newskill = Instantiate(QSkill);
             newskill.transform.SetParent(Player.transform, false);
@@ -36,10 +38,28 @@ public class PlayerSavedData : MonoBehaviour {
         //TODO add cases for all the other skills keys
     }
 
-	// This is called to add a specific number of points when sent message.
-	public void AddSkillPoints(int NumberOfPoints) {
-		SkillPoints += NumberOfPoints;
-	}
+    public void RemoveSkillsFromPlayer(GameObject Player)
+    {
+        //remove the children from player
+        int count = Player.transform.childCount;
+        Debug.Log("Saysomething1");
+
+        for (int i = 0; i < count; i++)
+        {
+            QSkill = null;
+            Destroy(Player.transform.GetChild(i).gameObject);
+
+            Debug.Log("Saysomething2");
+        }
+
+
+    }
+
+    // This is called to add a specific number of points when sent message.
+    public void AddSkillPoints(int NumberOfPoints)
+    {
+        SkillPoints += NumberOfPoints;
+    }
 
     public void SubtractSkillPoints(int NumberOfPoints)
     {
@@ -47,13 +67,16 @@ public class PlayerSavedData : MonoBehaviour {
     }
 
     // This is called when the player dies and increments the number of deaths for the player.
-    public void PlayerDied () {
+    public void PlayerDied()
+    {
         NumberOfDeaths++;
     }
 
 
     // This is called when the game goes to the main menu and resets all the saved data for a new game.
-    public void ResetPlayerSavedData () {
+    public void ResetPlayerSavedData()
+    {
+        RemoveSkillsFromPlayer(GameObject.Find("Character"));
         RangedDamageDone = 0; // This resets the amount of ranged damage done to 0.
         MeleeDamageDone = 0; // This resets teh amount of melee damage done to 0.
         NumberOfDeaths = 0; // This resets the number of deaths to 0.
@@ -61,17 +84,20 @@ public class PlayerSavedData : MonoBehaviour {
     }
 
     // This increases the Total Damage Done by the Player's Ranged Attack.
-    public void PlayerRangedDMG (int DMGDone) {
+    public void PlayerRangedDMG(int DMGDone)
+    {
         RangedDamageDone += DMGDone;
     }
 
     // This increases the Total Damage Done by the Player's Melee Attack.
-    public void PlayerMeleeDMG (int DMGDone) {
+    public void PlayerMeleeDMG(int DMGDone)
+    {
         MeleeDamageDone += DMGDone;
     }
 
     // This is the total Damage done by the Player to the boss.
-    public int TotalDamageDoneToBoss () {
+    public int TotalDamageDoneToBoss()
+    {
         return RangedDamageDone + MeleeDamageDone;
     }
 

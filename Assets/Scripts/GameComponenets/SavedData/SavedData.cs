@@ -22,8 +22,9 @@ public class SavedData : MonoBehaviour {
 
 	// Save any important Data.
     public void SaveData() {
-		gameObject.GetComponent<BossSavedData>().SendMessage ("DeathSaveBoss"); // This sends a message to the BossSavedData to save anything it needs.
-		gameObject.GetComponent<PlayerSavedData> ().SendMessage ("DeathSavePlayer"); // This sends a message to the PlayerSavedData to save anything it needs.
+		gameObject.GetComponent<BossSavedData>().SendMessage ("DeathSaveBoss"); 
+        // This sends a message to the BossSavedData to save anything it needs.//commented out because its not needed.
+        //gameObject.GetComponent<PlayerSavedData> ().SendMessage ("DeathSavePlayer"); // This sends a message to the PlayerSavedData to save anything it needs.
         TimeRemaining = GameObject.Find("TimerObject").GetComponent<GameTimer>().GameCountdown; // This saves the remaining time.
     }
 
@@ -31,6 +32,7 @@ public class SavedData : MonoBehaviour {
 	public void ResetSavedData() {
 		TimeRemaining = StartingTimeRemaining; // This Resets the timer to the starting time.
         gameObject.GetComponent<BossSavedData>().SendMessage("ResetBossSavedData"); // This sends a message to the BossSavedData to have it reset to the starting values.
+        gameObject.GetComponent<SkillSavedData>().SendMessage("ResetSkillTree", gameObject.GetComponent<SkillSavedData>().QTree);//resets the skill tree data structure.
         gameObject.GetComponent<PlayerSavedData>().SendMessage("ResetPlayerSavedData"); // This sends a message to the PlayerSavedData to have it reset to the starting values.
 	}
 		

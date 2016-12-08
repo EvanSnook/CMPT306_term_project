@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SkillSavedData : MonoBehaviour {
-    
+public class SkillSavedData : MonoBehaviour
+{
+
     //binaryTree and GameObject versions of each tree.
     public BinaryTree QTree;
     private GameObject QTreeRootNode;
@@ -16,15 +17,41 @@ public class SkillSavedData : MonoBehaviour {
     private GameObject RSTreeRootNode;
     public BinaryTree RWTree;
     private GameObject RWTreeRootNode;
-    
-    void Awake () {
+
+    void Awake()
+    {
         // set up tree data structure from TreeRootNodes
         QTreeRootNode = GameObject.Find("QTree");
         GameObject UiNode = QTreeRootNode.transform.GetChild(0).gameObject;
         QTree = generateTree(UiNode);
-        
+
     }
-	
+
+    //Reset the binary tree structure of a skill tree
+    public void ResetSkillTree(BinaryTree root)
+    {
+        //set the root if given if it has a parent
+        if (root.Parent == null)
+        {
+            root.skillElement.locked = false;
+            root.skillElement.bought = false;
+        }
+        else
+        {
+            root.skillElement.locked = true;
+            root.skillElement.bought = false;
+        }
+        //set the children if they exist
+        if (root.RightChild != null)
+        {
+            ResetSkillTree(root.RightChild);
+            if (root.LeftChild != null)
+            {
+                ResetSkillTree(root.LeftChild);
+            }
+        }
+    }
+
     //generates a Binary tree based on the heiarchy of the skill tree nodes
     public BinaryTree generateTree(GameObject NodeGameObject)
     {
