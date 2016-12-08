@@ -124,9 +124,9 @@ public class RotatingShields : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
 
-            getMousePosition();
+            getMousePosition ();
 
             //make the shield at the characters position pointed towards the mouse
             activeShield = Instantiate(activeShieldPrefab, transform.position, angleToMouse) as GameObject;

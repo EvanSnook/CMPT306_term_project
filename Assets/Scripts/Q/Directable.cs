@@ -69,9 +69,9 @@ public class Directable : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
 
-            getMousePosition();
+            getMousePosition ();
 
             //make the shield at the characters position pointed towards the mouse
             shield = Instantiate(shieldPrefab, transform.position, angleToMouse) as GameObject;

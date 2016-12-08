@@ -70,7 +70,7 @@ public class BerserkPulse : MonoBehaviour {
         {
             canInvuln = false;
             isInvuln = true;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
             //change character color
             render.color = new Color(1f, 0f, 0.804f, 1f);
 

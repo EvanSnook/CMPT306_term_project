@@ -80,7 +80,7 @@ public class OrbShoot : MonoBehaviour {
         if (canShoot)
         {
             canShoot = false;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
             orbShooting = true;
 
             getMousePosition();

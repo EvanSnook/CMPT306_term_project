@@ -41,7 +41,7 @@ public class Shield : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown();
 
             getMousePosition();
 

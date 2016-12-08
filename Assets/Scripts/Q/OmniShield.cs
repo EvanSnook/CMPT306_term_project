@@ -65,7 +65,7 @@ public class OmniShield : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
 
             //create shield
             omniShield = Instantiate(omniShieldPrefab, transform.position, transform.rotation) as GameObject;

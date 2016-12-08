@@ -110,7 +110,7 @@ public class Unbreakable : MonoBehaviour
         if (canInvuln)
         {
             canInvuln = false;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
 
             for (int i = 0; i < numberOfShields; i++) {
                 if (orbitingShield[i] != null) {

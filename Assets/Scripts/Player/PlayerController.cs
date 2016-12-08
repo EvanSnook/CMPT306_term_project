@@ -39,15 +39,15 @@ public class PlayerController : MonoBehaviour {
 			canJump = true;
 		}
 		if (globalCooldown <= 0) {
-	    if (Input.GetAxisRaw("Fire1") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
-        this.SendMessage("FireProjectileAtMouse");
-	    }
-	    if (Input.GetAxisRaw("Fire2") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
-        this.SendMessage("SwingAtMouse");
-	    }
-	    if (Input.GetAxisRaw("Defensive Ability") > 0.1) { // This get's the input for the Q and sends message to use shield if pushed.
-	      this.BroadcastMessage("UseShield");
-	    }
+	            if (Input.GetAxisRaw("Fire1") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
+                this.SendMessage("FireProjectileAtMouse");
+	        }
+	            if (Input.GetAxisRaw("Fire2") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
+                this.SendMessage("SwingAtMouse");
+	        }
+	        if (Input.GetAxisRaw("Defensive Ability") > 0.1) { // This get's the input for the Q and sends message to use shield if pushed.
+	          this.BroadcastMessage("UseShield");
+	        }
 		} else {
 			globalCooldown--;
 		}
@@ -61,4 +61,8 @@ public class PlayerController : MonoBehaviour {
 		float fraction = globalCooldown / (float) globalCooldownSet;
 		return fraction;
 	}
+
+    public void startPrimaryCooldown(float time) {
+
+    }
 }

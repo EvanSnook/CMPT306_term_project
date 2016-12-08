@@ -62,7 +62,7 @@ public class Orb : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
-            GetComponent<PlayerController> ().startGlobalCooldown();
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
             orbFollowing = true;
 
             //start cooldowns
