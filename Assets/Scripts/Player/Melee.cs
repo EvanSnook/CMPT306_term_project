@@ -98,13 +98,13 @@ public class Melee : MonoBehaviour {
             CurrentCooldown = CurrentCooldown - Time.deltaTime;
         }
         else {
-            CurrentCooldown = cooldownDuration;
+            CurrentCooldown = 0;
         }
     }
 
     // This give the fraction of how much cooldown is left.
     public float FractionCooldown() {
-        return CurrentCooldown / cooldownDuration;
+        return (float) CurrentCooldown / (float)cooldownDuration;
     }
 
 }
