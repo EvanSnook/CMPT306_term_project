@@ -25,6 +25,11 @@ public class BerserkPulse : MonoBehaviour {
         render = gameObject.transform.parent.GetComponent<SpriteRenderer>();
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        //catch message
+    }
+
     void FixedUpdate()
     {
         if (pulse != null)

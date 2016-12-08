@@ -39,6 +39,7 @@ public class OrbShoot : MonoBehaviour {
             //positions the shields equally around the game object
             orbs[i].transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, ((360f / numberOfOrbs) * i)));
         }
+        gameObject.BroadcastMessage("SetOwner", gameObject.transform.parent.gameObject);
     }
 
     public void SetNumOfOrbs(int num)

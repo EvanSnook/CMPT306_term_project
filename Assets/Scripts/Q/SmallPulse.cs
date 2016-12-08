@@ -31,6 +31,10 @@ public class SmallPulse : MonoBehaviour {
         shield.transform.Translate(Vector3.right);
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        //catch message
+    }
 
     void Update()
     {
@@ -73,7 +77,7 @@ public class SmallPulse : MonoBehaviour {
 
             //create the shield at players position
             pulse = Instantiate(pulsePrefab, transform.position, transform.rotation) as GameObject;
-
+            pulse.SendMessage("SetOwner", gameObject.transform.parent.gameObject);
             //change the shields transparency so that other objects can be seen infront and behindit
             pulse.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, 0.5f);
 

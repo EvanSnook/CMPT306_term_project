@@ -29,6 +29,11 @@ public class OmniShield : MonoBehaviour {
         shield.transform.parent = gameObject.transform;
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        //catch message
+    }
+
     void Update()
     {
         //if a shield exists with 0 health - destroy it

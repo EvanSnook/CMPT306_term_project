@@ -30,6 +30,10 @@ public class LargePulse : MonoBehaviour {
         shield.transform.parent = gameObject.transform;
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        //catch message
+    }
 
     void Update()
     {
