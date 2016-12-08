@@ -22,8 +22,13 @@ public class SceneController : MonoBehaviour {
 	}
 
     public void ChangeSceneControls () {
-        LevelName = "Controls"; // This is the level name that the scene will be changed to.
+        LevelName = "ControlScreen"; // This is the level name that the scene will be changed to.
         StartCoroutine ("ChangeLevel"); // This is the call to change scene.
+    }
+
+    public void ControlsChangeToMenu () {
+        LevelName = "MainMenu-Redesign";
+        StartCoroutine ("ChangeLevel");
     }
 
     // This looks at what the current scene is and then changes scene respectively.

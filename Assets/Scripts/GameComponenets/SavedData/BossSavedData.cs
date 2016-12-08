@@ -50,6 +50,7 @@ public class BossSavedData : MonoBehaviour {
         BossCollisionDamage = 0; // This resets the CollisionDamage Done to the player.
         BossMeleeDamage = 0; // This resets the BossMeleeDamage done to the player.
         BossRangedDamage = 0; // This resets teh BossRangedDamage done to the player.
+        BossCurrentHealth = BossStartingHealth; // This resets the BossHealth to the Starting Health.
     }
 
     public void BossCollisionDMG (int DMGDone) {
