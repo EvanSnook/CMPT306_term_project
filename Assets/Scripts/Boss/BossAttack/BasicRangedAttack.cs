@@ -65,6 +65,14 @@ public class BasicRangedAttack : MonoBehaviour {
 		}
     }
 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "shield")
+        {
+            Destroy(gameObject);
+        }
+    }
+
     IEnumerator RefreshProjectile()
     {
         yield return new WaitForSeconds(Cooldown);
