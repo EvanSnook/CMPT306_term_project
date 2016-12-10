@@ -17,29 +17,47 @@ public class DMG : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		// If the colliding object has health and is not the owner
-		if (coll.gameObject.GetComponent("Health") != null && coll.gameObject != Owner) {
-			coll.gameObject.SendMessage("ApplyDMG", DMGDone); // Deal damage
-            SendToSavedData (DMGDone); // This sends the damage to the saved data.
+       
+        if (coll .gameObject.tag == "Shield" && (gameObject.tag =="Enemy" || gameObject.tag == "PlayerShot" || gameObject.tag == "Boss" || gameObject.tag == "Boss" || gameObject.tag == "BossMelee"))
+        {
+            //do nothing
+        }
+        else {
+            // If the colliding object has health and is not the owner
+            if (coll.gameObject.GetComponent("Health") != null && coll.gameObject != Owner)
+            {
+                coll.gameObject.SendMessage("ApplyDMG", DMGDone); // Deal damage
+                SendToSavedData(DMGDone); // This sends the damage to the saved data.
 
-            if (DamageRepeatTime > 0) { // If this can hit multiple times
-				CollidingWith.Add(coll.gameObject); // Add the colliding object to the array of colliding objects
-				StartCoroutine("DamageRepeat", coll.gameObject); // Call the repeating damage
-			}
+                if (DamageRepeatTime > 0)
+                { // If this can hit multiple times
+                    CollidingWith.Add(coll.gameObject); // Add the colliding object to the array of colliding objects
+                    StartCoroutine("DamageRepeat", coll.gameObject); // Call the repeating damage
+                }
+            }
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D coll) {
-		// If the colliding object has health or bossHealth and is not the owner
-		if ((coll.gameObject.GetComponent("Health") != null
-		 			|| coll.gameObject.GetComponent("BossHealth") != null) && coll.gameObject != Owner) {
-			coll.gameObject.SendMessage("ApplyDMG", DMGDone); // Deal damage
-            SendToSavedData (DMGDone); // This sends the damage to the saved data.
+        if (coll.gameObject.tag == "Shield" && (gameObject.tag == "Enemy" || gameObject.tag == "PlayerShot" || gameObject.tag == "Boss"))
+        {
+            //do nothing
+        }
+        else
+        {
+            // If the colliding object has health or bossHealth and is not the owner
+            if ((coll.gameObject.GetComponent("Health") != null
+                     || coll.gameObject.GetComponent("BossHealth") != null) && coll.gameObject != Owner)
+            {
+                coll.gameObject.SendMessage("ApplyDMG", DMGDone); // Deal damage
+                SendToSavedData(DMGDone); // This sends the damage to the saved data.
 
-            if (DamageRepeatTime > 0) { // If this can hit multiple times
-				CollidingWith.Add(coll.gameObject); // Add the colliding object to the array of colliding objects
-				StartCoroutine("DamageRepeat", coll.gameObject); // Call the repeating damage
-			}
+                if (DamageRepeatTime > 0)
+                { // If this can hit multiple times
+                    CollidingWith.Add(coll.gameObject); // Add the colliding object to the array of colliding objects
+                    StartCoroutine("DamageRepeat", coll.gameObject); // Call the repeating damage
+                }
+            }
 		}
 	}
 
