@@ -14,9 +14,14 @@ public class SceneController : MonoBehaviour {
         CurrentlyLoadedScene = SceneManager.GetActiveScene().name; // This gets the name of the scene that is currently loaded.
 	}
 
-
-	// This is called when the game is over and will go to the game over screen.
-	public void ChangeSceneGameOver() {
+    public void ChangeSceneStats()
+    {
+        LevelName = "Stats"; // This is the level name that the scene will be changed to.
+        StartCoroutine("ChangeLevel"); // This is the call to change scene.
+    }
+    
+    // This is called when the game is over and will go to the game over screen.
+    public void ChangeSceneGameOver() {
 		LevelName = "GameOver"; // This is the level name that the scene will be changed to.
 		StartCoroutine ("ChangeLevel"); // This is the call to change scene.
 	}
