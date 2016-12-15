@@ -18,6 +18,7 @@ public class OrbSpin : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+
         canSpin = true;
         orbsSpinning = false;
 
@@ -38,6 +39,11 @@ public class OrbSpin : MonoBehaviour {
             //positions the shields equally around the game object
             orbs[i].transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, ((360f / numberOfOrbs) * i)));
         }
+    }
+
+    public void SetNumOfOrbs(int num)
+    {
+        numberOfOrbs = num;
     }
 
     // Update is called once per frame
@@ -69,6 +75,7 @@ public class OrbSpin : MonoBehaviour {
         if (canSpin)
         {
             canSpin = false;
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
             orbsSpinning = true;
 
             //start cooldowns

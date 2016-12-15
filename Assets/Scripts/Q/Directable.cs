@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Directable : MonoBehaviour {
-    
+
     public float cooldownTimer;
     public float despawnTimer;
     public float radius;
@@ -30,6 +30,11 @@ public class Directable : MonoBehaviour {
         }
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        //catch message
+    }
+
     void FixedUpdate()
     {
         //if the player has a shield active
@@ -49,7 +54,7 @@ public class Directable : MonoBehaviour {
         // Get the Mouse Position on the screen
         mousePosition = Input.mousePosition;
 
-        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game 
+        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game
         mousePosition.z = transform.position.z - Camera.main.transform.position.z;
 
         //change the cooridinate type from screen position of the computer to the world position within the game
@@ -64,13 +69,14 @@ public class Directable : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
 
-            getMousePosition();
+            getMousePosition ();
 
             //make the shield at the characters position pointed towards the mouse
             shield = Instantiate(shieldPrefab, transform.position, angleToMouse) as GameObject;
 
-            //make player the parent of the shield so that it follows the players transform 
+            //make player the parent of the shield so that it follows the players transform
             shield.transform.parent = gameObject.transform;
 
             //start the cooldown to destroy the shield and to start the cooldown

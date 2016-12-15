@@ -25,7 +25,7 @@ public class BasicRangedAttack : MonoBehaviour {
         canFire = true;
 
         //creating the projectile launcer and parenting the boss to it
-        projectileLauncher = (Instantiate(ProjectileLauncherPrefab, transform.position, transform.rotation)) as GameObject;
+        projectileLauncher = (Instantiate(ProjectileLauncherPrefab, new Vector3(transform.position.x, transform.position.y, 0f), transform.rotation)) as GameObject;
         projectileLauncher.transform.parent = gameObject.transform;
     }
 
@@ -63,6 +63,14 @@ public class BasicRangedAttack : MonoBehaviour {
 				}
 			}
 		}
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "shield")
+        {
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator RefreshProjectile()

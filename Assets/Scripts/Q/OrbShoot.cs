@@ -39,6 +39,12 @@ public class OrbShoot : MonoBehaviour {
             //positions the shields equally around the game object
             orbs[i].transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, ((360f / numberOfOrbs) * i)));
         }
+        gameObject.BroadcastMessage("SetOwner", gameObject.transform.parent.gameObject);
+    }
+
+    public void SetNumOfOrbs(int num)
+    {
+        numberOfOrbs = num;
     }
 
     // Update is called once per frame
@@ -74,6 +80,7 @@ public class OrbShoot : MonoBehaviour {
         if (canShoot)
         {
             canShoot = false;
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
             orbShooting = true;
 
             getMousePosition();
@@ -95,7 +102,7 @@ public class OrbShoot : MonoBehaviour {
         // Get the Mouse Position on the screen
         mousePosition = Input.mousePosition;
 
-        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game 
+        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game
         mousePosition.z = transform.position.z - Camera.main.transform.position.z;
 
         //change the cooridinate type from screen position of the computer to the world position within the game

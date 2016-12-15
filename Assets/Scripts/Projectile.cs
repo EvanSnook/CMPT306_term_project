@@ -12,7 +12,6 @@ public class Projectile : MonoBehaviour {
 	private float Timer; // This is the the clock that keeps track of how much of a cooldown is left.
 	private bool CanFire; // This keeps track of if you can fire or not.
 
-
 	// Calls the fire method when holding down ctrl or mouse
 	void FixedUpdate () {
 		if (Timer <= 0) { // This Checks that the Cooldown Time has passed.
@@ -22,11 +21,16 @@ public class Projectile : MonoBehaviour {
 		}
 	}
 
+    // This give the fraction of how much cooldown is left.
+    public float FractionCooldown () {
+        return Timer / CooldownTimer;
+    }
 
-	// This Finds the Mouse and Fires a Projectile in the Mouses Direction.
-	private void FireProjectileAtMouse() {
+    // This Finds the Mouse and Fires a Projectile in the Mouses Direction.
+    private void FireProjectileAtMouse() {
 		if (CanFire) { // If Fire1 pressed and CanFire then FireProjectileAtMouse.
 			CanFire = false;
+			GetComponent<PlayerController> ().startGlobalCooldown();
 
 			Vector3 MousePosition = Input.mousePosition; // Get the Mouse Position.
 			MousePosition.z = transform.position.z - Camera.main.transform.position.z;

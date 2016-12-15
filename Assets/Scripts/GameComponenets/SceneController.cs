@@ -14,18 +14,30 @@ public class SceneController : MonoBehaviour {
         CurrentlyLoadedScene = SceneManager.GetActiveScene().name; // This gets the name of the scene that is currently loaded.
 	}
 
-
-	// This is called when the game is over and will go to the game over screen.
-	public void ChangeSceneGameOver() {
-//		LevelName = "GameOver"; // This is the level name that the scene will be changed to.
-//		StartCoroutine ("ChangeLevel"); // This is the call to change scene.
-		savedData.GetComponent<SavedData>().TimeReset(); // This resets the time Remaining to the Original time.
-		ChangeToMainMenu(); // This is temporarry until the GameOver Scene is finished.
+    public void ChangeSceneStats()
+    {
+        LevelName = "Stats"; // This is the level name that the scene will be changed to.
+        StartCoroutine("ChangeLevel"); // This is the call to change scene.
+    }
+    
+    // This is called when the game is over and will go to the game over screen.
+    public void ChangeSceneGameOver() {
+		LevelName = "GameOver"; // This is the level name that the scene will be changed to.
+		StartCoroutine ("ChangeLevel"); // This is the call to change scene.
 	}
 
+    public void ChangeSceneControls () {
+        LevelName = "ControlScreen"; // This is the level name that the scene will be changed to.
+        StartCoroutine ("ChangeLevel"); // This is the call to change scene.
+    }
 
-	// This looks at what the current scene is and then changes scene respectively.
-	public void ChangeScene() {
+    public void ControlsChangeToMenu () {
+        LevelName = "MainMenu-Redesign";
+        StartCoroutine ("ChangeLevel");
+    }
+
+    // This looks at what the current scene is and then changes scene respectively.
+    public void ChangeScene() {
         savedData = GameObject.Find("SavedData");// save data before changing the level.
         switch (CurrentlyLoadedScene)
         {
@@ -47,7 +59,7 @@ public class SceneController : MonoBehaviour {
 
 	// This changes the Scene to the Main Menu
 	public void ChangeToMainMenu() {
-		savedData.GetComponent<SavedData>().TimeReset(); // This resets the time Remaining to the Original time.
+		savedData.GetComponent<SavedData>().ResetSavedData(); // This resets the time Remaining to the Original time.
 		LevelName = "MainMenu-Redesign";
 		StartCoroutine ("ChangeLevel");
 	}
@@ -79,17 +91,5 @@ public class SceneController : MonoBehaviour {
 		float FadeTime = gameObject.GetComponent<SceneTransition>().BeginFade(1); // This begins the fade between scenes.
 		yield return new WaitForSeconds (FadeTime); // This makes it wait until it has fully faded out.
 		Application.Quit(); // This Closes the application quiting the game.
-	}
-    
-
-	// This is only used in the test scenes and will be removed in final product.
-	public void ChangeTestScene() {
-		if (CurrentlyLoadedScene == "TestScene1") { // This is for testing the change scene. 
-			LevelName = "TestScene2";
-			StartCoroutine ("ChangeLevel");
-		} else {
-			LevelName = "TestScene1";
-			StartCoroutine ("ChangeLevel");
-		}
 	}
 }

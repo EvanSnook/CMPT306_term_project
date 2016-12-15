@@ -25,15 +25,21 @@ public class Melee : MonoBehaviour {
 	private int comboState;
 	private float timeOfLastSwing;
 
-	// Use this for initialization
-	void Start () {
+    bool StartCooldown;
+    float CurrentCooldown;
+
+
+    // Use this for initialization
+    void Start () {
 		canSwing = true;
 		comboState = 0;
+        StartCooldown = false;
 	}
 
 	void SwingAtMouse () {
 		if (canSwing) { // Checks the swing cooldown
 			canSwing = false; // Ensures no more swing
+			GetComponent<PlayerController> ().startGlobalCooldown();
 
 			if (Time.time - timeOfLastSwing > comboTimeout) { // If more time has passed since the last swing than our combo timeout, reset our combo
 				comboState = 0;
@@ -76,9 +82,29 @@ public class Melee : MonoBehaviour {
 		}
 	}
 
+
 	IEnumerator RefreshSwing() { // Sets canSwing to true, used to control the cooldown of swing
+        CurrentCooldown = cooldownDuration;
+        StartCooldown = true;
+
 		yield return new WaitForSeconds(cooldownDuration);
+        StartCooldown = false;
 
 		canSwing = true;
 	}
+
+    void Update() {
+        if (StartCooldown == true) {
+            CurrentCooldown = CurrentCooldown - Time.deltaTime;
+        }
+        else {
+            CurrentCooldown = 0;
+        }
+    }
+
+    // This give the fraction of how much cooldown is left.
+    public float FractionCooldown() {
+        return (float) CurrentCooldown / (float)cooldownDuration;
+    }
+
 }

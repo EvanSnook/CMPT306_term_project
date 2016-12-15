@@ -62,6 +62,11 @@ public class RotatingShields : MonoBehaviour {
         }
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        numberOfShields = num;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -119,13 +124,14 @@ public class RotatingShields : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
 
-            getMousePosition();
+            getMousePosition ();
 
             //make the shield at the characters position pointed towards the mouse
             activeShield = Instantiate(activeShieldPrefab, transform.position, angleToMouse) as GameObject;
 
-            //make player the parent of the shield so that it follows the players transform 
+            //make player the parent of the shield so that it follows the players transform
             activeShield.transform.parent = gameObject.transform;
 
             //start the cooldown to destroy the shield and to start the cooldown
@@ -145,7 +151,7 @@ public class RotatingShields : MonoBehaviour {
         // Get the Mouse Position on the screen
         mousePosition = Input.mousePosition;
 
-        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game 
+        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game
         mousePosition.z = transform.position.z - Camera.main.transform.position.z;
 
         //change the cooridinate type from screen position of the computer to the world position within the game

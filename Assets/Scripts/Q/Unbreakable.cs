@@ -37,7 +37,7 @@ public class Unbreakable : MonoBehaviour
         {
             //initialize all refreshing to false
             isRefreshing[i] = false;
-            
+
             //create a transfrom object
             shieldHolder[i] = Instantiate(empty, transform.position, transform.rotation) as GameObject;
 
@@ -57,6 +57,11 @@ public class Unbreakable : MonoBehaviour
             orbitingShield[i].transform.parent = shieldHolder[i].transform;
 
         }
+    }
+
+    public void SetNumOfOrbs(int num)
+    {
+        numberOfShields = num;
     }
 
     // Update is called once per frame
@@ -105,6 +110,7 @@ public class Unbreakable : MonoBehaviour
         if (canInvuln)
         {
             canInvuln = false;
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
 
             for (int i = 0; i < numberOfShields; i++) {
                 if (orbitingShield[i] != null) {
@@ -115,7 +121,7 @@ public class Unbreakable : MonoBehaviour
                     orbitingShield[i].GetComponent<Health>().enabled = false;
                 }
             }
-            
+
             //start cooldowns
             StartCoroutine("RefreshInvulnCooldown");
             StartCoroutine("RefreshInvuln");

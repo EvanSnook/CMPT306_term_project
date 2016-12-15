@@ -29,6 +29,11 @@ public class OmniShield : MonoBehaviour {
         shield.transform.parent = gameObject.transform;
     }
 
+    public void SetNumOfOrbs(int num)
+    {
+        //catch message
+    }
+
     void Update()
     {
         //if a shield exists with 0 health - destroy it
@@ -60,8 +65,9 @@ public class OmniShield : MonoBehaviour {
         if (canShield)
         {
             canShield = false;
+            gameObject.GetComponentInParent<PlayerController> ().startGlobalCooldown ();
 
-            //create shield 
+            //create shield
             omniShield = Instantiate(omniShieldPrefab, transform.position, transform.rotation) as GameObject;
 
             //parent the shield to the player so that it follows the players transofrm
@@ -79,7 +85,7 @@ public class OmniShield : MonoBehaviour {
         // Get the Mouse Position on the screen
         mousePosition = Input.mousePosition;
 
-        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game 
+        // subtract the cameras z axisfrom the mouse position to put the vecctor on the same plane as the game
         mousePosition.z = transform.position.z - Camera.main.transform.position.z;
 
         //change the cooridinate type from screen position of the computer to the world position within the game

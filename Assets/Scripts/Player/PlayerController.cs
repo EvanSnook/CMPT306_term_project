@@ -3,20 +3,26 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	private bool canJump;
+	public int globalCooldownSet;
 
-    void Awake()
+	private bool canJump;
+  private int globalCooldown;
+	private int primaryCooldown;
+
+  void Awake()
+  {
+    GameObject savedData = GameObject.Find("SavedData");
+    if(savedData != null)
     {
-        GameObject savedData = GameObject.Find("SavedData");
-        if(savedData != null)
-        {
-            savedData.SendMessage("ApplySkillsToPlayer", gameObject);
-        }
+      savedData.SendMessage("ApplySkillsToPlayer", gameObject);
     }
+  }
 
 	void Start () {
 		canJump = true;
-	}
+    globalCooldown = 0;
+		primaryCooldown = 0;
+  }
 
 	void FixedUpdate () {
 		if (Input.GetAxisRaw ("Horizontal") < -0.1) { // This get's the Horizontal input and checks to see if you are pushing the left or right key's.
@@ -34,14 +40,35 @@ public class PlayerController : MonoBehaviour {
 		} else if (Input.GetAxisRaw("Jump") < 0.1) {
 			canJump = true;
 		}
-		if (Input.GetAxisRaw("Fire1") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
-			this.SendMessage ("FireProjectileAtMouse");
+		if (globalCooldown <= 0) {
+			if (primaryCooldown <= 0) {
+			  if (Input.GetAxisRaw("Fire1") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
+			    this.SendMessage("FireProjectileAtMouse");
+			  }
+			  else if (Input.GetAxisRaw("Fire2") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
+			      this.SendMessage("SwingAtMouse");
+			  }
+			} else {
+				primaryCooldown--;
+			}
+		  if (Input.GetAxisRaw("Defensive Ability") > 0.1) { // This get's the input for the Q and sends message to use shield if pushed.
+		    this.BroadcastMessage("UseShield");
+		  }
+		} else {
+			globalCooldown--;
 		}
-		if (Input.GetAxisRaw("Fire2") > 0.1) { // This get's the input for the fir and sends message to fire if pushed.
-			this.SendMessage ("SwingAtMouse");
-		}
-        if (Input.GetAxisRaw("Defensive Ability") > 0.1) { // This get's the input for the Q and sends message to use shield if pushed.
-            this.BroadcastMessage("UseShield");
-        }
-    }
+  }
+
+	public void startGlobalCooldown() {
+		globalCooldown = globalCooldownSet;
+	}
+
+	public float getGlobalCooldown() {
+		float fraction = globalCooldown / (float) globalCooldownSet;
+		return fraction;
+	}
+
+  public void startPrimaryCooldown(int time) {
+		primaryCooldown = time;
+  }
 }
